@@ -1,0 +1,8 @@
+.panel {
+  padding: 20px;
+  border-radius: 25px;
+}
+.panelTitle {
+  width: 100%;
+  text-align: center;
+}
