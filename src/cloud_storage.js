@@ -2,7 +2,7 @@
 import 'whatwg-fetch';
 import Hawk from 'hawk';
 
-type FunTypeCredentials = {
+type MiniAppCredentials = {
   id: string,
   key: string
 }
@@ -40,7 +40,7 @@ export class CloudStorage {
   credentials: HawkCredentials;
   environment: Environment;
 
-  constructor(credentials: FunTypeCredentials, environment: Environment = 'devt'){
+  constructor(credentials: MiniAppCredentials, environment: Environment = 'devt'){
     this.credentials = {'id': credentials.id, 'key': credentials.key, 'algorithm': 'sha256'};
     this.environment = environment;
   }
