@@ -21,6 +21,7 @@ var MESSAGE_SHOW_TITLE_INPUT = 'showTitleInput';
 var MESSAGE_SHOW_WEB_IMAGE_SELECTOR = 'showWebImageSelector';
 var MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR = 'showGalleryImageSelector';
 var MESSAGE_SHOW_FRIENDS_SELECTOR = 'showFriendsSelector';
+var MESSAGE_SHOW_PREVIEW_WITH_DATA = 'showPreviewWithData';
 
 var CallbackHelper = function () {
 
@@ -55,7 +56,7 @@ var CallbackHelper = function () {
     key: 'processMessage',
     value: function processMessage(message, key, param) {
       var parameters = _extends({}, param);
-      parameters.key = key;
+      if (key) parameters.key = key;
 
       if (typeof window.webkit !== "undefined") {
         this.postToWebKit(message, parameters);
@@ -75,8 +76,14 @@ var UI = function () {
 
   _createClass(UI, [{
     key: '_saveCallbackAndProcessMessage',
-    value: function _saveCallbackAndProcessMessage(message, key, callback, param) {
-      this._callbackHelper.saveCallback(message, key, callback);
+    value: function _saveCallbackAndProcessMessage(message) {
+      var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+      var param = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+
+      if (key && callback) {
+        this._callbackHelper.saveCallback(message, key, callback);
+      }
       this._callbackHelper.processMessage(message, key, param);
     }
 
@@ -91,7 +98,7 @@ var UI = function () {
     value: function showTitleInput(callback) {
       this._saveCallbackAndProcessMessage(MESSAGE_SHOW_TITLE_INPUT, 'default', function (k, v) {
         callback(v);
-      }, null);
+      });
     }
 
     /**
@@ -139,7 +146,28 @@ var UI = function () {
   }, {
     key: 'showFriendsSelector',
     value: function showFriendsSelector(key, callback) {
-      this._saveCallbackAndProcessMessage(MESSAGE_SHOW_FRIENDS_SELECTOR, key, callback, null);
+      this._saveCallbackAndProcessMessage(MESSAGE_SHOW_FRIENDS_SELECTOR, key, callback);
+    }
+
+    /**
+    Requests the AQ App to show the preivew screen given some data.
+     This function will trigger the AQ App to show the preview dialogue of the mini-app,
+    eventually passing the given parameters as data for the preview.
+     If any of the parameters, except data, is null, the preview screen will not be shown.
+     @param {string} title - Title obtained from user through showTitleInput()
+    @param {string} coverImageUrl - Cover image obtained from user. This can be a data-uri image,
+      or normal web url.
+    @param {Object} data - Any mini-app specific data.
+    */
+
+  }, {
+    key: 'showPreviewWithData',
+    value: function showPreviewWithData(title, coverImageUrl, data) {
+      this._saveCallbackAndProcessMessage(MESSAGE_SHOW_PREVIEW_WITH_DATA, null, null, {
+        title: title,
+        coverImageUrl: coverImageUrl,
+        data: data
+      });
     }
   }]);
 
