@@ -20,6 +20,7 @@ Copyright (c) 2017 AQ Software Inc.
 var MESSAGE_SHOW_TITLE_INPUT = 'showTitleInput';
 var MESSAGE_SHOW_WEB_IMAGE_SELECTOR = 'showWebImageSelector';
 var MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR = 'showGalleryImageSelector';
+var MESSAGE_SHOW_FRIENDS_SELECTOR = 'showFriendsSelector';
 
 var CallbackHelper = function () {
 
@@ -123,10 +124,22 @@ var UI = function () {
   }, {
     key: 'showGalleryImageSelector',
     value: function showGalleryImageSelector(key, title, callback) {
-
       this._saveCallbackAndProcessMessage(MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR, key, callback, {
         title: title
       });
+    }
+
+    /**
+    Requests the AQ App to show a selector UI showing a list of friends
+     @param {string} key - Unique key identifying this particular Requests
+    @param {function(key: string, value: string): void} callback - Callback function to be called when
+      a list of friends has been selected
+    */
+
+  }, {
+    key: 'showFriendsSelector',
+    value: function showFriendsSelector(key, callback) {
+      this._saveCallbackAndProcessMessage(MESSAGE_SHOW_FRIENDS_SELECTOR, key, callback, null);
     }
   }]);
 

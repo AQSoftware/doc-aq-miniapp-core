@@ -10,6 +10,14 @@ Copyright (c) 2017 AQ Software Inc.
 const MESSAGE_SHOW_TITLE_INPUT = 'showTitleInput';
 const MESSAGE_SHOW_WEB_IMAGE_SELECTOR = 'showWebImageSelector';
 const MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR = 'showGalleryImageSelector';
+const MESSAGE_SHOW_FRIENDS_SELECTOR = 'showFriendsSelector';
+
+export type Friend = {
+  id: string,
+  displayName: string,
+  avatarBig: ?string,
+  avatarSmall: ?string
+}
 
 type UICallbacks = {
   // Callback selectors will be a dictionary containing
@@ -106,10 +114,20 @@ class UI {
     an image is selected
   */
   showGalleryImageSelector(key: string, title: string, callback: (key: string, value: any) => void) {
-
     this._saveCallbackAndProcessMessage(MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR, key, callback, {
       title: title
     });
+  }
+
+  /**
+  Requests the AQ App to show a selector UI showing a list of friends
+
+  @param {string} key - Unique key identifying this particular Requests
+  @param {function(key: string, value: string): void} callback - Callback function to be called when
+    a list of friends has been selected
+  */
+  showFriendsSelector(key: string, callback: (key: string, value: Array<Object>) => void) {
+    this._saveCallbackAndProcessMessage(MESSAGE_SHOW_FRIENDS_SELECTOR, key, callback, null);
   }
 }
 
