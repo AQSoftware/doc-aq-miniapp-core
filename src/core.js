@@ -13,10 +13,10 @@ class Core {
 
   callbacks: {
     showTitleInput?: (string) => void,
-    showTextInput: Object,
     showWebImageSelector: Object,
     showGalleryImageSelector: Object,
     showFriendsSelector: Object,
+    getContentEditorOutput?: (any) => void,
     getJoinPreviewData?: (any) => void,
     getFriends?: (Array<Object>) => void,
   };
@@ -27,7 +27,6 @@ class Core {
   */
   constructor(){
     this.callbacks = {
-      'showTextInput': {},
       'showWebImageSelector': {},
       'showGalleryImageSelector': {},
       'showFriendsSelector': {}
@@ -111,7 +110,7 @@ class Core {
   @param {Core~requestCallback} callback - Callback function to be called when
     a list of friends has been selected
   */
-  showFriendsSelector(key: string, callback: (key: string, value: any) => void) {
+  showFriendsSelector(key: string, callback: (key: string, value: Array<Object>) => void) {
     let callbacks = this.callbacks['showFriendsSelector'];
     callbacks[key] = callback;
     this.callbacks['showFriendsSelector'] = callbacks;
@@ -125,20 +124,38 @@ class Core {
   }
 
   /**
-  Requests the AQ App to end the Content Editor screen
+  Requests the AQ App to end the Content Editor screen and show the next screen
+  in the content creation dialogue.
 
   @param {string} title - Title obtained from the user
   @param {string} coverImageUrl - A url of the cover image obtained from the user
-  @param {Object} previewData - Some preview data that will passed to the Join dialogue screens
+  @param {Object} data - Some preview data that will passed to the Join dialogue screens
     when it is called in preview mode
   */
-  endContentEditorWithOutput(title: string, coverImageUrl: string, previewData: Object){
+  setContentEditorOutput(title: string, coverImageUrl: string, data: Object){
     if (typeof window.webkit !== "undefined") {
-      window.webkit.messageHandlers.endContentEditorWithOutput.postMessage({
+      window.webkit.messageHandlers.setContentEditorOutput.postMessage({
         title: title,
         coverImageUrl: coverImageUrl,
-        data: previewData
+        data: data
       });
+    }
+  }
+
+  /**
+  Sets the callback that the AQ App will call if it needs to request the output of the
+  Mini-app's content editor screen. This data is usually passed by the AQ app to the
+  Join Preview screens when the user requests to look at how the Join screens will look
+  give the current content editor output.
+
+  @param {Core~requestCallback} callback - Callback function to be called when
+    with the title, coverImage, and preview data as the parameter.
+  */
+  setContentEditorOutputCallback(callback: (title: string, coverImage: string, data: Object) => void){
+    this.callbacks['getContentEditorOutput'] = callback;
+
+    if (typeof window.webkit !== "undefined") {
+      window.webkit.messageHandlers.getJoinPreviewData.postMessage(null);
     }
   }
 

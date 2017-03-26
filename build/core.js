@@ -28,7 +28,6 @@ var Core = function () {
     _classCallCheck(this, Core);
 
     this.callbacks = {
-      'showTextInput': {},
       'showWebImageSelector': {},
       'showGalleryImageSelector': {},
       'showFriendsSelector': {}
@@ -135,22 +134,42 @@ var Core = function () {
     }
 
     /**
-    Requests the AQ App to end the Content Editor screen
+    Requests the AQ App to end the Content Editor screen and show the next screen
+    in the content creation dialogue.
      @param {string} title - Title obtained from the user
     @param {string} coverImageUrl - A url of the cover image obtained from the user
-    @param {Object} previewData - Some preview data that will passed to the Join dialogue screens
+    @param {Object} data - Some preview data that will passed to the Join dialogue screens
       when it is called in preview mode
     */
 
   }, {
-    key: 'endContentEditorWithOutput',
-    value: function endContentEditorWithOutput(title, coverImageUrl, previewData) {
+    key: 'setContentEditorOutput',
+    value: function setContentEditorOutput(title, coverImageUrl, data) {
       if (typeof window.webkit !== "undefined") {
-        window.webkit.messageHandlers.endContentEditorWithOutput.postMessage({
+        window.webkit.messageHandlers.setContentEditorOutput.postMessage({
           title: title,
           coverImageUrl: coverImageUrl,
-          data: previewData
+          data: data
         });
+      }
+    }
+
+    /**
+    Sets the callback that the AQ App will call if it needs to request the output of the
+    Mini-app's content editor screen. This data is usually passed by the AQ app to the
+    Join Preview screens when the user requests to look at how the Join screens will look
+    give the current content editor output.
+     @param {Core~requestCallback} callback - Callback function to be called when
+      with the title, coverImage, and preview data as the parameter.
+    */
+
+  }, {
+    key: 'setContentEditorOutputCallback',
+    value: function setContentEditorOutputCallback(callback) {
+      this.callbacks['getContentEditorOutput'] = callback;
+
+      if (typeof window.webkit !== "undefined") {
+        window.webkit.messageHandlers.getJoinPreviewData.postMessage(null);
       }
     }
 

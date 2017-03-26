@@ -13,6 +13,15 @@ Object.defineProperty(exports, 'MiniApp', {
   }
 });
 
+var _ui = require('./ui');
+
+Object.defineProperty(exports, 'UI', {
+  enumerable: true,
+  get: function get() {
+    return _ui.ui;
+  }
+});
+
 var _cloud_storage = require('./cloud_storage');
 
 Object.keys(_cloud_storage).forEach(function (key) {

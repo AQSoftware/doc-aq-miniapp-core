@@ -17,9 +17,12 @@
   "author": "Ryan C. Brozo",
   "license": "Copyrighted",
   "devDependencies": {
-    "babel-cli": "^6.23.0",
+    "babel-cli": "^6.24.0",
+    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
     "babel-preset-env": "^1.2.1",
     "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-3": "^6.22.0",
     "flow-bin": "^0.41.0",
     "jsdoc": "^3.4.3"
   },
