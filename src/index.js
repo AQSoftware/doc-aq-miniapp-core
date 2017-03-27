@@ -1,4 +1,5 @@
 // @flow
-export { miniApp as MiniApp } from './core';
-export { ui as UI } from './ui';
-export * from './cloud_storage';
+export { miniApp as MiniApp } from './core_old';
+export { defaultUIBridge } from './UIBridge';
+export { defaultCoreBridge } from './CoreBridge';
+export * from './CloudStorage';

@@ -1,11 +1,5 @@
 // @flow
-
-/**
-Core class that allows a MiniApp to request various UI selectors available
-in the AQ App
-
-Copyright (c) 2017 AQ Software Inc.
-*/
+import { CallbackHelper, defaultCallbackHelper } from './CallbackHelper';
 
 const MESSAGE_SHOW_TITLE_INPUT = 'showTitleInput';
 const MESSAGE_SHOW_WEB_IMAGE_SELECTOR = 'showWebImageSelector';
@@ -20,53 +14,14 @@ export type Friend = {
   avatarSmall: ?string
 }
 
-type UICallbacks = {
-  // Callback selectors will be a dictionary containing
-  // keys and corresponding callbacks
-  showTitleInput: Object,
-  showWebImageSelector: Object,
-  showGalleryImageSelector: Object,
-  showFriendsSelector: Object
-};
+/**
+Core class that allows a MiniApp to request various UI selectors available
+in the AQ App
 
-class CallbackHelper {
-  callbacks: UICallbacks;
+Copyright (c) 2017 AQ Software Inc.
+*/
 
-  /**
-  Constructor
-  @constructor
-  */
-  constructor(){
-    this.callbacks = {
-      showTitleInput: {},
-      showWebImageSelector: {},
-      showGalleryImageSelector: {},
-      showFriendsSelector: {}
-    };
-  }
-
-  postToWebKit(message: string, param: ?Object){
-    window.webkit.messageHandlers[message].postMessage(param);
-  }
-
-  saveCallback(message: string, key: string, callback: (key: string, value: any) => void){
-    let callbacks = this.callbacks[message];
-    callbacks[key] = callback;
-    this.callbacks[message] = callbacks;
-  }
-
-  processMessage(message: string, key: ?string, param: ?Object) {
-    let parameters = {...param};
-    if (key) parameters.key = key;
-
-    if (typeof window.webkit !== "undefined") {
-      this.postToWebKit(message, parameters);
-    }
-  }
-}
-
-
-class UI {
+class UIBridge {
 
   _callbackHelper: CallbackHelper;
 
@@ -78,7 +33,7 @@ class UI {
                                 callback: ?((key: string, value: any) => void) = null,
                                 param: ?Object = null) {
     if (key && callback) {
-      this._callbackHelper.saveCallback(message, key, callback);
+      this._callbackHelper.setUiCallback(message, key, callback);
     }
     this._callbackHelper.processMessage(message, key, param);
   }
@@ -100,7 +55,7 @@ class UI {
   @param {string} title - Title to be shown to the selector UI
   @param {string[]} imageUrls - An array of urls pointing to images that will be
     shown by the selector UI
-  @param {function(key: string, value: string): void} callback - Callback function to be called when
+  @param {function(key: string, value: Object): void} callback - Callback function to be called when
     an image is selected from imageUrls
   */
   showWebImageSelector(key: string, title: string, imageUrls: Array<string>, callback: (key: string, value: any) => void) {
@@ -115,7 +70,7 @@ class UI {
 
   @param {string} key - Unique key identifying this particular Requests
   @param {string} title - Title to be shown to the selector UI
-  @param {function(key: string, value: string): void} callback - Callback function to be called when
+  @param {function(key: string, value: Object): void} callback - Callback function to be called when
     an image is selected
   */
   showGalleryImageSelector(key: string, title: string, callback: (key: string, value: any) => void) {
@@ -128,7 +83,7 @@ class UI {
   Requests the AQ App to show a selector UI showing a list of friends
 
   @param {string} key - Unique key identifying this particular Requests
-  @param {function(key: string, value: string): void} callback - Callback function to be called when
+  @param {function(key: string, value: Object[]): void} callback - Callback function to be called when
     a list of friends has been selected
   */
   showFriendsSelector(key: string, callback: (key: string, value: Array<Object>) => void) {
@@ -157,32 +112,5 @@ class UI {
   }
 }
 
-function b64DecodeUnicode(str: string) {
-    return decodeURIComponent(atob(str).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-}
-
-function sanitize(value: any, shouldDecode: boolean): any {
-  let sanitized = value;
-  if (shouldDecode) {
-    let jsonString = b64DecodeUnicode(value);
-    sanitized = JSON.parse(jsonString);
-  }
-  return sanitized;
-}
-
-window.funTypeCallback = function(selector: string, key: string, value: any, shouldDecode: boolean) {
-  if (callbackHelper.callbacks[selector] != null) {
-    let callback = callbackHelper.callbacks[selector];
-    let selectorCallbacks = callbackHelper.callbacks[selector];
-    if (selectorCallbacks[key] != null){
-      callback = selectorCallbacks[key];
-      callback(key, sanitize(value, shouldDecode));
-    }
-  }
-}
-
-const callbackHelper = new CallbackHelper();
-const ui = new UI(callbackHelper);
-export { ui };
+const defaultUIBridge = new UIBridge(defaultCallbackHelper);
+export { defaultUIBridge };

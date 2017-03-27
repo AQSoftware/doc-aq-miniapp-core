@@ -4,32 +4,41 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _core = require('./core');
+var _core_old = require('./core_old');
 
 Object.defineProperty(exports, 'MiniApp', {
   enumerable: true,
   get: function get() {
-    return _core.miniApp;
+    return _core_old.miniApp;
   }
 });
 
-var _ui = require('./ui');
+var _UIBridge = require('./UIBridge');
 
-Object.defineProperty(exports, 'UI', {
+Object.defineProperty(exports, 'defaultUIBridge', {
   enumerable: true,
   get: function get() {
-    return _ui.ui;
+    return _UIBridge.defaultUIBridge;
   }
 });
 
-var _cloud_storage = require('./cloud_storage');
+var _CoreBridge = require('./CoreBridge');
 
-Object.keys(_cloud_storage).forEach(function (key) {
+Object.defineProperty(exports, 'defaultCoreBridge', {
+  enumerable: true,
+  get: function get() {
+    return _CoreBridge.defaultCoreBridge;
+  }
+});
+
+var _CloudStorage = require('./CloudStorage');
+
+Object.keys(_CloudStorage).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
     get: function get() {
-      return _cloud_storage[key];
+      return _CloudStorage[key];
     }
   });
 });

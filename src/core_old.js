@@ -16,7 +16,7 @@ class Core {
     showWebImageSelector: Object,
     showGalleryImageSelector: Object,
     showFriendsSelector: Object,
-    getContentEditorOutput?: (any) => void,
+    getContentEditorOutput?: (string, string, any) => void,
     getJoinPreviewData?: (any) => void,
     getFriends?: (Array<Object>) => void,
   };

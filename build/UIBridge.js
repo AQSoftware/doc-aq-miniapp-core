@@ -11,18 +11,18 @@ var _CallbackHelper = require('./CallbackHelper');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var MESSAGE_SHOW_TITLE_INPUT = 'showTitleInput';
+var MESSAGE_SHOW_WEB_IMAGE_SELECTOR = 'showWebImageSelector';
+var MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR = 'showGalleryImageSelector';
+var MESSAGE_SHOW_FRIENDS_SELECTOR = 'showFriendsSelector';
+var MESSAGE_SHOW_PREVIEW_WITH_DATA = 'showPreviewWithData';
+
 /**
 Core class that allows a MiniApp to request various UI selectors available
 in the AQ App
 
 Copyright (c) 2017 AQ Software Inc.
 */
-
-var MESSAGE_SHOW_TITLE_INPUT = 'showTitleInput';
-var MESSAGE_SHOW_WEB_IMAGE_SELECTOR = 'showWebImageSelector';
-var MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR = 'showGalleryImageSelector';
-var MESSAGE_SHOW_FRIENDS_SELECTOR = 'showFriendsSelector';
-var MESSAGE_SHOW_PREVIEW_WITH_DATA = 'showPreviewWithData';
 
 var UIBridge = function () {
   function UIBridge(callbackHelper) {
@@ -64,7 +64,7 @@ var UIBridge = function () {
     @param {string} title - Title to be shown to the selector UI
     @param {string[]} imageUrls - An array of urls pointing to images that will be
       shown by the selector UI
-    @param {function(key: string, value: string): void} callback - Callback function to be called when
+    @param {function(key: string, value: Object): void} callback - Callback function to be called when
       an image is selected from imageUrls
     */
 
@@ -81,7 +81,7 @@ var UIBridge = function () {
     Requests the AQ App to show a selector UI showing a list of available gallery images
      @param {string} key - Unique key identifying this particular Requests
     @param {string} title - Title to be shown to the selector UI
-    @param {function(key: string, value: string): void} callback - Callback function to be called when
+    @param {function(key: string, value: Object): void} callback - Callback function to be called when
       an image is selected
     */
 
@@ -96,7 +96,7 @@ var UIBridge = function () {
     /**
     Requests the AQ App to show a selector UI showing a list of friends
      @param {string} key - Unique key identifying this particular Requests
-    @param {function(key: string, value: string): void} callback - Callback function to be called when
+    @param {function(key: string, value: Object[]): void} callback - Callback function to be called when
       a list of friends has been selected
     */
 
