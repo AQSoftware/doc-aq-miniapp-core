@@ -1,6 +1,7 @@
 // @flow
 import { CallbackHelper, defaultCallbackHelper } from './CallbackHelper';
 
+const MESSAGE_REQUEST_PREVIEW = 'requestPreview';
 const MESSAGE_ON_PREVIEW = 'onPreview';
 
 /**
@@ -25,7 +26,19 @@ class CoreBridge {
     when preview data is available from the AQ App
   */
   setOnPreviewCallback(callback: (value: any) => void) {
-    this._callbackHelper.setCoreCallback(MESSAGE_ON_PREVIEW, key, callback);
+    this._callbackHelper.setCoreCallback(MESSAGE_ON_PREVIEW, callback);
+  }
+
+  /**
+  Sets the callback function to be called when the AQ App requests the create screen
+  to provide it with the current item data. This data will then be passed by the AQ App
+  to the join screen
+
+  @param {function(): void} callback - Callback function to call
+    when the AQ App requests the current item data
+  */
+  setRequestPreviewCallback(callback: () => void) {
+    this._callbackHelper.setCoreCallback(MESSAGE_REQUEST_PREVIEW, callback);
   }
 }
 

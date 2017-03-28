@@ -80,7 +80,7 @@ window.funTypeCallback = function (message, key, value, shouldDecode) {
     }
   } else if (defaultCallbackHelper.coreCallbacks[message] != null) {
     var _callback = defaultCallbackHelper.coreCallbacks[message];
-    _callback(key, sanitize(value, shouldDecode));
+    _callback(sanitize(value, shouldDecode));
   }
 };
 

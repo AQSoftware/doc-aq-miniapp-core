@@ -63,7 +63,7 @@ window.funTypeCallback = function(message: string, key: string, value: any, shou
   }
   else if (defaultCallbackHelper.coreCallbacks[message] != null) {
     let callback = defaultCallbackHelper.coreCallbacks[message];
-    callback(key, sanitize(value, shouldDecode));
+    callback(sanitize(value, shouldDecode));
   }
 }
 

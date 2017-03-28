@@ -11,6 +11,7 @@ var _CallbackHelper = require('./CallbackHelper');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var MESSAGE_REQUEST_PREVIEW = 'requestPreview';
 var MESSAGE_ON_PREVIEW = 'onPreview';
 
 /**
@@ -38,7 +39,21 @@ var CoreBridge = function () {
   _createClass(CoreBridge, [{
     key: 'setOnPreviewCallback',
     value: function setOnPreviewCallback(callback) {
-      this._callbackHelper.setCoreCallback(MESSAGE_ON_PREVIEW, key, callback);
+      this._callbackHelper.setCoreCallback(MESSAGE_ON_PREVIEW, callback);
+    }
+
+    /**
+    Sets the callback function to be called when the AQ App requests the create screen
+    to provide it with the current item data. This data will then be passed by the AQ App
+    to the join screen
+     @param {function(): void} callback - Callback function to call
+      when the AQ App requests the current item data
+    */
+
+  }, {
+    key: 'setRequestPreviewCallback',
+    value: function setRequestPreviewCallback(callback) {
+      this._callbackHelper.setCoreCallback(MESSAGE_REQUEST_PREVIEW, callback);
     }
   }]);
 
