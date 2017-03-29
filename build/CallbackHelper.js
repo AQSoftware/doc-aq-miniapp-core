@@ -29,6 +29,12 @@ var CallbackHelper = exports.CallbackHelper = function () {
       window.webkit.messageHandlers[message].postMessage(param);
     }
   }, {
+    key: 'postToSimulator',
+    value: function postToSimulator(message, param) {
+      // console.log('aqMiniapp');
+      window.aqSimulator.postMessage({ message: message, param: param }, '*');
+    }
+  }, {
     key: 'setUiCallback',
     value: function setUiCallback(message, key, callback) {
       var uiCallbacks = this.uiCallbacks[message];
@@ -49,6 +55,8 @@ var CallbackHelper = exports.CallbackHelper = function () {
 
       if (typeof window.webkit !== "undefined") {
         this.postToWebKit(message, parameters);
+      } else if (typeof window.aqSimulator !== "undefined") {
+        this.postToSimulator(message, parameters);
       }
     }
   }]);
@@ -83,6 +91,15 @@ window.funTypeCallback = function (message, key, value, shouldDecode) {
     _callback(sanitize(value, shouldDecode));
   }
 };
+
+window.addEventListener("message", receiveMessage, false);
+
+function receiveMessage(event) {
+  var origin = event.origin || event.originalEvent.origin; // For Chrome, the origin property is in the event.originalEvent object.
+  if (origin !== "http://localhost:3000") return;
+
+  window.aqSimulator = event.source;
+}
 
 var defaultCallbackHelper = new CallbackHelper();
 exports.defaultCallbackHelper = defaultCallbackHelper;
