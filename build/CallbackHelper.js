@@ -32,7 +32,9 @@ var CallbackHelper = exports.CallbackHelper = function () {
     key: 'postToSimulator',
     value: function postToSimulator(message, param) {
       // console.log('aqMiniapp');
-      window.aqSimulator.postMessage({ message: message, param: param }, '*');
+      if (window.parent) {
+        window.parent.postMessage({ messageType: 'aqMiniAppSdk', message: message, param: param }, '*');
+      }
     }
   }, {
     key: 'setUiCallback',
@@ -55,7 +57,7 @@ var CallbackHelper = exports.CallbackHelper = function () {
 
       if (typeof window.webkit !== "undefined") {
         this.postToWebKit(message, parameters);
-      } else if (typeof window.aqSimulator !== "undefined") {
+      } else if (typeof window.parent !== "undefined") {
         this.postToSimulator(message, parameters);
       }
     }
@@ -96,9 +98,26 @@ window.addEventListener("message", receiveMessage, false);
 
 function receiveMessage(event) {
   var origin = event.origin || event.originalEvent.origin; // For Chrome, the origin property is in the event.originalEvent object.
-  if (origin !== "http://localhost:3000") return;
+  var data = event.data;
 
-  window.aqSimulator = event.source;
+  // Filter out data relevant to AQ Miniapp SDK
+  if (data.messageType !== 'aqMiniAppSdk') return;
+
+  // If fun-type resides on localhost,
+  // allow cross-site scripting
+  if (location.hostname !== "localhost" && location.hostname !== "127.0.0.1" && !window.aqAppSimulatorConfirmed) {
+    if (!confirm('AQ MiniApp Simulator from ' + origin + ' is trying to access this fun type. Allow access?')) return;
+  }
+  window.aqAppSimulatorConfirmed = true;
+
+  var message = data.message,
+      key = data.key,
+      value = data.value,
+      shouldDecode = data.shouldDecode;
+
+  if (message) {
+    window.funTypeCallback(message, key, value, shouldDecode);
+  }
 }
 
 var defaultCallbackHelper = new CallbackHelper();
