@@ -107,7 +107,7 @@ class UIBridge {
     this._saveCallbackAndProcessMessage(MESSAGE_SHOW_PREVIEW_WITH_DATA, null, null, {
       title: title,
       coverImageUrl: coverImageUrl,
-      data: data
+      ...data
     });
   }
 }

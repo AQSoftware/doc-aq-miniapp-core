@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.defaultUIBridge = undefined;
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _CallbackHelper = require('./CallbackHelper');
@@ -120,11 +122,10 @@ var UIBridge = function () {
   }, {
     key: 'showPreviewWithData',
     value: function showPreviewWithData(title, coverImageUrl, data) {
-      this._saveCallbackAndProcessMessage(MESSAGE_SHOW_PREVIEW_WITH_DATA, null, null, {
+      this._saveCallbackAndProcessMessage(MESSAGE_SHOW_PREVIEW_WITH_DATA, null, null, _extends({
         title: title,
-        coverImageUrl: coverImageUrl,
-        data: data
-      });
+        coverImageUrl: coverImageUrl
+      }, data));
     }
   }]);
 

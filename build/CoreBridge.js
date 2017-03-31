@@ -13,6 +13,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var MESSAGE_REQUEST_PREVIEW = 'requestPreview';
 var MESSAGE_ON_PREVIEW = 'onPreview';
+var MESSAGE_GET_FRIENDS = 'getFriends';
 
 /**
 Core class that allows a MiniApp to send/receive various core messages
@@ -28,15 +29,26 @@ var CoreBridge = function () {
     this._callbackHelper = callbackHelper;
   }
 
-  /**
-  Sets the callback function to be called when the AQ App sets the preview data
-  that will be used by the join screen.
-   @param {function(value: Object): void} callback - Callback function to call
-    when preview data is available from the AQ App
-  */
-
-
   _createClass(CoreBridge, [{
+    key: '_saveCallbackAndProcessMessage',
+    value: function _saveCallbackAndProcessMessage(message) {
+      var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      var param = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+
+      if (callback) {
+        this._callbackHelper.setCoreCallback(message, callback);
+      }
+      this._callbackHelper.processMessage(message, null, param);
+    }
+
+    /**
+    Sets the callback function to be called when the AQ App sets the preview data
+    that will be used by the join screen.
+     @param {function(value: Object): void} callback - Callback function to call
+      when preview data is available from the AQ App
+    */
+
+  }, {
     key: 'setOnPreviewCallback',
     value: function setOnPreviewCallback(callback) {
       this._callbackHelper.setCoreCallback(MESSAGE_ON_PREVIEW, callback);
@@ -54,6 +66,18 @@ var CoreBridge = function () {
     key: 'setRequestPreviewCallback',
     value: function setRequestPreviewCallback(callback) {
       this._callbackHelper.setCoreCallback(MESSAGE_REQUEST_PREVIEW, callback);
+    }
+
+    /**
+    Requests the AQ App to return a list of friends without going through the friends selector UI.
+     @param {Core~requestCallback} callback - Callback function to be called when
+      with the list of friends as the parameter.
+    */
+
+  }, {
+    key: 'getFriends',
+    value: function getFriends(callback) {
+      this._saveCallbackAndProcessMessage(MESSAGE_GET_FRIENDS, callback);
     }
   }]);
 
