@@ -31,6 +31,15 @@ Object.defineProperty(exports, 'defaultCoreBridge', {
   }
 });
 
+var _LifeCycle = require('./LifeCycle');
+
+Object.defineProperty(exports, 'defaultLifeCycle', {
+  enumerable: true,
+  get: function get() {
+    return _LifeCycle.defaultLifeCycle;
+  }
+});
+
 var _CloudStorage = require('./CloudStorage');
 
 Object.keys(_CloudStorage).forEach(function (key) {

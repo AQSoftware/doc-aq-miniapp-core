@@ -5,8 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.defaultUIBridge = undefined;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _CallbackHelper = require('./CallbackHelper');
@@ -17,7 +15,6 @@ var MESSAGE_SHOW_TITLE_INPUT = 'showTitleInput';
 var MESSAGE_SHOW_WEB_IMAGE_SELECTOR = 'showWebImageSelector';
 var MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR = 'showGalleryImageSelector';
 var MESSAGE_SHOW_FRIENDS_SELECTOR = 'showFriendsSelector';
-var MESSAGE_SHOW_PREVIEW_WITH_DATA = 'showPreviewWithData';
 
 /**
 Core class that allows a MiniApp to request various UI selectors available
@@ -106,26 +103,6 @@ var UIBridge = function () {
     key: 'showFriendsSelector',
     value: function showFriendsSelector(key, callback) {
       this._saveCallbackAndProcessMessage(MESSAGE_SHOW_FRIENDS_SELECTOR, key, callback);
-    }
-
-    /**
-    Requests the AQ App to show the preivew screen given some data.
-     This function will trigger the AQ App to show the preview dialogue of the mini-app,
-    eventually passing the given parameters as data for the preview.
-     If any of the parameters, except data, is null, the preview screen will not be shown.
-     @param {string} title - Title obtained from user through showTitleInput()
-    @param {string} coverImageUrl - Cover image obtained from user. This can be a data-uri image,
-      or normal web url.
-    @param {Object} data - Any mini-app specific data.
-    */
-
-  }, {
-    key: 'showPreviewWithData',
-    value: function showPreviewWithData(title, coverImageUrl, data) {
-      this._saveCallbackAndProcessMessage(MESSAGE_SHOW_PREVIEW_WITH_DATA, null, null, _extends({
-        title: title,
-        coverImageUrl: coverImageUrl
-      }, data));
     }
   }]);
 

@@ -33,8 +33,10 @@ function parseJSON(response) {
   return response.json();
 }
 
-var DEV_BASE_URL = "http://dev.api.aqsoftwareinc.com/2.0/funType";
-var LIVE_BASE_URL = "http://live.api.aqsoftwareinc.com/2.0/funType";
+// const DEV_BASE_URL = "http://dev.api.aqsoftwareinc.com/2.0/funType";
+// const LIVE_BASE_URL = "http://live.api.aqsoftwareinc.com/2.0/funType";
+var DEV_BASE_URL = "http://v2.dev.api.bengga.com/2.0/funType";
+var LIVE_BASE_URL = "http://v2.dev.api.bengga.com/2.0/funType";
 
 var CloudStorage = exports.CloudStorage = function () {
   function CloudStorage(credentials) {

@@ -5,7 +5,6 @@ const MESSAGE_SHOW_TITLE_INPUT = 'showTitleInput';
 const MESSAGE_SHOW_WEB_IMAGE_SELECTOR = 'showWebImageSelector';
 const MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR = 'showGalleryImageSelector';
 const MESSAGE_SHOW_FRIENDS_SELECTOR = 'showFriendsSelector';
-const MESSAGE_SHOW_PREVIEW_WITH_DATA = 'showPreviewWithData';
 
 export type Friend = {
   id: string,
@@ -90,26 +89,7 @@ class UIBridge {
     this._saveCallbackAndProcessMessage(MESSAGE_SHOW_FRIENDS_SELECTOR, key, callback);
   }
 
-  /**
-  Requests the AQ App to show the preivew screen given some data.
 
-  This function will trigger the AQ App to show the preview dialogue of the mini-app,
-  eventually passing the given parameters as data for the preview.
-
-  If any of the parameters, except data, is null, the preview screen will not be shown.
-
-  @param {string} title - Title obtained from user through showTitleInput()
-  @param {string} coverImageUrl - Cover image obtained from user. This can be a data-uri image,
-    or normal web url.
-  @param {Object} data - Any mini-app specific data.
-  */
-  showPreviewWithData(title: String, coverImageUrl: string, data: Object) {
-    this._saveCallbackAndProcessMessage(MESSAGE_SHOW_PREVIEW_WITH_DATA, null, null, {
-      title: title,
-      coverImageUrl: coverImageUrl,
-      ...data
-    });
-  }
 }
 
 const defaultUIBridge = new UIBridge(defaultCallbackHelper);
