@@ -67,7 +67,7 @@ class LifeCycle {
     when the AQ App requests the the miniapp to publish the data
   */
   setPublishCallback(callback: (string) => void) {
-    this._callbackHelper.setCoreCallback(MESSAGE_REQUEST_PREVIEW, callback);
+    this._callbackHelper.setCoreCallback(MESSAGE_PUBLISH, callback);
   }
 
   /**
@@ -95,13 +95,13 @@ class LifeCycle {
   Ends the join preview screen, providing the AQ App with a caption and a join output image.
 
   @param {string} caption - Output caption for the miniapp
-  @param {string} joinOutputImage - An image representing the output of the join screen.
+  @param {string} joinImageUrl - An image representing the output of the join screen.
     Join output image must a 640x1136 JPEG image and can be a data-uri.
   */
-  endPreview(caption: string, joinOutputImage: string) {
+  endPreview(caption: string, joinImageUrl: string) {
     this._saveCallbackAndProcessMessage(MESSAGE_END_PREVIEW, null, {
       caption: caption,
-      joinOutputImage: joinOutputImage
+      joinImageUrl: joinImageUrl
     });
   }
 
@@ -111,16 +111,16 @@ class LifeCycle {
   @param {string} id - A unique URL-safe UUID. This can be obtained from the id field
     returned when uploading miniapp-specific data using the CloudStorage.insert() api.
   @param {string} caption - Output caption for the miniapp
-  @param {string} joinOutputImage - An image representing the output of the join screen.
+  @param {string} joinImageUrl - An image representing the output of the join screen.
     Join output image must a 640x1136 JPEG image and not a data-uri. If image obtained came from
     the phone's gallery, you need to upload it using CloudStorage.uploadMedia() api,
     to produce a valid url for the image.
   */
-  endJoin(id:string, caption: string, joinOutputImage: string) {
+  endJoin(id:string, caption: string, joinImageUrl: string) {
     this._saveCallbackAndProcessMessage(MESSAGE_END_JOIN, null, {
       id: id,
       caption: caption,
-      joinOutputImage: joinOutputImage
+      joinImageUrl: joinImageUrl
     });
   }
 
