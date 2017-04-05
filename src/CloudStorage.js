@@ -62,14 +62,18 @@ export class CloudStorage {
   _request(method: FetchMethods, relativeUrl: string, body: Object = {}): Promise<Object> {
     const fullUrl = this._getFullUrl(relativeUrl);
 
-    return fetch(fullUrl, {
+    let params = {
       method: method,
       headers: {
         'Authorization': getAuthHeader(fullUrl, method, this.credentials),
         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    })
+      }
+    }
+    if(method !== 'GET' && method !== 'HEAD') {
+      // $FlowFixMe
+      params.body = JSON.stringify(body);
+    }
+    return fetch(fullUrl, params)
     .then(checkStatus)
     .then(parseJSON);
   }

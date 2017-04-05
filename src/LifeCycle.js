@@ -2,7 +2,7 @@
 import { CallbackHelper, defaultCallbackHelper } from './CallbackHelper';
 
 const MESSAGE_REQUEST_PREVIEW = 'requestPreview';
-const MESSAGE_ON_PREVIEW = 'onPreview';
+const MESSAGE_ON_DATA = 'onData';
 const MESSAGE_SHOW_PREVIEW_WITH_DATA = 'showPreviewWithData';
 const MESSAGE_END_PREVIEW = 'endPreview';
 const MESSAGE_END_JOIN = 'endJoin';
@@ -32,14 +32,14 @@ class LifeCycle {
   }
 
   /**
-  Sets the callback function to be called when the AQ App sets the preview data
-  that will be used by the join screen.
+  Sets the callback function to be called when the AQ App sets data
+  that will be used by the miniapp.
 
   @param {function(value: Object): void} callback - Callback function to call
-    when preview data is available from the AQ App
+    when data is available from the AQ App
   */
-  setOnPreviewCallback(callback: (value: any) => void) {
-    this._callbackHelper.setCoreCallback(MESSAGE_ON_PREVIEW, callback);
+  setOnDataCallback(callback: (value: any) => void) {
+    this._callbackHelper.setCoreCallback(MESSAGE_ON_DATA, callback);
   }
 
   /**

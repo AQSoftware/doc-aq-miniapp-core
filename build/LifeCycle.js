@@ -14,7 +14,7 @@ var _CallbackHelper = require('./CallbackHelper');
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var MESSAGE_REQUEST_PREVIEW = 'requestPreview';
-var MESSAGE_ON_PREVIEW = 'onPreview';
+var MESSAGE_ON_DATA = 'onData';
 var MESSAGE_SHOW_PREVIEW_WITH_DATA = 'showPreviewWithData';
 var MESSAGE_END_PREVIEW = 'endPreview';
 var MESSAGE_END_JOIN = 'endJoin';
@@ -47,16 +47,16 @@ var LifeCycle = function () {
     }
 
     /**
-    Sets the callback function to be called when the AQ App sets the preview data
-    that will be used by the join screen.
+    Sets the callback function to be called when the AQ App sets data
+    that will be used by the miniapp.
      @param {function(value: Object): void} callback - Callback function to call
-      when preview data is available from the AQ App
+      when data is available from the AQ App
     */
 
   }, {
-    key: 'setOnPreviewCallback',
-    value: function setOnPreviewCallback(callback) {
-      this._callbackHelper.setCoreCallback(MESSAGE_ON_PREVIEW, callback);
+    key: 'setOnDataCallback',
+    value: function setOnDataCallback(callback) {
+      this._callbackHelper.setCoreCallback(MESSAGE_ON_DATA, callback);
     }
 
     /**
