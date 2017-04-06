@@ -36,6 +36,8 @@ function parseJSON(response: Response): Promise<any> {
 // const LIVE_BASE_URL = "http://live.api.aqsoftwareinc.com/2.0/funType";
 const DEV_BASE_URL = "http://v2.dev.api.bengga.com/2.0/funType";
 const LIVE_BASE_URL = "http://v2.dev.api.bengga.com/2.0/funType";
+// const DEV_BASE_URL = "http://192.168.100.52:38085/2.0/funType";
+// const LIVE_BASE_URL = "http://192.168.100.52:38085/2.0/funType";
 
 
 export class CloudStorage {
@@ -67,7 +69,8 @@ export class CloudStorage {
       headers: {
         'Authorization': getAuthHeader(fullUrl, method, this.credentials),
         'Content-Type': 'application/json'
-      }
+      },
+      mode: 'cors'
     }
     if(method !== 'GET' && method !== 'HEAD') {
       // $FlowFixMe

@@ -4,3 +4,4 @@ export { defaultUIBridge } from './UIBridge';
 export { defaultCoreBridge } from './CoreBridge';
 export { defaultLifeCycle } from './LifeCycle';
 export * from './CloudStorage';
+export * from './MediaStorage';
