@@ -3,10 +3,19 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.defaultCallbackHelper = exports.CallbackHelper = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _base64Js = require('base64-js');
+
+var _base64Js2 = _interopRequireDefault(_base64Js);
+
+var _textEncoding = require('text-encoding');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -75,7 +84,9 @@ function b64DecodeUnicode(str) {
 function sanitize(value, shouldDecode) {
   var sanitized = value;
   if (shouldDecode) {
-    var jsonString = b64DecodeUnicode(value);
+    // let jsonString = b64DecodeUnicode(value);
+    var binaryJson = _base64Js2.default.toByteArray(value);
+    var jsonString = new _textEncoding.TextDecoder("utf-8").decode(binaryJson);
     sanitized = JSON.parse(jsonString);
   }
   return sanitized;

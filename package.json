@@ -28,9 +28,11 @@
   },
   "dependencies": {
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "base64-js": "^1.2.0",
     "hawk": "^6.0.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "text-encoding": "^0.6.4",
     "whatwg-fetch": "^2.0.3"
   }
 }

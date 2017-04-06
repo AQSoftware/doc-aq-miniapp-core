@@ -1,4 +1,6 @@
 // @flow
+import Base64JS from 'base64-js';
+import { TextDecoder } from 'text-encoding';
 
 export class CallbackHelper {
   uiCallbacks: Object;
@@ -57,7 +59,9 @@ function b64DecodeUnicode(str: string) {
 function sanitize(value: any, shouldDecode: boolean): any {
   let sanitized = value;
   if (shouldDecode) {
-    let jsonString = b64DecodeUnicode(value);
+    // let jsonString = b64DecodeUnicode(value);
+    let binaryJson = Base64JS.toByteArray(value);
+    let jsonString = new TextDecoder("utf-8").decode(binaryJson);
     sanitized = JSON.parse(jsonString);
   }
   return sanitized;
