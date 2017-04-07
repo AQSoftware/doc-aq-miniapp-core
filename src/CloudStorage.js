@@ -32,12 +32,12 @@ function parseJSON(response: Response): Promise<any> {
   return response.json()
 }
 
-// const DEV_BASE_URL = "http://dev.api.aqsoftwareinc.com/2.0/funType";
-// const LIVE_BASE_URL = "http://live.api.aqsoftwareinc.com/2.0/funType";
-const DEV_BASE_URL = "http://v2.dev.api.bengga.com/2.0/funType";
-const LIVE_BASE_URL = "http://v2.dev.api.bengga.com/2.0/funType";
-// const DEV_BASE_URL = "http://192.168.100.52:38085/2.0/funType";
-// const LIVE_BASE_URL = "http://192.168.100.52:38085/2.0/funType";
+// const DEV_BASE_URL = "http://dev.api.aqsoftwareinc.com/2.0/miniApp";
+// const LIVE_BASE_URL = "http://live.api.aqsoftwareinc.com/2.0/miniApp";
+const DEV_BASE_URL = "http://v2.dev.api.bengga.com/2.0/miniApp";
+const LIVE_BASE_URL = "http://v2.dev.api.bengga.com/2.0/miniApp";
+// const DEV_BASE_URL = "http://192.168.100.52:38085/2.0/miniApp";
+// const LIVE_BASE_URL = "http://192.168.100.52:38085/2.0/miniApp";
 
 
 export class CloudStorage {

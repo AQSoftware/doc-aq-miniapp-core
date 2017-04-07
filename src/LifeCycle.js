@@ -1,13 +1,23 @@
 // @flow
+import Base64JS from 'base64-js';
+import uuidv1 from 'uuid/v1';
 import { CallbackHelper, defaultCallbackHelper } from './CallbackHelper';
 
 const MESSAGE_REQUEST_PREVIEW = 'requestPreview';
 const MESSAGE_ON_DATA = 'onData';
 const MESSAGE_SHOW_PREVIEW_WITH_DATA = 'showPreviewWithData';
-const MESSAGE_END_PREVIEW = 'endPreview';
 const MESSAGE_END_JOIN = 'endJoin';
 const MESSAGE_PUBLISH = 'publish';
 const MESSAGE_PUBLISH_STATUS = 'publishStatus';
+
+
+type NotificationItem = {
+  notificationType: number,
+  destinationUserIds: Array<string>,
+  textFormat: string,
+  textValues: Object,
+  additionalInfo: ?Object
+}
 
 /**
 Class that allows a MiniApp to call various functions related to a mini app's life cycle
@@ -92,35 +102,34 @@ class LifeCycle {
   }
 
   /**
-  Ends the join preview screen, providing the AQ App with a caption and a join output image.
-
-  @param {string} caption - Output caption for the miniapp
-  @param {string} joinImageUrl - An image representing the output of the join screen.
-    Join output image must a 640x1136 JPEG image and can be a data-uri.
+  Generates a unique URL-safe Base64-encoded Id
   */
-  endPreview(caption: string, joinImageUrl: string) {
-    this._saveCallbackAndProcessMessage(MESSAGE_END_PREVIEW, null, {
-      caption: caption,
-      joinImageUrl: joinImageUrl
-    });
+  generateId(): string {
+    let arr = new Array(16);
+    uuidv1(null, arr, 0);
+    return Base64JS.fromByteArray(arr).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
   }
 
   /**
   Ends the join screen, providing the AQ App with a caption and a join output image.
 
-  @param {string} id - A unique URL-safe UUID. This can be obtained from the id field
-    returned when uploading miniapp-specific data using the CloudStorage.insert() api.
-  @param {string} caption - Output caption for the miniapp
+  @param {string} id - Optional unique URL-safe UUID that will be used by the AQ app
+    to reference this a particular join.
   @param {string} joinImageUrl - An image representing the output of the join screen.
     Join output image must a 640x1136 JPEG image and not a data-uri. If image obtained came from
     the phone's gallery, you need to upload it using CloudStorage.uploadMedia() api,
     to produce a valid url for the image.
+  @param {string} winCriteriaPassed - Boolean value indicating whether this particular join
+    resulted in a win or lose
+  @param {Object} notificationItem - Object containing information to create notifications for
+    users
   */
-  endJoin(id:string, caption: string, joinImageUrl: string) {
+  endJoin(id: ?string, joinImageUrl: string, winCriteriaPassed: boolean, notificationItem: ?NotificationItem) {
     this._saveCallbackAndProcessMessage(MESSAGE_END_JOIN, null, {
       id: id,
-      caption: caption,
-      joinImageUrl: joinImageUrl
+      joinImageUrl: joinImageUrl,
+      winCriteriaPassed: winCriteriaPassed,
+      notificationItem: notificationItem
     });
   }
 

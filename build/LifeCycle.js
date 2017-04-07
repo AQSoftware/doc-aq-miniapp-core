@@ -9,14 +9,23 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _base64Js = require('base64-js');
+
+var _base64Js2 = _interopRequireDefault(_base64Js);
+
+var _v = require('uuid/v1');
+
+var _v2 = _interopRequireDefault(_v);
+
 var _CallbackHelper = require('./CallbackHelper');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var MESSAGE_REQUEST_PREVIEW = 'requestPreview';
 var MESSAGE_ON_DATA = 'onData';
 var MESSAGE_SHOW_PREVIEW_WITH_DATA = 'showPreviewWithData';
-var MESSAGE_END_PREVIEW = 'endPreview';
 var MESSAGE_END_JOIN = 'endJoin';
 var MESSAGE_PUBLISH = 'publish';
 var MESSAGE_PUBLISH_STATUS = 'publishStatus';
@@ -26,7 +35,6 @@ Class that allows a MiniApp to call various functions related to a mini app's li
 
 Copyright (c) 2017 AQ Software Inc.
 */
-
 var LifeCycle = function () {
   function LifeCycle(callbackHelper) {
     _classCallCheck(this, LifeCycle);
@@ -111,39 +119,39 @@ var LifeCycle = function () {
     }
 
     /**
-    Ends the join preview screen, providing the AQ App with a caption and a join output image.
-     @param {string} caption - Output caption for the miniapp
-    @param {string} joinImageUrl - An image representing the output of the join screen.
-      Join output image must a 640x1136 JPEG image and can be a data-uri.
+    Generates a unique URL-safe Base64-encoded Id
     */
 
   }, {
-    key: 'endPreview',
-    value: function endPreview(caption, joinImageUrl) {
-      this._saveCallbackAndProcessMessage(MESSAGE_END_PREVIEW, null, {
-        caption: caption,
-        joinImageUrl: joinImageUrl
-      });
+    key: 'generateId',
+    value: function generateId() {
+      var arr = new Array(16);
+      (0, _v2.default)(null, arr, 0);
+      return _base64Js2.default.fromByteArray(arr).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
     }
 
     /**
     Ends the join screen, providing the AQ App with a caption and a join output image.
-     @param {string} id - A unique URL-safe UUID. This can be obtained from the id field
-      returned when uploading miniapp-specific data using the CloudStorage.insert() api.
-    @param {string} caption - Output caption for the miniapp
+     @param {string} id - Optional unique URL-safe UUID that will be used by the AQ app
+      to reference this a particular join.
     @param {string} joinImageUrl - An image representing the output of the join screen.
       Join output image must a 640x1136 JPEG image and not a data-uri. If image obtained came from
       the phone's gallery, you need to upload it using CloudStorage.uploadMedia() api,
       to produce a valid url for the image.
+    @param {string} winCriteriaPassed - Boolean value indicating whether this particular join
+      resulted in a win or lose
+    @param {Object} notificationItem - Object containing information to create notifications for
+      users
     */
 
   }, {
     key: 'endJoin',
-    value: function endJoin(id, caption, joinImageUrl) {
+    value: function endJoin(id, joinImageUrl, winCriteriaPassed, notificationItem) {
       this._saveCallbackAndProcessMessage(MESSAGE_END_JOIN, null, {
         id: id,
-        caption: caption,
-        joinImageUrl: joinImageUrl
+        joinImageUrl: joinImageUrl,
+        winCriteriaPassed: winCriteriaPassed,
+        notificationItem: notificationItem
       });
     }
 

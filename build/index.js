@@ -31,15 +31,6 @@ Object.defineProperty(exports, 'defaultCoreBridge', {
   }
 });
 
-var _LifeCycle = require('./LifeCycle');
-
-Object.defineProperty(exports, 'defaultLifeCycle', {
-  enumerable: true,
-  get: function get() {
-    return _LifeCycle.defaultLifeCycle;
-  }
-});
-
 var _CloudStorage = require('./CloudStorage');
 
 Object.keys(_CloudStorage).forEach(function (key) {
@@ -60,6 +51,18 @@ Object.keys(_MediaStorage).forEach(function (key) {
     enumerable: true,
     get: function get() {
       return _MediaStorage[key];
+    }
+  });
+});
+
+var _LifeCycle = require('./LifeCycle');
+
+Object.keys(_LifeCycle).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _LifeCycle[key];
     }
   });
 });
