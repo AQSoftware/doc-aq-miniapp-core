@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl">
-  <title data-ice="title">Index | API Document</title>
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/components/StaticCanvas.js | API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -39,99 +39,67 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1>References</h1>
-<div data-ice="classSummary"><h2 id="class">Class Summary</h2><table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3">Static Public Class Summary</td></tr></thead>
-  <tbody>
-  
-  <tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/components/Button.js~Button.html">Button</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/components/Panel.js~Panel.html">Panel</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/components/StaticCanvas.js~StaticCanvas.html">StaticCanvas</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-</tbody>
-</table>
-</div>
+<div class="content" data-ice="content"><h1 data-ice="title">src/components/StaticCanvas.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import React, { Component } from &apos;react&apos;;
 
+let requestAnimationFrame =
+  global.requestAnimationFrame ||
+  global.webkitRequestAnimationFrame ||
+  global.mozRequestAnimationFrame ||
+  function(callback) {
+    global.setTimeout(callback, 1000 / 60);
+  };
 
+export default class StaticCanvas extends Component {
 
+  animate(handle){
+    handle();
+    requestAnimationFrame(() =&gt; {
+      this.animate(handle);
+    });
+  }
 
+  noise(ctx, stateCallback) {
+    var w = stateCallback().width,
+        h = stateCallback().height,
+        idata = ctx.createImageData(w, h),
+        buffer32 = new Uint32Array(idata.data.buffer),
+        len = buffer32.length,
+        i = 0;
+
+    for(; i &lt; len;){
+        buffer32[i++] = ((255 * Math.random())|0) &lt;&lt; 24
+    }
+    ctx.putImageData(idata, 0, 0);
+  }
+
+  updateDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
+  }
+
+  componentDidMount() {
+    window.addEventListener(&quot;resize&quot;, this.updateDimensions);
+
+    var ctx = this.canvas.getContext(&apos;2d&apos;);
+    this.animate(() =&gt; {
+      this.noise(ctx, () =&gt; {return this.state; });
+    });
+
+  }
+
+  constructor(props){
+    super(props);
+    this.state = { width: props.width, height: props.height };
+    this.updateDimensions = this.updateDimensions.bind(this);
+  }
+
+  render() {
+    return(
+      &lt;canvas width={this.state.width} height={this.state.height} ref={(input) =&gt; { this.canvas = input; }}&gt;&lt;/canvas&gt;
+    );
+  }
+}
+</code></pre>
 
 </div>
 

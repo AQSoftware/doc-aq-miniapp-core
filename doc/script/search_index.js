@@ -1,5 +1,23 @@
 window.esdocSearchIndex = [
   [
+    "aq-miniapp/src/components/button.js~button",
+    "class/src/components/Button.js~Button.html",
+    "<span>Button</span> <span class=\"search-result-import-path\">aq-miniapp/src/components/Button.js</span>",
+    "class"
+  ],
+  [
+    "aq-miniapp/src/components/panel.js~panel",
+    "class/src/components/Panel.js~Panel.html",
+    "<span>Panel</span> <span class=\"search-result-import-path\">aq-miniapp/src/components/Panel.js</span>",
+    "class"
+  ],
+  [
+    "aq-miniapp/src/components/staticcanvas.js~staticcanvas",
+    "class/src/components/StaticCanvas.js~StaticCanvas.html",
+    "<span>StaticCanvas</span> <span class=\"search-result-import-path\">aq-miniapp/src/components/StaticCanvas.js</span>",
+    "class"
+  ],
+  [
     "builtinexternal/ecmascriptexternal.js~array",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
     "BuiltinExternal/ECMAScriptExternal.js~Array",
@@ -328,6 +346,84 @@ window.esdocSearchIndex = [
     "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
     "BuiltinExternal/WebAPIExternal.js~XMLHttpRequest",
     "external"
+  ],
+  [
+    "src/components/button.js",
+    "file/src/components/Button.js.html",
+    "src/components/Button.js",
+    "file"
+  ],
+  [
+    "src/components/button.js~button#render",
+    "class/src/components/Button.js~Button.html#instance-method-render",
+    "src/components/Button.js~Button#render",
+    "method"
+  ],
+  [
+    "src/components/panel.js",
+    "file/src/components/Panel.js.html",
+    "src/components/Panel.js",
+    "file"
+  ],
+  [
+    "src/components/panel.js~panel#render",
+    "class/src/components/Panel.js~Panel.html#instance-method-render",
+    "src/components/Panel.js~Panel#render",
+    "method"
+  ],
+  [
+    "src/components/staticcanvas.js",
+    "file/src/components/StaticCanvas.js.html",
+    "src/components/StaticCanvas.js",
+    "file"
+  ],
+  [
+    "src/components/staticcanvas.js~staticcanvas#animate",
+    "class/src/components/StaticCanvas.js~StaticCanvas.html#instance-method-animate",
+    "src/components/StaticCanvas.js~StaticCanvas#animate",
+    "method"
+  ],
+  [
+    "src/components/staticcanvas.js~staticcanvas#canvas",
+    "class/src/components/StaticCanvas.js~StaticCanvas.html#instance-member-canvas",
+    "src/components/StaticCanvas.js~StaticCanvas#canvas",
+    "member"
+  ],
+  [
+    "src/components/staticcanvas.js~staticcanvas#componentdidmount",
+    "class/src/components/StaticCanvas.js~StaticCanvas.html#instance-method-componentDidMount",
+    "src/components/StaticCanvas.js~StaticCanvas#componentDidMount",
+    "method"
+  ],
+  [
+    "src/components/staticcanvas.js~staticcanvas#constructor",
+    "class/src/components/StaticCanvas.js~StaticCanvas.html#instance-constructor-constructor",
+    "src/components/StaticCanvas.js~StaticCanvas#constructor",
+    "method"
+  ],
+  [
+    "src/components/staticcanvas.js~staticcanvas#noise",
+    "class/src/components/StaticCanvas.js~StaticCanvas.html#instance-method-noise",
+    "src/components/StaticCanvas.js~StaticCanvas#noise",
+    "method"
+  ],
+  [
+    "src/components/staticcanvas.js~staticcanvas#render",
+    "class/src/components/StaticCanvas.js~StaticCanvas.html#instance-method-render",
+    "src/components/StaticCanvas.js~StaticCanvas#render",
+    "method"
+  ],
+  [
+    "src/components/staticcanvas.js~staticcanvas#state",
+    "class/src/components/StaticCanvas.js~StaticCanvas.html#instance-member-state",
+    "src/components/StaticCanvas.js~StaticCanvas#state",
+    "member"
+  ],
+  [
+    "src/components/staticcanvas.js~staticcanvas#updatedimensions",
+    "class/src/components/StaticCanvas.js~StaticCanvas.html#instance-method-updateDimensions",
+    "src/components/StaticCanvas.js~StaticCanvas#updateDimensions",
+    "method"
   ],
   [
     "src/index.js",

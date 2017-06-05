@@ -1,10 +1,10 @@
 {
-  "name": "miniapp-core",
+  "name": "aq-miniapp",
   "version": "0.0.1",
   "description": "AQSoft MiniApp Core JS Library",
   "repository": {
     "type": "git",
-    "url": "https://ryebrozo@bitbucket.org/ryebrozo/aq-miniapp-web-core.git"
+    "url": "git@bitbucket.org:aqsoftware/aq-miniapp-sdk.git"
   },
   "main": "build/index.js",
   "scripts": {
@@ -17,15 +17,23 @@
   "author": "Ryan C. Brozo",
   "license": "Copyrighted",
   "devDependencies": {
-    "babel-cli": "^6.23.0",
+    "babel-cli": "^6.24.0",
+    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
     "babel-preset-env": "^1.2.1",
     "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-3": "^6.22.0",
     "flow-bin": "^0.41.0",
     "jsdoc": "^3.4.3"
   },
   "dependencies": {
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "base64-js": "^1.2.0",
     "hawk": "^6.0.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "text-encoding": "^0.6.4",
+    "uuid": "^3.0.1",
     "whatwg-fetch": "^2.0.3"
   }
 }

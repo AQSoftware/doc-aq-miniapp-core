@@ -2,8 +2,421 @@
   {
     "__docId__": 0,
     "kind": "file",
+    "name": "src/components/Button.js",
+    "content": "import React, { Component } from 'react';\nimport './Button.css';\n\nexport class Button extends Component {\n  render(){\n    let className = 'button uppercase bold';\n    if (this.props.isActive){\n      className += ' buttonActive';\n    }\n    return (\n      <a className={className} href=\"#\" onClick={this.props.onClick}>{this.props.title}</a>\n    );\n  }\n}\n",
+    "static": true,
+    "longname": "src/components/Button.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 1,
+    "kind": "class",
+    "name": "Button",
+    "memberof": "src/components/Button.js",
+    "static": true,
+    "longname": "src/components/Button.js~Button",
+    "access": null,
+    "export": true,
+    "importPath": "aq-miniapp/src/components/Button.js",
+    "importStyle": "{Button}",
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 2,
+    "kind": "method",
+    "name": "render",
+    "memberof": "src/components/Button.js~Button",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/components/Button.js~Button#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 3,
+    "kind": "file",
+    "name": "src/components/Panel.js",
+    "content": "import React, { Component } from 'react';\nimport './Panel.css';\n\nexport default class Panel extends Component {\n  render(){\n    var panelStyle = {\n      backgroundColor: this.props.backgroundColor,\n      width: this.props.width,\n      height: this.props.height\n    }\n\n    var panelTitleStyle = {\n      color: this.props.titleColor\n    }\n    return (\n      <div id={this.props.id} style={panelStyle} className=\"panel\">\n        <div id=\"titleDiv\" style={panelTitleStyle} className=\"panelTitle uppercase lighter\">{this.props.title}</div>\n        {this.props.children}\n      </div>\n    );\n  }\n}\n",
+    "static": true,
+    "longname": "src/components/Panel.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 4,
+    "kind": "class",
+    "name": "Panel",
+    "memberof": "src/components/Panel.js",
+    "static": true,
+    "longname": "src/components/Panel.js~Panel",
+    "access": null,
+    "export": true,
+    "importPath": "aq-miniapp/src/components/Panel.js",
+    "importStyle": "Panel",
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 5,
+    "kind": "method",
+    "name": "render",
+    "memberof": "src/components/Panel.js~Panel",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/components/Panel.js~Panel#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 6,
+    "kind": "file",
+    "name": "src/components/StaticCanvas.js",
+    "content": "import React, { Component } from 'react';\n\nlet requestAnimationFrame =\n  global.requestAnimationFrame ||\n  global.webkitRequestAnimationFrame ||\n  global.mozRequestAnimationFrame ||\n  function(callback) {\n    global.setTimeout(callback, 1000 / 60);\n  };\n\nexport default class StaticCanvas extends Component {\n\n  animate(handle){\n    handle();\n    requestAnimationFrame(() => {\n      this.animate(handle);\n    });\n  }\n\n  noise(ctx, stateCallback) {\n    var w = stateCallback().width,\n        h = stateCallback().height,\n        idata = ctx.createImageData(w, h),\n        buffer32 = new Uint32Array(idata.data.buffer),\n        len = buffer32.length,\n        i = 0;\n\n    for(; i < len;){\n        buffer32[i++] = ((255 * Math.random())|0) << 24\n    }\n    ctx.putImageData(idata, 0, 0);\n  }\n\n  updateDimensions() {\n    this.setState({ width: window.innerWidth, height: window.innerHeight });\n  }\n\n  componentDidMount() {\n    window.addEventListener(\"resize\", this.updateDimensions);\n\n    var ctx = this.canvas.getContext('2d');\n    this.animate(() => {\n      this.noise(ctx, () => {return this.state; });\n    });\n\n  }\n\n  constructor(props){\n    super(props);\n    this.state = { width: props.width, height: props.height };\n    this.updateDimensions = this.updateDimensions.bind(this);\n  }\n\n  render() {\n    return(\n      <canvas width={this.state.width} height={this.state.height} ref={(input) => { this.canvas = input; }}></canvas>\n    );\n  }\n}\n",
+    "static": true,
+    "longname": "src/components/StaticCanvas.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 7,
+    "kind": "variable",
+    "name": "requestAnimationFrame",
+    "memberof": "src/components/StaticCanvas.js",
+    "static": true,
+    "longname": "src/components/StaticCanvas.js~requestAnimationFrame",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/src/components/StaticCanvas.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 8,
+    "kind": "class",
+    "name": "StaticCanvas",
+    "memberof": "src/components/StaticCanvas.js",
+    "static": true,
+    "longname": "src/components/StaticCanvas.js~StaticCanvas",
+    "access": null,
+    "export": true,
+    "importPath": "aq-miniapp/src/components/StaticCanvas.js",
+    "importStyle": "StaticCanvas",
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 9,
+    "kind": "method",
+    "name": "animate",
+    "memberof": "src/components/StaticCanvas.js~StaticCanvas",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/components/StaticCanvas.js~StaticCanvas#animate",
+    "access": null,
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "handle",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 10,
+    "kind": "method",
+    "name": "noise",
+    "memberof": "src/components/StaticCanvas.js~StaticCanvas",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/components/StaticCanvas.js~StaticCanvas#noise",
+    "access": null,
+    "description": null,
+    "lineNumber": 20,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "ctx",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "stateCallback",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 11,
+    "kind": "method",
+    "name": "updateDimensions",
+    "memberof": "src/components/StaticCanvas.js~StaticCanvas",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/components/StaticCanvas.js~StaticCanvas#updateDimensions",
+    "access": null,
+    "description": null,
+    "lineNumber": 34,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": []
+  },
+  {
+    "__docId__": 12,
+    "kind": "method",
+    "name": "componentDidMount",
+    "memberof": "src/components/StaticCanvas.js~StaticCanvas",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/components/StaticCanvas.js~StaticCanvas#componentDidMount",
+    "access": null,
+    "description": null,
+    "lineNumber": 38,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": []
+  },
+  {
+    "__docId__": 13,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/components/StaticCanvas.js~StaticCanvas",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/components/StaticCanvas.js~StaticCanvas#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 48,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 14,
+    "kind": "member",
+    "name": "state",
+    "memberof": "src/components/StaticCanvas.js~StaticCanvas",
+    "static": false,
+    "longname": "src/components/StaticCanvas.js~StaticCanvas#state",
+    "access": null,
+    "description": null,
+    "lineNumber": 50,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "{\"width\": *, \"height\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 15,
+    "kind": "member",
+    "name": "updateDimensions",
+    "memberof": "src/components/StaticCanvas.js~StaticCanvas",
+    "static": false,
+    "longname": "src/components/StaticCanvas.js~StaticCanvas#updateDimensions",
+    "access": null,
+    "description": null,
+    "lineNumber": 51,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 16,
+    "kind": "method",
+    "name": "render",
+    "memberof": "src/components/StaticCanvas.js~StaticCanvas",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/components/StaticCanvas.js~StaticCanvas#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 54,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 17,
+    "kind": "member",
+    "name": "canvas",
+    "memberof": "src/components/StaticCanvas.js~StaticCanvas",
+    "static": false,
+    "longname": "src/components/StaticCanvas.js~StaticCanvas#canvas",
+    "access": null,
+    "description": null,
+    "lineNumber": 56,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 18,
+    "kind": "file",
     "name": "src/index.js",
-    "content": "// @flow\nexport { miniApp as MiniApp } from './core';\nexport * from './cloud_storage';\n",
+    "content": "// @flow\nexport { miniApp as MiniApp } from './core_old';\nexport { defaultUIBridge } from './UIBridge';\nexport { defaultCoreBridge } from './CoreBridge';\nexport * from './CloudStorage';\nexport * from './MediaStorage';\nexport * from './LifeCycle';\n",
     "static": true,
     "longname": "src/index.js",
     "access": null,
@@ -11,7 +424,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 2,
+    "__docId__": 20,
     "kind": "external",
     "name": "Infinity",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
@@ -23,7 +436,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 3,
+    "__docId__": 21,
     "kind": "external",
     "name": "NaN",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
@@ -35,7 +448,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 4,
+    "__docId__": 22,
     "kind": "external",
     "name": "undefined",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
@@ -47,7 +460,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 5,
+    "__docId__": 23,
     "kind": "external",
     "name": "null",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
@@ -59,7 +472,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 6,
+    "__docId__": 24,
     "kind": "external",
     "name": "Object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -71,7 +484,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 7,
+    "__docId__": 25,
     "kind": "external",
     "name": "object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -83,7 +496,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 8,
+    "__docId__": 26,
     "kind": "external",
     "name": "Function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -95,7 +508,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 9,
+    "__docId__": 27,
     "kind": "external",
     "name": "function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -107,7 +520,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 10,
+    "__docId__": 28,
     "kind": "external",
     "name": "Boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -119,7 +532,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 11,
+    "__docId__": 29,
     "kind": "external",
     "name": "boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -131,7 +544,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 12,
+    "__docId__": 30,
     "kind": "external",
     "name": "Symbol",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
@@ -143,7 +556,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 13,
+    "__docId__": 31,
     "kind": "external",
     "name": "Error",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
@@ -155,7 +568,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 14,
+    "__docId__": 32,
     "kind": "external",
     "name": "EvalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
@@ -167,7 +580,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 15,
+    "__docId__": 33,
     "kind": "external",
     "name": "InternalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
@@ -179,7 +592,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 16,
+    "__docId__": 34,
     "kind": "external",
     "name": "RangeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
@@ -191,7 +604,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 17,
+    "__docId__": 35,
     "kind": "external",
     "name": "ReferenceError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
@@ -203,7 +616,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 18,
+    "__docId__": 36,
     "kind": "external",
     "name": "SyntaxError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
@@ -215,7 +628,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 19,
+    "__docId__": 37,
     "kind": "external",
     "name": "TypeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
@@ -227,7 +640,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 20,
+    "__docId__": 38,
     "kind": "external",
     "name": "URIError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
@@ -239,7 +652,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 21,
+    "__docId__": 39,
     "kind": "external",
     "name": "Number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -251,7 +664,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 22,
+    "__docId__": 40,
     "kind": "external",
     "name": "number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -263,7 +676,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 23,
+    "__docId__": 41,
     "kind": "external",
     "name": "Date",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
@@ -275,7 +688,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 24,
+    "__docId__": 42,
     "kind": "external",
     "name": "String",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -287,7 +700,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 25,
+    "__docId__": 43,
     "kind": "external",
     "name": "string",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -299,7 +712,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 26,
+    "__docId__": 44,
     "kind": "external",
     "name": "RegExp",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
@@ -311,7 +724,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 27,
+    "__docId__": 45,
     "kind": "external",
     "name": "Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
@@ -323,7 +736,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 28,
+    "__docId__": 46,
     "kind": "external",
     "name": "Int8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
@@ -335,7 +748,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 29,
+    "__docId__": 47,
     "kind": "external",
     "name": "Uint8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
@@ -347,7 +760,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 30,
+    "__docId__": 48,
     "kind": "external",
     "name": "Uint8ClampedArray",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
@@ -359,7 +772,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 31,
+    "__docId__": 49,
     "kind": "external",
     "name": "Int16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
@@ -371,7 +784,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 32,
+    "__docId__": 50,
     "kind": "external",
     "name": "Uint16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
@@ -383,7 +796,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 33,
+    "__docId__": 51,
     "kind": "external",
     "name": "Int32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
@@ -395,7 +808,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 34,
+    "__docId__": 52,
     "kind": "external",
     "name": "Uint32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
@@ -407,7 +820,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 35,
+    "__docId__": 53,
     "kind": "external",
     "name": "Float32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
@@ -419,7 +832,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 36,
+    "__docId__": 54,
     "kind": "external",
     "name": "Float64Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
@@ -431,7 +844,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 37,
+    "__docId__": 55,
     "kind": "external",
     "name": "Map",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
@@ -443,7 +856,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 38,
+    "__docId__": 56,
     "kind": "external",
     "name": "Set",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
@@ -455,7 +868,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 39,
+    "__docId__": 57,
     "kind": "external",
     "name": "WeakMap",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
@@ -467,7 +880,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 40,
+    "__docId__": 58,
     "kind": "external",
     "name": "WeakSet",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
@@ -479,7 +892,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 41,
+    "__docId__": 59,
     "kind": "external",
     "name": "ArrayBuffer",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
@@ -491,7 +904,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 42,
+    "__docId__": 60,
     "kind": "external",
     "name": "DataView",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
@@ -503,7 +916,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 43,
+    "__docId__": 61,
     "kind": "external",
     "name": "JSON",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
@@ -515,7 +928,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 44,
+    "__docId__": 62,
     "kind": "external",
     "name": "Promise",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
@@ -527,7 +940,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 45,
+    "__docId__": 63,
     "kind": "external",
     "name": "Generator",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
@@ -539,7 +952,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 46,
+    "__docId__": 64,
     "kind": "external",
     "name": "GeneratorFunction",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
@@ -551,7 +964,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 47,
+    "__docId__": 65,
     "kind": "external",
     "name": "Reflect",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
@@ -563,7 +976,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 48,
+    "__docId__": 66,
     "kind": "external",
     "name": "Proxy",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
@@ -576,7 +989,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 50,
+    "__docId__": 68,
     "kind": "external",
     "name": "CanvasRenderingContext2D",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
@@ -588,7 +1001,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 51,
+    "__docId__": 69,
     "kind": "external",
     "name": "DocumentFragment",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
@@ -600,7 +1013,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 52,
+    "__docId__": 70,
     "kind": "external",
     "name": "Element",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
@@ -612,7 +1025,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 53,
+    "__docId__": 71,
     "kind": "external",
     "name": "Event",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
@@ -624,7 +1037,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 54,
+    "__docId__": 72,
     "kind": "external",
     "name": "Node",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
@@ -636,7 +1049,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 55,
+    "__docId__": 73,
     "kind": "external",
     "name": "NodeList",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
@@ -648,7 +1061,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 56,
+    "__docId__": 74,
     "kind": "external",
     "name": "XMLHttpRequest",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
@@ -660,7 +1073,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 57,
+    "__docId__": 75,
     "kind": "external",
     "name": "AudioContext",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",

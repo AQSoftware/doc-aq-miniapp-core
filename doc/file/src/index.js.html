@@ -19,7 +19,7 @@
   <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   
-  <a data-ice="repoURL" href="https://ryebrozo@bitbucket.org/ryebrozo/aq-miniapp-web-core.git">Repository</a>
+  
   <div class="search-box">
   <span>
     <img src="./image/search.png">
@@ -32,14 +32,21 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  </ul>
+  <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Button.js~Button.html">Button</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Panel.js~Panel.html">Panel</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/StaticCanvas.js~StaticCanvas.html">StaticCanvas</a></span></span></li>
+</ul>
 </div>
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/index.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// @flow
-export { miniApp as MiniApp } from &apos;./core&apos;;
-export * from &apos;./cloud_storage&apos;;
+export { miniApp as MiniApp } from &apos;./core_old&apos;;
+export { defaultUIBridge } from &apos;./UIBridge&apos;;
+export { defaultCoreBridge } from &apos;./CoreBridge&apos;;
+export * from &apos;./CloudStorage&apos;;
+export * from &apos;./MediaStorage&apos;;
+export * from &apos;./LifeCycle&apos;;
 </code></pre>
 
 </div>
