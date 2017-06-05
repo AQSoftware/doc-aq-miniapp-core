@@ -6,9 +6,10 @@ import { CallbackHelper, defaultCallbackHelper } from './CallbackHelper';
 const MESSAGE_REQUEST_PREVIEW = 'requestPreview';
 const MESSAGE_ON_DATA = 'onData';
 const MESSAGE_SHOW_PREVIEW_WITH_DATA = 'showPreviewWithData';
-const MESSAGE_END_JOIN = 'endJoin';
+const MESSAGE_JOIN = 'join';
 const MESSAGE_PUBLISH = 'publish';
 const MESSAGE_PUBLISH_STATUS = 'publishStatus';
+const MESSAGE_END = 'end';
 
 
 type NotificationItem = {
@@ -111,7 +112,7 @@ class LifeCycle {
   }
 
   /**
-  Ends the join screen, providing the AQ App with a caption and a join output image.
+  Provides the AQ App join data for processing
 
   @param {string} id - Optional unique URL-safe UUID that will be used by the AQ app
     to reference this a particular join.
@@ -124,13 +125,20 @@ class LifeCycle {
   @param {Object} notificationItem - Object containing information to create notifications for
     users
   */
-  endJoin(id: ?string, joinImageUrl: string, winCriteriaPassed: boolean, notificationItem: ?NotificationItem) {
-    this._saveCallbackAndProcessMessage(MESSAGE_END_JOIN, null, {
+  join(id: ?string, joinImageUrl: string, winCriteriaPassed: boolean, notificationItem: ?NotificationItem) {
+    this._saveCallbackAndProcessMessage(MESSAGE_JOIN, null, {
       id: id,
       joinImageUrl: joinImageUrl,
       winCriteriaPassed: winCriteriaPassed,
       notificationItem: notificationItem
     });
+  }
+
+  /**
+  Ends the join screen, providing the AQ App with a caption and a join output image.
+  */
+  end() {
+    this._saveCallbackAndProcessMessage(MESSAGE_END, null, null);
   }
 
   /**

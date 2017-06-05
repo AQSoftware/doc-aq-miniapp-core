@@ -26,9 +26,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var MESSAGE_REQUEST_PREVIEW = 'requestPreview';
 var MESSAGE_ON_DATA = 'onData';
 var MESSAGE_SHOW_PREVIEW_WITH_DATA = 'showPreviewWithData';
-var MESSAGE_END_JOIN = 'endJoin';
+var MESSAGE_JOIN = 'join';
 var MESSAGE_PUBLISH = 'publish';
 var MESSAGE_PUBLISH_STATUS = 'publishStatus';
+var MESSAGE_END = 'end';
 
 /**
 Class that allows a MiniApp to call various functions related to a mini app's life cycle
@@ -131,7 +132,7 @@ var LifeCycle = function () {
     }
 
     /**
-    Ends the join screen, providing the AQ App with a caption and a join output image.
+    Provides the AQ App join data for processing
      @param {string} id - Optional unique URL-safe UUID that will be used by the AQ app
       to reference this a particular join.
     @param {string} joinImageUrl - An image representing the output of the join screen.
@@ -145,14 +146,24 @@ var LifeCycle = function () {
     */
 
   }, {
-    key: 'endJoin',
-    value: function endJoin(id, joinImageUrl, winCriteriaPassed, notificationItem) {
-      this._saveCallbackAndProcessMessage(MESSAGE_END_JOIN, null, {
+    key: 'join',
+    value: function join(id, joinImageUrl, winCriteriaPassed, notificationItem) {
+      this._saveCallbackAndProcessMessage(MESSAGE_JOIN, null, {
         id: id,
         joinImageUrl: joinImageUrl,
         winCriteriaPassed: winCriteriaPassed,
         notificationItem: notificationItem
       });
+    }
+
+    /**
+    Ends the join screen, providing the AQ App with a caption and a join output image.
+    */
+
+  }, {
+    key: 'end',
+    value: function end() {
+      this._saveCallbackAndProcessMessage(MESSAGE_END, null, null);
     }
 
     /**
