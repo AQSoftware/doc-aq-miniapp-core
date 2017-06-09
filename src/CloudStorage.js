@@ -2,7 +2,7 @@
 import 'whatwg-fetch';
 import Hawk from 'hawk';
 
-type MiniAppCredentials = {
+export type MiniAppCredentials = {
   id: string,
   key: string
 }
