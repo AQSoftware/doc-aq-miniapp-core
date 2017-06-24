@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTFunTypeWebController">
+            <connections>
+                <outlet property="activityIndicatorView" destination="l5f-kq-bUX" id="7Mh-He-vZh"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="LqH-mB-KzD"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="l5f-kq-bUX">
+                    <rect key="frame" x="169" y="315" width="37" height="37"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="37" id="DI3-KH-Oot"/>
+                        <constraint firstAttribute="height" constant="37" id="Zt4-44-uU0"/>
+                    </constraints>
+                </activityIndicatorView>
+            </subviews>
+            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="l5f-kq-bUX" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="aEq-qZ-yuO"/>
+                <constraint firstItem="l5f-kq-bUX" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="sq3-pz-s9a"/>
+            </constraints>
+            <point key="canvasLocation" x="-78" y="42"/>
+        </view>
+    </objects>
+</document>

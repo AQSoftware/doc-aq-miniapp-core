@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../core/ios/Classes/FTNativeView.m"
+            timestampString = "519796069.369449"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
+            landmarkName = "-extraModulesForBridge:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../core/ios/Classes/RNMiniAppUIBridge.m"
+            timestampString = "519804859.915882"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "@implementation RNMiniAppUIBridge"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "+[RNMiniAppUIBridge moduleName]"
+                  moduleName = "MiniAppSimulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ryanbrozo/Documents/projects/iteb/tf/code/react/sdk/bitbucket/aq-miniapp-sdk-src/core/ios/Classes/RNMiniAppUIBridge.m"
+                  timestampString = "519796376.817363"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "+[RNMiniAppUIBridge load]"
+                  moduleName = "MiniAppSimulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ryanbrozo/Documents/projects/iteb/tf/code/react/sdk/bitbucket/aq-miniapp-sdk-src/core/ios/Classes/RNMiniAppUIBridge.m"
+                  timestampString = "519796376.819346"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../core/ios/Classes/RNMiniAppLifeCycleBridge.m"
+            timestampString = "519804859.915882"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "@implementation RNMiniAppLifeCycleBridge"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "+[RNMiniAppLifeCycleBridge moduleName]"
+                  moduleName = "MiniAppSimulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ryanbrozo/Documents/projects/iteb/tf/code/react/sdk/bitbucket/aq-miniapp-sdk-src/core/ios/Classes/RNMiniAppLifeCycleBridge.m"
+                  timestampString = "519796376.823285"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "+[RNMiniAppLifeCycleBridge load]"
+                  moduleName = "MiniAppSimulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ryanbrozo/Documents/projects/iteb/tf/code/react/sdk/bitbucket/aq-miniapp-sdk-src/core/ios/Classes/RNMiniAppLifeCycleBridge.m"
+                  timestampString = "519796376.8252"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../node_modules/react-native/React/Base/RCTLog.mm"
+            timestampString = "519796918.917065"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../core/ios/Classes/RNMiniAppLifeCycleBridge.m"
+            timestampString = "519804834.469951"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "-dealloc"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
