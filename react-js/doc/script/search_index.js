@@ -1,23 +1,5 @@
 window.esdocSearchIndex = [
   [
-    "aq-miniapp/src/components/button.js~button",
-    "class/src/components/Button.js~Button.html",
-    "<span>Button</span> <span class=\"search-result-import-path\">aq-miniapp/src/components/Button.js</span>",
-    "class"
-  ],
-  [
-    "aq-miniapp/src/components/panel.js~panel",
-    "class/src/components/Panel.js~Panel.html",
-    "<span>Panel</span> <span class=\"search-result-import-path\">aq-miniapp/src/components/Panel.js</span>",
-    "class"
-  ],
-  [
-    "aq-miniapp/src/components/staticcanvas.js~staticcanvas",
-    "class/src/components/StaticCanvas.js~StaticCanvas.html",
-    "<span>StaticCanvas</span> <span class=\"search-result-import-path\">aq-miniapp/src/components/StaticCanvas.js</span>",
-    "class"
-  ],
-  [
     "builtinexternal/ecmascriptexternal.js~array",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
     "BuiltinExternal/ECMAScriptExternal.js~Array",
@@ -348,87 +330,87 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
-    "src/components/button.js",
-    "file/src/components/Button.js.html",
-    "src/components/Button.js",
+    "build/callbackhelper.js",
+    "file/build/CallbackHelper.js.html",
+    "build/CallbackHelper.js",
     "file"
   ],
   [
-    "src/components/button.js~button#render",
-    "class/src/components/Button.js~Button.html#instance-method-render",
-    "src/components/Button.js~Button#render",
-    "method"
-  ],
-  [
-    "src/components/panel.js",
-    "file/src/components/Panel.js.html",
-    "src/components/Panel.js",
+    "build/cloudstorage.js",
+    "file/build/CloudStorage.js.html",
+    "build/CloudStorage.js",
     "file"
   ],
   [
-    "src/components/panel.js~panel#render",
-    "class/src/components/Panel.js~Panel.html#instance-method-render",
-    "src/components/Panel.js~Panel#render",
-    "method"
-  ],
-  [
-    "src/components/staticcanvas.js",
-    "file/src/components/StaticCanvas.js.html",
-    "src/components/StaticCanvas.js",
+    "build/corebridge.js",
+    "file/build/CoreBridge.js.html",
+    "build/CoreBridge.js",
     "file"
   ],
   [
-    "src/components/staticcanvas.js~staticcanvas#animate",
-    "class/src/components/StaticCanvas.js~StaticCanvas.html#instance-method-animate",
-    "src/components/StaticCanvas.js~StaticCanvas#animate",
-    "method"
+    "build/lifecycle.js",
+    "file/build/LifeCycle.js.html",
+    "build/LifeCycle.js",
+    "file"
   ],
   [
-    "src/components/staticcanvas.js~staticcanvas#canvas",
-    "class/src/components/StaticCanvas.js~StaticCanvas.html#instance-member-canvas",
-    "src/components/StaticCanvas.js~StaticCanvas#canvas",
-    "member"
+    "build/mediastorage.js",
+    "file/build/MediaStorage.js.html",
+    "build/MediaStorage.js",
+    "file"
   ],
   [
-    "src/components/staticcanvas.js~staticcanvas#componentdidmount",
-    "class/src/components/StaticCanvas.js~StaticCanvas.html#instance-method-componentDidMount",
-    "src/components/StaticCanvas.js~StaticCanvas#componentDidMount",
-    "method"
+    "build/uibridge.js",
+    "file/build/UIBridge.js.html",
+    "build/UIBridge.js",
+    "file"
   ],
   [
-    "src/components/staticcanvas.js~staticcanvas#constructor",
-    "class/src/components/StaticCanvas.js~StaticCanvas.html#instance-constructor-constructor",
-    "src/components/StaticCanvas.js~StaticCanvas#constructor",
-    "method"
+    "build/cloud_storage.js",
+    "file/build/cloud_storage.js.html",
+    "build/cloud_storage.js",
+    "file"
   ],
   [
-    "src/components/staticcanvas.js~staticcanvas#noise",
-    "class/src/components/StaticCanvas.js~StaticCanvas.html#instance-method-noise",
-    "src/components/StaticCanvas.js~StaticCanvas#noise",
-    "method"
+    "build/components/button.js",
+    "file/build/components/Button.js.html",
+    "build/components/Button.js",
+    "file"
   ],
   [
-    "src/components/staticcanvas.js~staticcanvas#render",
-    "class/src/components/StaticCanvas.js~StaticCanvas.html#instance-method-render",
-    "src/components/StaticCanvas.js~StaticCanvas#render",
-    "method"
+    "build/components/panel.js",
+    "file/build/components/Panel.js.html",
+    "build/components/Panel.js",
+    "file"
   ],
   [
-    "src/components/staticcanvas.js~staticcanvas#state",
-    "class/src/components/StaticCanvas.js~StaticCanvas.html#instance-member-state",
-    "src/components/StaticCanvas.js~StaticCanvas#state",
-    "member"
+    "build/components/staticcanvas.js",
+    "file/build/components/StaticCanvas.js.html",
+    "build/components/StaticCanvas.js",
+    "file"
   ],
   [
-    "src/components/staticcanvas.js~staticcanvas#updatedimensions",
-    "class/src/components/StaticCanvas.js~StaticCanvas.html#instance-method-updateDimensions",
-    "src/components/StaticCanvas.js~StaticCanvas#updateDimensions",
-    "method"
+    "build/core.js",
+    "file/build/core.js.html",
+    "build/core.js",
+    "file"
   ],
   [
-    "src/index.js",
-    "file/src/index.js.html",
-    "src/index.js",
+    "build/core_old.js",
+    "file/build/core_old.js.html",
+    "build/core_old.js",
+    "file"
+  ],
+  [
+    "build/index.js",
+    "file/build/index.js.html",
+    "build/index.js",
+    "file"
+  ],
+  [
+    "build/ui.js",
+    "file/build/ui.js.html",
+    "build/ui.js",
     "file"
   ]
 ]

@@ -2,151 +2,27 @@
   {
     "__docId__": 0,
     "kind": "file",
-    "name": "src/components/Button.js",
-    "content": "import React, { Component } from 'react';\nimport './Button.css';\n\nexport class Button extends Component {\n  render(){\n    let className = 'button uppercase bold';\n    if (this.props.isActive){\n      className += ' buttonActive';\n    }\n    return (\n      <a className={className} href=\"#\" onClick={this.props.onClick}>{this.props.title}</a>\n    );\n  }\n}\n",
+    "name": "build/CallbackHelper.js",
+    "content": "'use strict';var _extends=Object.assign||function(a){for(var b,c=1;c<arguments.length;c++)for(var d in b=arguments[c],b)Object.prototype.hasOwnProperty.call(b,d)&&(a[d]=b[d]);return a},_createClass=function(){function a(a,b){for(var c,d=0;d<b.length;d++)c=b[d],c.enumerable=c.enumerable||!1,c.configurable=!0,'value'in c&&(c.writable=!0),Object.defineProperty(a,c.key,c)}return function(b,c,d){return c&&a(b.prototype,c),d&&a(b,d),b}}(),_base64Js=require('base64-js'),_base64Js2=_interopRequireDefault(_base64Js),_textEncoding=require('text-encoding');Object.defineProperty(exports,'__esModule',{value:!0}),exports.defaultCallbackHelper=exports.CallbackHelper=void 0;function _interopRequireDefault(a){return a&&a.__esModule?a:{default:a}}function _classCallCheck(a,b){if(!(a instanceof b))throw new TypeError('Cannot call a class as a function')}var CallbackHelper=exports.CallbackHelper=function(){function a(){_classCallCheck(this,a),this.uiCallbacks={},this.coreCallbacks={}}return _createClass(a,[{key:'postToWebKit',value:function postToWebKit(a,b){window.webkit.messageHandlers[a].postMessage(b)}},{key:'postToSimulator',value:function postToSimulator(a,b){window.parent&&window.parent.postMessage({messageType:'aqMiniAppSdk',message:a,param:b},'*')}},{key:'setUiCallback',value:function setUiCallback(a,b,c){var d=this.uiCallbacks[a];'undefined'==typeof d&&(d={}),d[b]=c,this.uiCallbacks[a]=d}},{key:'setCoreCallback',value:function setCoreCallback(a,b){this.coreCallbacks[a]=b}},{key:'processMessage',value:function processMessage(a,b,c){var d=_extends({},c);b&&(d.key=b),'undefined'==typeof window.webkit?'undefined'!=typeof window.parent&&this.postToSimulator(a,d):this.postToWebKit(a,d)}}]),a}();function b64DecodeUnicode(a){return decodeURIComponent(atob(a).split('').map(function(a){return'%'+('00'+a.charCodeAt(0).toString(16)).slice(-2)}).join(''))}function sanitize(a,b){var c=a;if(b){var d=_base64Js2.default.toByteArray(a),e=new _textEncoding.TextDecoder('utf-8').decode(d);c=JSON.parse(e)}return c}window.funTypeCallback=function(a,b,c,d){if(null!=defaultCallbackHelper.uiCallbacks[a]){var e=defaultCallbackHelper.uiCallbacks[a];if(null!=e[b]){var f=e[b];f(b,sanitize(c,d))}}else if(null!=defaultCallbackHelper.coreCallbacks[a]){var g=defaultCallbackHelper.coreCallbacks[a];g(sanitize(c,d))}},window.addEventListener('message',receiveMessage,!1);function receiveMessage(a){var b=a.origin||a.originalEvent.origin,c=a.data;if('aqMiniAppSdk'===c.messageType&&('localhost'===location.hostname||'127.0.0.1'===location.hostname||window.aqAppSimulatorConfirmed||confirm('AQ MiniApp Simulator from '+b+' is trying to access this fun type. Allow access?'))){window.aqAppSimulatorConfirmed=!0;var d=c.message,e=c.key,f=c.value,g=c.shouldDecode;d&&window.funTypeCallback(d,e,f,g)}}var defaultCallbackHelper=new CallbackHelper;exports.defaultCallbackHelper=defaultCallbackHelper;",
     "static": true,
-    "longname": "src/components/Button.js",
+    "longname": "build/CallbackHelper.js",
     "access": null,
     "description": null,
     "lineNumber": 1
   },
   {
     "__docId__": 1,
-    "kind": "class",
-    "name": "Button",
-    "memberof": "src/components/Button.js",
-    "static": true,
-    "longname": "src/components/Button.js~Button",
-    "access": null,
-    "export": true,
-    "importPath": "aq-miniapp/src/components/Button.js",
-    "importStyle": "{Button}",
-    "description": null,
-    "lineNumber": 4,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "interface": false,
-    "extends": [
-      "react~Component"
-    ]
-  },
-  {
-    "__docId__": 2,
-    "kind": "method",
-    "name": "render",
-    "memberof": "src/components/Button.js~Button",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/components/Button.js~Button#render",
-    "access": null,
-    "description": null,
-    "lineNumber": 5,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "params": [],
-    "return": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 3,
-    "kind": "file",
-    "name": "src/components/Panel.js",
-    "content": "import React, { Component } from 'react';\nimport './Panel.css';\n\nexport default class Panel extends Component {\n  render(){\n    var panelStyle = {\n      backgroundColor: this.props.backgroundColor,\n      width: this.props.width,\n      height: this.props.height\n    }\n\n    var panelTitleStyle = {\n      color: this.props.titleColor\n    }\n    return (\n      <div id={this.props.id} style={panelStyle} className=\"panel\">\n        <div id=\"titleDiv\" style={panelTitleStyle} className=\"panelTitle uppercase lighter\">{this.props.title}</div>\n        {this.props.children}\n      </div>\n    );\n  }\n}\n",
-    "static": true,
-    "longname": "src/components/Panel.js",
-    "access": null,
-    "description": null,
-    "lineNumber": 1
-  },
-  {
-    "__docId__": 4,
-    "kind": "class",
-    "name": "Panel",
-    "memberof": "src/components/Panel.js",
-    "static": true,
-    "longname": "src/components/Panel.js~Panel",
-    "access": null,
-    "export": true,
-    "importPath": "aq-miniapp/src/components/Panel.js",
-    "importStyle": "Panel",
-    "description": null,
-    "lineNumber": 4,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "interface": false,
-    "extends": [
-      "react~Component"
-    ]
-  },
-  {
-    "__docId__": 5,
-    "kind": "method",
-    "name": "render",
-    "memberof": "src/components/Panel.js~Panel",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/components/Panel.js~Panel#render",
-    "access": null,
-    "description": null,
-    "lineNumber": 5,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "params": [],
-    "return": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 6,
-    "kind": "file",
-    "name": "src/components/StaticCanvas.js",
-    "content": "import React, { Component } from 'react';\n\nlet requestAnimationFrame =\n  global.requestAnimationFrame ||\n  global.webkitRequestAnimationFrame ||\n  global.mozRequestAnimationFrame ||\n  function(callback) {\n    global.setTimeout(callback, 1000 / 60);\n  };\n\nexport default class StaticCanvas extends Component {\n\n  animate(handle){\n    handle();\n    requestAnimationFrame(() => {\n      this.animate(handle);\n    });\n  }\n\n  noise(ctx, stateCallback) {\n    var w = stateCallback().width,\n        h = stateCallback().height,\n        idata = ctx.createImageData(w, h),\n        buffer32 = new Uint32Array(idata.data.buffer),\n        len = buffer32.length,\n        i = 0;\n\n    for(; i < len;){\n        buffer32[i++] = ((255 * Math.random())|0) << 24\n    }\n    ctx.putImageData(idata, 0, 0);\n  }\n\n  updateDimensions() {\n    this.setState({ width: window.innerWidth, height: window.innerHeight });\n  }\n\n  componentDidMount() {\n    window.addEventListener(\"resize\", this.updateDimensions);\n\n    var ctx = this.canvas.getContext('2d');\n    this.animate(() => {\n      this.noise(ctx, () => {return this.state; });\n    });\n\n  }\n\n  constructor(props){\n    super(props);\n    this.state = { width: props.width, height: props.height };\n    this.updateDimensions = this.updateDimensions.bind(this);\n  }\n\n  render() {\n    return(\n      <canvas width={this.state.width} height={this.state.height} ref={(input) => { this.canvas = input; }}></canvas>\n    );\n  }\n}\n",
-    "static": true,
-    "longname": "src/components/StaticCanvas.js",
-    "access": null,
-    "description": null,
-    "lineNumber": 1
-  },
-  {
-    "__docId__": 7,
     "kind": "variable",
-    "name": "requestAnimationFrame",
-    "memberof": "src/components/StaticCanvas.js",
+    "name": "_extends",
+    "memberof": "build/CallbackHelper.js",
     "static": true,
-    "longname": "src/components/StaticCanvas.js~requestAnimationFrame",
+    "longname": "build/CallbackHelper.js~_extends",
     "access": null,
     "export": false,
-    "importPath": "aq-miniapp/src/components/StaticCanvas.js",
+    "importPath": "aq-miniapp/build/CallbackHelper.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 3,
+    "lineNumber": 1,
     "undocument": true,
     "unknown": [
       {
@@ -161,42 +37,20 @@
     }
   },
   {
-    "__docId__": 8,
-    "kind": "class",
-    "name": "StaticCanvas",
-    "memberof": "src/components/StaticCanvas.js",
-    "static": true,
-    "longname": "src/components/StaticCanvas.js~StaticCanvas",
-    "access": null,
-    "export": true,
-    "importPath": "aq-miniapp/src/components/StaticCanvas.js",
-    "importStyle": "StaticCanvas",
-    "description": null,
-    "lineNumber": 11,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "interface": false,
-    "extends": [
-      "react~Component"
-    ]
-  },
-  {
-    "__docId__": 9,
-    "kind": "method",
-    "name": "animate",
-    "memberof": "src/components/StaticCanvas.js~StaticCanvas",
+    "__docId__": 2,
+    "kind": "function",
+    "name": "_interopRequireDefault",
+    "memberof": "build/CallbackHelper.js",
     "generator": false,
     "async": false,
-    "static": false,
-    "longname": "src/components/StaticCanvas.js~StaticCanvas#animate",
+    "static": true,
+    "longname": "build/CallbackHelper.js~_interopRequireDefault",
     "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/CallbackHelper.js",
+    "importStyle": null,
     "description": null,
-    "lineNumber": 13,
+    "lineNumber": 1,
     "undocument": true,
     "unknown": [
       {
@@ -206,7 +60,49 @@
     ],
     "params": [
       {
-        "name": "handle",
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 3,
+    "kind": "function",
+    "name": "_classCallCheck",
+    "memberof": "build/CallbackHelper.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/CallbackHelper.js~_classCallCheck",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/CallbackHelper.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "b",
         "types": [
           "*"
         ]
@@ -214,15 +110,1193 @@
     ]
   },
   {
-    "__docId__": 10,
-    "kind": "method",
-    "name": "noise",
-    "memberof": "src/components/StaticCanvas.js~StaticCanvas",
+    "__docId__": 4,
+    "kind": "variable",
+    "name": "CallbackHelper",
+    "memberof": "build/CallbackHelper.js",
+    "static": true,
+    "longname": "build/CallbackHelper.js~CallbackHelper",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/CallbackHelper.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 5,
+    "kind": "function",
+    "name": "b64DecodeUnicode",
+    "memberof": "build/CallbackHelper.js",
     "generator": false,
     "async": false,
-    "static": false,
-    "longname": "src/components/StaticCanvas.js~StaticCanvas#noise",
+    "static": true,
+    "longname": "build/CallbackHelper.js~b64DecodeUnicode",
     "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/CallbackHelper.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 6,
+    "kind": "function",
+    "name": "sanitize",
+    "memberof": "build/CallbackHelper.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/CallbackHelper.js~sanitize",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/CallbackHelper.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "b",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 7,
+    "kind": "function",
+    "name": "receiveMessage",
+    "memberof": "build/CallbackHelper.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/CallbackHelper.js~receiveMessage",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/CallbackHelper.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 8,
+    "kind": "variable",
+    "name": "defaultCallbackHelper",
+    "memberof": "build/CallbackHelper.js",
+    "static": true,
+    "longname": "build/CallbackHelper.js~defaultCallbackHelper",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/CallbackHelper.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "CallbackHelper"
+      ]
+    }
+  },
+  {
+    "__docId__": 9,
+    "kind": "file",
+    "name": "build/CloudStorage.js",
+    "content": "'use strict';var _createClass=function(){function a(a,b){for(var c,d=0;d<b.length;d++)c=b[d],c.enumerable=c.enumerable||!1,c.configurable=!0,'value'in c&&(c.writable=!0),Object.defineProperty(a,c.key,c)}return function(b,c,d){return c&&a(b.prototype,c),d&&a(b,d),b}}();Object.defineProperty(exports,'__esModule',{value:!0}),exports.CloudStorage=void 0;require('whatwg-fetch');var _hawk=require('hawk'),_hawk2=_interopRequireDefault(_hawk);function _interopRequireDefault(a){return a&&a.__esModule?a:{default:a}}function _classCallCheck(a,b){if(!(a instanceof b))throw new TypeError('Cannot call a class as a function')}function getAuthHeader(a,b,c){return _hawk2.default.client.header(a,b,{credentials:c,ext:'funtype-client'}).field}function checkStatus(a){if(200<=a.status&&300>a.status)return a;throw new Error(a.statusText)}function parseJSON(a){return a.json()}var DEV_BASE_URL='http://v2.dev.api.bengga.com/2.0/miniApp',LIVE_BASE_URL='http://v2.dev.api.bengga.com/2.0/miniApp',CloudStorage=exports.CloudStorage=function(){function a(b){var c=1<arguments.length&&void 0!==arguments[1]?arguments[1]:'devt';_classCallCheck(this,a),this.credentials={id:b.id,key:b.key,algorithm:'sha256'},this.environment=c}return _createClass(a,[{key:'_getFullUrl',value:function _getFullUrl(a){return'devt'===this.environment?''+DEV_BASE_URL+a:''+LIVE_BASE_URL+a}},{key:'_jsonize',value:function _jsonize(a){return a.then(checkStatus).then(parseJSON)}},{key:'_request',value:function _request(a,b){var c=2<arguments.length&&void 0!==arguments[2]?arguments[2]:{},d=this._getFullUrl(b),e={method:a,headers:{Authorization:getAuthHeader(d,a,this.credentials),\"Content-Type\":'application/json'},mode:'cors'};return'GET'!==a&&'HEAD'!==a&&(e.body=JSON.stringify(c)),fetch(d,e).then(checkStatus).then(parseJSON)}},{key:'insert',value:function insert(a){return this._request('POST','',a)}},{key:'update',value:function update(a,b){return this._request('PUT','/'+a,b)}},{key:'get',value:function get(a){return this._request('GET','/'+a)}}]),a}();",
+    "static": true,
+    "longname": "build/CloudStorage.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 10,
+    "kind": "variable",
+    "name": "_createClass",
+    "memberof": "build/CloudStorage.js",
+    "static": true,
+    "longname": "build/CloudStorage.js~_createClass",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/CloudStorage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 11,
+    "kind": "variable",
+    "name": "_hawk",
+    "memberof": "build/CloudStorage.js",
+    "static": true,
+    "longname": "build/CloudStorage.js~_hawk",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/CloudStorage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 12,
+    "kind": "function",
+    "name": "_interopRequireDefault",
+    "memberof": "build/CloudStorage.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/CloudStorage.js~_interopRequireDefault",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/CloudStorage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 13,
+    "kind": "function",
+    "name": "_classCallCheck",
+    "memberof": "build/CloudStorage.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/CloudStorage.js~_classCallCheck",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/CloudStorage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "b",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 14,
+    "kind": "function",
+    "name": "getAuthHeader",
+    "memberof": "build/CloudStorage.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/CloudStorage.js~getAuthHeader",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/CloudStorage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "b",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "c",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 15,
+    "kind": "function",
+    "name": "checkStatus",
+    "memberof": "build/CloudStorage.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/CloudStorage.js~checkStatus",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/CloudStorage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 16,
+    "kind": "function",
+    "name": "parseJSON",
+    "memberof": "build/CloudStorage.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/CloudStorage.js~parseJSON",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/CloudStorage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 17,
+    "kind": "variable",
+    "name": "DEV_BASE_URL",
+    "memberof": "build/CloudStorage.js",
+    "static": true,
+    "longname": "build/CloudStorage.js~DEV_BASE_URL",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/CloudStorage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 18,
+    "kind": "file",
+    "name": "build/CoreBridge.js",
+    "content": "'use strict';var _createClass=function(){function a(a,b){for(var c,d=0;d<b.length;d++)c=b[d],c.enumerable=c.enumerable||!1,c.configurable=!0,'value'in c&&(c.writable=!0),Object.defineProperty(a,c.key,c)}return function(b,c,d){return c&&a(b.prototype,c),d&&a(b,d),b}}(),_CallbackHelper=require('./CallbackHelper');Object.defineProperty(exports,'__esModule',{value:!0}),exports.defaultCoreBridge=void 0;function _classCallCheck(a,b){if(!(a instanceof b))throw new TypeError('Cannot call a class as a function')}var MESSAGE_GET_FRIENDS='getFriends',CoreBridge=function(){function a(b){_classCallCheck(this,a),this._callbackHelper=b}return _createClass(a,[{key:'_saveCallbackAndProcessMessage',value:function _saveCallbackAndProcessMessage(a){var b=1<arguments.length&&void 0!==arguments[1]?arguments[1]:null,c=2<arguments.length&&void 0!==arguments[2]?arguments[2]:null;b&&this._callbackHelper.setCoreCallback(a,b),this._callbackHelper.processMessage(a,null,c)}},{key:'getFriends',value:function getFriends(a){this._saveCallbackAndProcessMessage(MESSAGE_GET_FRIENDS,a)}}]),a}(),defaultCoreBridge=new CoreBridge(_CallbackHelper.defaultCallbackHelper);exports.defaultCoreBridge=defaultCoreBridge;",
+    "static": true,
+    "longname": "build/CoreBridge.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 19,
+    "kind": "variable",
+    "name": "_createClass",
+    "memberof": "build/CoreBridge.js",
+    "static": true,
+    "longname": "build/CoreBridge.js~_createClass",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/CoreBridge.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 20,
+    "kind": "function",
+    "name": "_classCallCheck",
+    "memberof": "build/CoreBridge.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/CoreBridge.js~_classCallCheck",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/CoreBridge.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "b",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 21,
+    "kind": "variable",
+    "name": "MESSAGE_GET_FRIENDS",
+    "memberof": "build/CoreBridge.js",
+    "static": true,
+    "longname": "build/CoreBridge.js~MESSAGE_GET_FRIENDS",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/CoreBridge.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 22,
+    "kind": "file",
+    "name": "build/LifeCycle.js",
+    "content": "'use strict';var _extends=Object.assign||function(a){for(var b,c=1;c<arguments.length;c++)for(var d in b=arguments[c],b)Object.prototype.hasOwnProperty.call(b,d)&&(a[d]=b[d]);return a},_createClass=function(){function a(a,b){for(var c,d=0;d<b.length;d++)c=b[d],c.enumerable=c.enumerable||!1,c.configurable=!0,'value'in c&&(c.writable=!0),Object.defineProperty(a,c.key,c)}return function(b,c,d){return c&&a(b.prototype,c),d&&a(b,d),b}}(),_base64Js=require('base64-js'),_base64Js2=_interopRequireDefault(_base64Js),_v=require('uuid/v1'),_v2=_interopRequireDefault(_v),_CallbackHelper=require('./CallbackHelper');Object.defineProperty(exports,'__esModule',{value:!0}),exports.defaultLifeCycle=void 0;function _interopRequireDefault(a){return a&&a.__esModule?a:{default:a}}function _classCallCheck(a,b){if(!(a instanceof b))throw new TypeError('Cannot call a class as a function')}var MESSAGE_REQUEST_PREVIEW='requestPreview',MESSAGE_ON_DATA='onData',MESSAGE_SHOW_PREVIEW_WITH_DATA='showPreviewWithData',MESSAGE_JOIN='join',MESSAGE_PUBLISH='publish',MESSAGE_PUBLISH_STATUS='publishStatus',MESSAGE_END='end',LifeCycle=function(){function a(b){_classCallCheck(this,a),this._callbackHelper=b}return _createClass(a,[{key:'_saveCallbackAndProcessMessage',value:function _saveCallbackAndProcessMessage(a){var b=1<arguments.length&&void 0!==arguments[1]?arguments[1]:null,c=2<arguments.length&&void 0!==arguments[2]?arguments[2]:null;b&&this._callbackHelper.setCoreCallback(a,b),this._callbackHelper.processMessage(a,null,c)}},{key:'setOnDataCallback',value:function setOnDataCallback(a){this._callbackHelper.setCoreCallback(MESSAGE_ON_DATA,a)}},{key:'setRequestPreviewCallback',value:function setRequestPreviewCallback(a){this._callbackHelper.setCoreCallback(MESSAGE_REQUEST_PREVIEW,a)}},{key:'setPublishCallback',value:function setPublishCallback(a){this._callbackHelper.setCoreCallback(MESSAGE_PUBLISH,a)}},{key:'showPreviewWithData',value:function showPreviewWithData(a,b,c){this._saveCallbackAndProcessMessage(MESSAGE_SHOW_PREVIEW_WITH_DATA,null,_extends({title:a,coverImageUrl:b},c))}},{key:'generateId',value:function generateId(){var a=Array(16);return(0,_v2.default)(null,a,0),_base64Js2.default.fromByteArray(a).replace(/\\+/g,'-').replace(/\\//g,'_').replace(/=/g,'')}},{key:'join',value:function join(a,b,c,d){this._saveCallbackAndProcessMessage(MESSAGE_JOIN,null,{id:a,joinImageUrl:b,winCriteriaPassed:c,notificationItem:d})}},{key:'end',value:function end(){this._saveCallbackAndProcessMessage(MESSAGE_END,null,null)}},{key:'publishSucceded',value:function publishSucceded(){this._saveCallbackAndProcessMessage(MESSAGE_PUBLISH_STATUS,null,{status:!0})}},{key:'publishFailed',value:function publishFailed(){this._saveCallbackAndProcessMessage(MESSAGE_PUBLISH_STATUS,null,{status:!1})}}]),a}(),defaultLifeCycle=new LifeCycle(_CallbackHelper.defaultCallbackHelper);exports.defaultLifeCycle=defaultLifeCycle;",
+    "static": true,
+    "longname": "build/LifeCycle.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 23,
+    "kind": "variable",
+    "name": "_extends",
+    "memberof": "build/LifeCycle.js",
+    "static": true,
+    "longname": "build/LifeCycle.js~_extends",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/LifeCycle.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 24,
+    "kind": "function",
+    "name": "_interopRequireDefault",
+    "memberof": "build/LifeCycle.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/LifeCycle.js~_interopRequireDefault",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/LifeCycle.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 25,
+    "kind": "function",
+    "name": "_classCallCheck",
+    "memberof": "build/LifeCycle.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/LifeCycle.js~_classCallCheck",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/LifeCycle.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "b",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 26,
+    "kind": "variable",
+    "name": "MESSAGE_REQUEST_PREVIEW",
+    "memberof": "build/LifeCycle.js",
+    "static": true,
+    "longname": "build/LifeCycle.js~MESSAGE_REQUEST_PREVIEW",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/LifeCycle.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 27,
+    "kind": "file",
+    "name": "build/MediaStorage.js",
+    "content": "'use strict';var _createClass=function(){function a(a,b){for(var c,d=0;d<b.length;d++)c=b[d],c.enumerable=c.enumerable||!1,c.configurable=!0,'value'in c&&(c.writable=!0),Object.defineProperty(a,c.key,c)}return function(b,c,d){return c&&a(b.prototype,c),d&&a(b,d),b}}();Object.defineProperty(exports,'__esModule',{value:!0}),exports.MediaStorage=void 0;require('whatwg-fetch');var _base64Js=require('base64-js'),_base64Js2=_interopRequireDefault(_base64Js);function _interopRequireDefault(a){return a&&a.__esModule?a:{default:a}}function _classCallCheck(a,b){if(!(a instanceof b))throw new TypeError('Cannot call a class as a function')}function checkStatus(a){if(200<=a.status&&300>a.status)return a;throw new Error(a.statusText)}function parseJSON(a){return a.json()}var DEV_BASE_URL='http://v2.dev.api.bengga.com/2.0/media',LIVE_BASE_URL='http://v2.dev.api.bengga.com/2.0/media',MediaStorage=exports.MediaStorage=function(){function a(){var b=0<arguments.length&&void 0!==arguments[0]?arguments[0]:'devt';_classCallCheck(this,a),this.environment=b}return _createClass(a,[{key:'_getFullUrl',value:function _getFullUrl(a){return'devt'===this.environment?''+DEV_BASE_URL+a:''+LIVE_BASE_URL+a}},{key:'_jsonize',value:function _jsonize(a){return a.then(checkStatus).then(parseJSON)}},{key:'_request',value:function _request(a,b,c){var d=this._getFullUrl(b),e={method:a,mode:'cors'};return'GET'!==a&&'HEAD'!==a&&(e.body=c.data,e.headers={\"Content-Type\":c.contentType}),fetch(d,e).then(checkStatus).then(parseJSON)}},{key:'upload',value:function upload(a){return this._request('POST','',a)}},{key:'get',value:function get(a){return this._request('GET','/'+a)}},{key:'base64DataUrlToByteArray',value:function base64DataUrlToByteArray(a){var b=/data:(.*);base64,(.*)/ig,c=b.exec(a);if(3==c.length){var d=_base64Js2.default.toByteArray(c[2]),e=c[1];return{data:d,contentType:e}}return null}}]),a}();",
+    "static": true,
+    "longname": "build/MediaStorage.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 28,
+    "kind": "variable",
+    "name": "_createClass",
+    "memberof": "build/MediaStorage.js",
+    "static": true,
+    "longname": "build/MediaStorage.js~_createClass",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/MediaStorage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 29,
+    "kind": "variable",
+    "name": "_base64Js",
+    "memberof": "build/MediaStorage.js",
+    "static": true,
+    "longname": "build/MediaStorage.js~_base64Js",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/MediaStorage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 30,
+    "kind": "function",
+    "name": "_interopRequireDefault",
+    "memberof": "build/MediaStorage.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/MediaStorage.js~_interopRequireDefault",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/MediaStorage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 31,
+    "kind": "function",
+    "name": "_classCallCheck",
+    "memberof": "build/MediaStorage.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/MediaStorage.js~_classCallCheck",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/MediaStorage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "b",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 32,
+    "kind": "function",
+    "name": "checkStatus",
+    "memberof": "build/MediaStorage.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/MediaStorage.js~checkStatus",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/MediaStorage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 33,
+    "kind": "function",
+    "name": "parseJSON",
+    "memberof": "build/MediaStorage.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/MediaStorage.js~parseJSON",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/MediaStorage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 34,
+    "kind": "variable",
+    "name": "DEV_BASE_URL",
+    "memberof": "build/MediaStorage.js",
+    "static": true,
+    "longname": "build/MediaStorage.js~DEV_BASE_URL",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/MediaStorage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 35,
+    "kind": "file",
+    "name": "build/UIBridge.js",
+    "content": "'use strict';var _createClass=function(){function a(a,b){for(var c,d=0;d<b.length;d++)c=b[d],c.enumerable=c.enumerable||!1,c.configurable=!0,'value'in c&&(c.writable=!0),Object.defineProperty(a,c.key,c)}return function(b,c,d){return c&&a(b.prototype,c),d&&a(b,d),b}}(),_CallbackHelper=require('./CallbackHelper');Object.defineProperty(exports,'__esModule',{value:!0}),exports.defaultUIBridge=void 0;function _classCallCheck(a,b){if(!(a instanceof b))throw new TypeError('Cannot call a class as a function')}var MESSAGE_SHOW_TITLE_INPUT='showTitleInput',MESSAGE_SHOW_WEB_IMAGE_SELECTOR='showWebImageSelector',MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR='showGalleryImageSelector',MESSAGE_SHOW_FRIENDS_SELECTOR='showFriendsSelector',UIBridge=function(){function a(b){_classCallCheck(this,a),this._callbackHelper=b}return _createClass(a,[{key:'_saveCallbackAndProcessMessage',value:function _saveCallbackAndProcessMessage(a){var b=1<arguments.length&&void 0!==arguments[1]?arguments[1]:null,c=2<arguments.length&&void 0!==arguments[2]?arguments[2]:null,d=3<arguments.length&&void 0!==arguments[3]?arguments[3]:null;b&&c&&this._callbackHelper.setUiCallback(a,b,c),this._callbackHelper.processMessage(a,b,d)}},{key:'showTitleInput',value:function showTitleInput(a){this._saveCallbackAndProcessMessage(MESSAGE_SHOW_TITLE_INPUT,'default',function(b,c){a(c)})}},{key:'showWebImageSelector',value:function showWebImageSelector(a,b,c,d){this._saveCallbackAndProcessMessage(MESSAGE_SHOW_WEB_IMAGE_SELECTOR,a,d,{title:b,imageUrls:c})}},{key:'showGalleryImageSelector',value:function showGalleryImageSelector(a,b,c){this._saveCallbackAndProcessMessage(MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR,a,c,{title:b})}},{key:'showFriendsSelector',value:function showFriendsSelector(a,b){this._saveCallbackAndProcessMessage(MESSAGE_SHOW_FRIENDS_SELECTOR,a,b)}}]),a}(),defaultUIBridge=new UIBridge(_CallbackHelper.defaultCallbackHelper);exports.defaultUIBridge=defaultUIBridge;",
+    "static": true,
+    "longname": "build/UIBridge.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 36,
+    "kind": "variable",
+    "name": "_createClass",
+    "memberof": "build/UIBridge.js",
+    "static": true,
+    "longname": "build/UIBridge.js~_createClass",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/UIBridge.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 37,
+    "kind": "function",
+    "name": "_classCallCheck",
+    "memberof": "build/UIBridge.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/UIBridge.js~_classCallCheck",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/UIBridge.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "b",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 38,
+    "kind": "variable",
+    "name": "MESSAGE_SHOW_TITLE_INPUT",
+    "memberof": "build/UIBridge.js",
+    "static": true,
+    "longname": "build/UIBridge.js~MESSAGE_SHOW_TITLE_INPUT",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/UIBridge.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 39,
+    "kind": "file",
+    "name": "build/cloud_storage.js",
+    "content": "'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.CloudStorage = undefined;\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nrequire('whatwg-fetch');\n\nvar _hawk = require('hawk');\n\nvar _hawk2 = _interopRequireDefault(_hawk);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction getAuthHeader(url, method, credentials) {\n  return _hawk2.default.client.header(url, method, { credentials: credentials, ext: 'funtype-client' }).field;\n}\n\nfunction checkStatus(response) {\n  if (response.status >= 200 && response.status < 300) {\n    return response;\n  } else {\n    throw new Error(response.statusText);\n  }\n}\n\nfunction parseJSON(response) {\n  return response.json();\n}\n\nvar DEV_BASE_URL = \"http://dev.api.aqsoftwareinc.com/2.0/funType\";\nvar LIVE_BASE_URL = \"http://live.api.aqsoftwareinc.com/2.0/funType\";\n\nvar CloudStorage = exports.CloudStorage = function () {\n  function CloudStorage(credentials) {\n    var environment = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'devt';\n\n    _classCallCheck(this, CloudStorage);\n\n    this.credentials = { 'id': credentials.id, 'key': credentials.key, 'algorithm': 'sha256' };\n    this.environment = environment;\n  }\n\n  _createClass(CloudStorage, [{\n    key: '_getFullUrl',\n    value: function _getFullUrl(url) {\n      if (this.environment === 'devt') return '' + DEV_BASE_URL + url;else return '' + LIVE_BASE_URL + url;\n    }\n  }, {\n    key: '_jsonize',\n    value: function _jsonize(promise) {\n      return promise.then(checkStatus).then(parseJSON);\n    }\n  }, {\n    key: '_request',\n    value: function _request(method, relativeUrl) {\n      var body = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};\n\n      var fullUrl = this._getFullUrl(relativeUrl);\n\n      return fetch(fullUrl, {\n        method: method,\n        headers: {\n          'Authorization': getAuthHeader(fullUrl, method, this.credentials),\n          'Content-Type': 'application/json'\n        },\n        body: JSON.stringify(body)\n      }).then(checkStatus).then(parseJSON);\n    }\n  }, {\n    key: 'insert',\n    value: function insert(data) {\n      return this._request('POST', '', data);\n    }\n  }, {\n    key: 'update',\n    value: function update(id, data) {\n      return this._request('PUT', '/' + id, data);\n    }\n  }, {\n    key: 'get',\n    value: function get(id) {\n      return this._request('GET', '/' + id);\n    }\n  }]);\n\n  return CloudStorage;\n}();",
+    "static": true,
+    "longname": "build/cloud_storage.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 40,
+    "kind": "variable",
+    "name": "_createClass",
+    "memberof": "build/cloud_storage.js",
+    "static": true,
+    "longname": "build/cloud_storage.js~_createClass",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/cloud_storage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 41,
+    "kind": "variable",
+    "name": "_hawk",
+    "memberof": "build/cloud_storage.js",
+    "static": true,
+    "longname": "build/cloud_storage.js~_hawk",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/cloud_storage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 42,
+    "kind": "variable",
+    "name": "_hawk2",
+    "memberof": "build/cloud_storage.js",
+    "static": true,
+    "longname": "build/cloud_storage.js~_hawk2",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/cloud_storage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 43,
+    "kind": "function",
+    "name": "_interopRequireDefault",
+    "memberof": "build/cloud_storage.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/cloud_storage.js~_interopRequireDefault",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/cloud_storage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 16,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "obj",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 44,
+    "kind": "function",
+    "name": "_classCallCheck",
+    "memberof": "build/cloud_storage.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/cloud_storage.js~_classCallCheck",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/cloud_storage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "instance",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "Constructor",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 45,
+    "kind": "function",
+    "name": "getAuthHeader",
+    "memberof": "build/cloud_storage.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/cloud_storage.js~getAuthHeader",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/cloud_storage.js",
+    "importStyle": null,
     "description": null,
     "lineNumber": 20,
     "undocument": true,
@@ -234,73 +1308,45 @@
     ],
     "params": [
       {
-        "name": "ctx",
+        "name": "url",
         "types": [
           "*"
         ]
       },
       {
-        "name": "stateCallback",
+        "name": "method",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "credentials",
         "types": [
           "*"
         ]
       }
-    ]
-  },
-  {
-    "__docId__": 11,
-    "kind": "method",
-    "name": "updateDimensions",
-    "memberof": "src/components/StaticCanvas.js~StaticCanvas",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/components/StaticCanvas.js~StaticCanvas#updateDimensions",
-    "access": null,
-    "description": null,
-    "lineNumber": 34,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
     ],
-    "params": []
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
   },
   {
-    "__docId__": 12,
-    "kind": "method",
-    "name": "componentDidMount",
-    "memberof": "src/components/StaticCanvas.js~StaticCanvas",
+    "__docId__": 46,
+    "kind": "function",
+    "name": "checkStatus",
+    "memberof": "build/cloud_storage.js",
     "generator": false,
     "async": false,
-    "static": false,
-    "longname": "src/components/StaticCanvas.js~StaticCanvas#componentDidMount",
+    "static": true,
+    "longname": "build/cloud_storage.js~checkStatus",
     "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/cloud_storage.js",
+    "importStyle": null,
     "description": null,
-    "lineNumber": 38,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "params": []
-  },
-  {
-    "__docId__": 13,
-    "kind": "constructor",
-    "name": "constructor",
-    "memberof": "src/components/StaticCanvas.js~StaticCanvas",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/components/StaticCanvas.js~StaticCanvas#constructor",
-    "access": null,
-    "description": null,
-    "lineNumber": 48,
+    "lineNumber": 24,
     "undocument": true,
     "unknown": [
       {
@@ -310,79 +1356,12 @@
     ],
     "params": [
       {
-        "name": "props",
+        "name": "response",
         "types": [
           "*"
         ]
       }
-    ]
-  },
-  {
-    "__docId__": 14,
-    "kind": "member",
-    "name": "state",
-    "memberof": "src/components/StaticCanvas.js~StaticCanvas",
-    "static": false,
-    "longname": "src/components/StaticCanvas.js~StaticCanvas#state",
-    "access": null,
-    "description": null,
-    "lineNumber": 50,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
     ],
-    "type": {
-      "types": [
-        "{\"width\": *, \"height\": *}"
-      ]
-    }
-  },
-  {
-    "__docId__": 15,
-    "kind": "member",
-    "name": "updateDimensions",
-    "memberof": "src/components/StaticCanvas.js~StaticCanvas",
-    "static": false,
-    "longname": "src/components/StaticCanvas.js~StaticCanvas#updateDimensions",
-    "access": null,
-    "description": null,
-    "lineNumber": 51,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 16,
-    "kind": "method",
-    "name": "render",
-    "memberof": "src/components/StaticCanvas.js~StaticCanvas",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/components/StaticCanvas.js~StaticCanvas#render",
-    "access": null,
-    "description": null,
-    "lineNumber": 54,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "params": [],
     "return": {
       "types": [
         "*"
@@ -390,15 +1369,106 @@
     }
   },
   {
-    "__docId__": 17,
-    "kind": "member",
-    "name": "canvas",
-    "memberof": "src/components/StaticCanvas.js~StaticCanvas",
-    "static": false,
-    "longname": "src/components/StaticCanvas.js~StaticCanvas#canvas",
+    "__docId__": 47,
+    "kind": "function",
+    "name": "parseJSON",
+    "memberof": "build/cloud_storage.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/cloud_storage.js~parseJSON",
     "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/cloud_storage.js",
+    "importStyle": null,
     "description": null,
-    "lineNumber": 56,
+    "lineNumber": 32,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "response",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 48,
+    "kind": "variable",
+    "name": "DEV_BASE_URL",
+    "memberof": "build/cloud_storage.js",
+    "static": true,
+    "longname": "build/cloud_storage.js~DEV_BASE_URL",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/cloud_storage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 36,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 49,
+    "kind": "variable",
+    "name": "LIVE_BASE_URL",
+    "memberof": "build/cloud_storage.js",
+    "static": true,
+    "longname": "build/cloud_storage.js~LIVE_BASE_URL",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/cloud_storage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 37,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 50,
+    "kind": "variable",
+    "name": "CloudStorage",
+    "memberof": "build/cloud_storage.js",
+    "static": true,
+    "longname": "build/cloud_storage.js~CloudStorage",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/cloud_storage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 39,
     "undocument": true,
     "unknown": [
       {
@@ -413,18 +1483,1395 @@
     }
   },
   {
-    "__docId__": 18,
+    "__docId__": 51,
     "kind": "file",
-    "name": "src/index.js",
-    "content": "// @flow\nexport { miniApp as MiniApp } from './core_old';\nexport { defaultUIBridge } from './UIBridge';\nexport { defaultCoreBridge } from './CoreBridge';\nexport * from './CloudStorage';\nexport * from './MediaStorage';\nexport * from './LifeCycle';\n",
+    "name": "build/components/Button.js",
+    "content": "'use strict';var _createClass=function(){function a(a,b){for(var c,d=0;d<b.length;d++)c=b[d],c.enumerable=c.enumerable||!1,c.configurable=!0,'value'in c&&(c.writable=!0),Object.defineProperty(a,c.key,c)}return function(b,c,d){return c&&a(b.prototype,c),d&&a(b,d),b}}(),_react=require('react'),_react2=_interopRequireDefault(_react);Object.defineProperty(exports,'__esModule',{value:!0}),exports.Button=void 0;require('./Button.css');function _interopRequireDefault(a){return a&&a.__esModule?a:{default:a}}function _classCallCheck(a,b){if(!(a instanceof b))throw new TypeError('Cannot call a class as a function')}function _possibleConstructorReturn(a,b){if(!a)throw new ReferenceError('this hasn\\'t been initialised - super() hasn\\'t been called');return b&&('object'==typeof b||'function'==typeof b)?b:a}function _inherits(a,b){if('function'!=typeof b&&null!==b)throw new TypeError('Super expression must either be null or a function, not '+typeof b);a.prototype=Object.create(b&&b.prototype,{constructor:{value:a,enumerable:!1,writable:!0,configurable:!0}}),b&&(Object.setPrototypeOf?Object.setPrototypeOf(a,b):a.__proto__=b)}var Button=exports.Button=function(a){function b(){return _classCallCheck(this,b),_possibleConstructorReturn(this,(b.__proto__||Object.getPrototypeOf(b)).apply(this,arguments))}return _inherits(b,a),_createClass(b,[{key:'render',value:function render(){var a='button uppercase bold';return this.props.isActive&&(a+=' buttonActive'),_react2.default.createElement('a',{className:a,href:'#',onClick:this.props.onClick},this.props.title)}}]),b}(_react.Component);",
     "static": true,
-    "longname": "src/index.js",
+    "longname": "build/components/Button.js",
     "access": null,
     "description": null,
     "lineNumber": 1
   },
   {
-    "__docId__": 20,
+    "__docId__": 52,
+    "kind": "variable",
+    "name": "_createClass",
+    "memberof": "build/components/Button.js",
+    "static": true,
+    "longname": "build/components/Button.js~_createClass",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/components/Button.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 53,
+    "kind": "function",
+    "name": "_interopRequireDefault",
+    "memberof": "build/components/Button.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/components/Button.js~_interopRequireDefault",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/components/Button.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 54,
+    "kind": "function",
+    "name": "_classCallCheck",
+    "memberof": "build/components/Button.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/components/Button.js~_classCallCheck",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/components/Button.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "b",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 55,
+    "kind": "function",
+    "name": "_possibleConstructorReturn",
+    "memberof": "build/components/Button.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/components/Button.js~_possibleConstructorReturn",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/components/Button.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "b",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 56,
+    "kind": "function",
+    "name": "_inherits",
+    "memberof": "build/components/Button.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/components/Button.js~_inherits",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/components/Button.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "b",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 57,
+    "kind": "variable",
+    "name": "Button",
+    "memberof": "build/components/Button.js",
+    "static": true,
+    "longname": "build/components/Button.js~Button",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/components/Button.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 58,
+    "kind": "file",
+    "name": "build/components/Panel.js",
+    "content": "'use strict';var _createClass=function(){function a(a,b){for(var c,d=0;d<b.length;d++)c=b[d],c.enumerable=c.enumerable||!1,c.configurable=!0,'value'in c&&(c.writable=!0),Object.defineProperty(a,c.key,c)}return function(b,c,d){return c&&a(b.prototype,c),d&&a(b,d),b}}(),_react=require('react'),_react2=_interopRequireDefault(_react);Object.defineProperty(exports,'__esModule',{value:!0});require('./Panel.css');function _interopRequireDefault(a){return a&&a.__esModule?a:{default:a}}function _classCallCheck(a,b){if(!(a instanceof b))throw new TypeError('Cannot call a class as a function')}function _possibleConstructorReturn(a,b){if(!a)throw new ReferenceError('this hasn\\'t been initialised - super() hasn\\'t been called');return b&&('object'==typeof b||'function'==typeof b)?b:a}function _inherits(a,b){if('function'!=typeof b&&null!==b)throw new TypeError('Super expression must either be null or a function, not '+typeof b);a.prototype=Object.create(b&&b.prototype,{constructor:{value:a,enumerable:!1,writable:!0,configurable:!0}}),b&&(Object.setPrototypeOf?Object.setPrototypeOf(a,b):a.__proto__=b)}var Panel=function(a){function b(){return _classCallCheck(this,b),_possibleConstructorReturn(this,(b.__proto__||Object.getPrototypeOf(b)).apply(this,arguments))}return _inherits(b,a),_createClass(b,[{key:'render',value:function render(){var a={backgroundColor:this.props.backgroundColor,width:this.props.width,height:this.props.height},b={color:this.props.titleColor};return _react2.default.createElement('div',{id:this.props.id,style:a,className:'panel'},_react2.default.createElement('div',{id:'titleDiv',style:b,className:'panelTitle uppercase lighter'},this.props.title),this.props.children)}}]),b}(_react.Component);exports.default=Panel;",
+    "static": true,
+    "longname": "build/components/Panel.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 59,
+    "kind": "variable",
+    "name": "_createClass",
+    "memberof": "build/components/Panel.js",
+    "static": true,
+    "longname": "build/components/Panel.js~_createClass",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/components/Panel.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 60,
+    "kind": "function",
+    "name": "_interopRequireDefault",
+    "memberof": "build/components/Panel.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/components/Panel.js~_interopRequireDefault",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/components/Panel.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 61,
+    "kind": "function",
+    "name": "_classCallCheck",
+    "memberof": "build/components/Panel.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/components/Panel.js~_classCallCheck",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/components/Panel.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "b",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 62,
+    "kind": "function",
+    "name": "_possibleConstructorReturn",
+    "memberof": "build/components/Panel.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/components/Panel.js~_possibleConstructorReturn",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/components/Panel.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "b",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 63,
+    "kind": "function",
+    "name": "_inherits",
+    "memberof": "build/components/Panel.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/components/Panel.js~_inherits",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/components/Panel.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "b",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 64,
+    "kind": "variable",
+    "name": "Panel",
+    "memberof": "build/components/Panel.js",
+    "static": true,
+    "longname": "build/components/Panel.js~Panel",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/components/Panel.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 65,
+    "kind": "file",
+    "name": "build/components/StaticCanvas.js",
+    "content": "'use strict';var _createClass=function(){function a(a,b){for(var c,d=0;d<b.length;d++)c=b[d],c.enumerable=c.enumerable||!1,c.configurable=!0,'value'in c&&(c.writable=!0),Object.defineProperty(a,c.key,c)}return function(b,c,d){return c&&a(b.prototype,c),d&&a(b,d),b}}(),_react=require('react'),_react2=_interopRequireDefault(_react);Object.defineProperty(exports,'__esModule',{value:!0});function _interopRequireDefault(a){return a&&a.__esModule?a:{default:a}}function _classCallCheck(a,b){if(!(a instanceof b))throw new TypeError('Cannot call a class as a function')}function _possibleConstructorReturn(a,b){if(!a)throw new ReferenceError('this hasn\\'t been initialised - super() hasn\\'t been called');return b&&('object'==typeof b||'function'==typeof b)?b:a}function _inherits(a,b){if('function'!=typeof b&&null!==b)throw new TypeError('Super expression must either be null or a function, not '+typeof b);a.prototype=Object.create(b&&b.prototype,{constructor:{value:a,enumerable:!1,writable:!0,configurable:!0}}),b&&(Object.setPrototypeOf?Object.setPrototypeOf(a,b):a.__proto__=b)}var requestAnimationFrame=global.requestAnimationFrame||global.webkitRequestAnimationFrame||global.mozRequestAnimationFrame||function(a){global.setTimeout(a,1e3/60)},StaticCanvas=function(a){function b(a){_classCallCheck(this,b);var c=_possibleConstructorReturn(this,(b.__proto__||Object.getPrototypeOf(b)).call(this,a));return c.state={width:a.width,height:a.height},c.updateDimensions=c.updateDimensions.bind(c),c}return _inherits(b,a),_createClass(b,[{key:'animate',value:function animate(a){var b=this;a(),requestAnimationFrame(function(){b.animate(a)})}},{key:'noise',value:function noise(a,b){for(var c=b().width,d=b().height,e=a.createImageData(c,d),f=new Uint32Array(e.data.buffer),g=f.length,h=0;h<g;)f[h++]=(0|255*Math.random())<<24;a.putImageData(e,0,0)}},{key:'updateDimensions',value:function updateDimensions(){this.setState({width:window.innerWidth,height:window.innerHeight})}},{key:'componentDidMount',value:function componentDidMount(){var a=this;window.addEventListener('resize',this.updateDimensions);var b=this.canvas.getContext('2d');this.animate(function(){a.noise(b,function(){return a.state})})}}]),_createClass(b,[{key:'render',value:function render(){var a=this;return _react2.default.createElement('canvas',{width:this.state.width,height:this.state.height,ref:function ref(b){a.canvas=b}})}}]),b}(_react.Component);exports.default=StaticCanvas;",
+    "static": true,
+    "longname": "build/components/StaticCanvas.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 66,
+    "kind": "variable",
+    "name": "_createClass",
+    "memberof": "build/components/StaticCanvas.js",
+    "static": true,
+    "longname": "build/components/StaticCanvas.js~_createClass",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/components/StaticCanvas.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 67,
+    "kind": "function",
+    "name": "_interopRequireDefault",
+    "memberof": "build/components/StaticCanvas.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/components/StaticCanvas.js~_interopRequireDefault",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/components/StaticCanvas.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 68,
+    "kind": "function",
+    "name": "_classCallCheck",
+    "memberof": "build/components/StaticCanvas.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/components/StaticCanvas.js~_classCallCheck",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/components/StaticCanvas.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "b",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 69,
+    "kind": "function",
+    "name": "_possibleConstructorReturn",
+    "memberof": "build/components/StaticCanvas.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/components/StaticCanvas.js~_possibleConstructorReturn",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/components/StaticCanvas.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "b",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 70,
+    "kind": "function",
+    "name": "_inherits",
+    "memberof": "build/components/StaticCanvas.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/components/StaticCanvas.js~_inherits",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/components/StaticCanvas.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "b",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 71,
+    "kind": "variable",
+    "name": "requestAnimationFrame",
+    "memberof": "build/components/StaticCanvas.js",
+    "static": true,
+    "longname": "build/components/StaticCanvas.js~requestAnimationFrame",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/components/StaticCanvas.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 72,
+    "kind": "file",
+    "name": "build/core.js",
+    "content": "\"use strict\";",
+    "static": true,
+    "longname": "build/core.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 73,
+    "kind": "file",
+    "name": "build/core_old.js",
+    "content": "'use strict';var _createClass=function(){function a(a,b){for(var c,d=0;d<b.length;d++)c=b[d],c.enumerable=c.enumerable||!1,c.configurable=!0,'value'in c&&(c.writable=!0),Object.defineProperty(a,c.key,c)}return function(b,c,d){return c&&a(b.prototype,c),d&&a(b,d),b}}();Object.defineProperty(exports,'__esModule',{value:!0});function _classCallCheck(a,b){if(!(a instanceof b))throw new TypeError('Cannot call a class as a function')}function _postToWebKit(a,b){window.webkit.messageHandlers.message.postMessage(b)}var Core=function(){function a(){_classCallCheck(this,a),this.callbacks={showWebImageSelector:{},showGalleryImageSelector:{},showFriendsSelector:{}}}return _createClass(a,[{key:'showWebImageSelector',value:function showWebImageSelector(a,b,c,d){var e=this.callbacks.showWebImageSelector;e[a]=d,this.callbacks.showWebImageSelector=e,'undefined'!=typeof window.webkit&&window.webkit.messageHandlers.showWebImageSelector.postMessage({key:a,title:b,imageUrls:c,callback:d.name})}},{key:'showGalleryImageSelector',value:function showGalleryImageSelector(a,b,c){var d=this.callbacks.showGalleryImageSelector;d[a]=c,this.callbacks.showGalleryImageSelector=d,'undefined'!=typeof window.webkit&&window.webkit.messageHandlers.showGalleryImageSelector.postMessage({key:a,title:b,callback:c.name})}},{key:'showTitleInput',value:function showTitleInput(a){this.callbacks.showTitleInput=a,'undefined'!=typeof window.webkit&&window.webkit.messageHandlers.showTitleInput.postMessage({callback:a.name})}},{key:'showFriendsSelector',value:function showFriendsSelector(a,b){var c=this.callbacks.showFriendsSelector;c[a]=b,this.callbacks.showFriendsSelector=c,'undefined'!=typeof window.webkit&&window.webkit.messageHandlers.showFriendsSelector.postMessage({key:a,callback:b.name})}},{key:'setContentEditorOutput',value:function setContentEditorOutput(a,b,c){'undefined'!=typeof window.webkit&&window.webkit.messageHandlers.setContentEditorOutput.postMessage({title:a,coverImageUrl:b,data:c})}},{key:'setContentEditorOutputCallback',value:function setContentEditorOutputCallback(a){this.callbacks.getContentEditorOutput=a,'undefined'!=typeof window.webkit&&window.webkit.messageHandlers.getJoinPreviewData.postMessage(null)}},{key:'endWithOutput',value:function endWithOutput(a,b){'undefined'!=typeof window.webkit&&window.webkit.messageHandlers.endWithOutput.postMessage({caption:a,imageUrl:b})}},{key:'getJoinPreviewData',value:function getJoinPreviewData(a){this.callbacks.getJoinPreviewData=a,'undefined'!=typeof window.webkit&&window.webkit.messageHandlers.getJoinPreviewData.postMessage(null)}},{key:'getFriends',value:function getFriends(a){this.callbacks.getFriends=a,'undefined'!=typeof window.webkit&&window.webkit.messageHandlers.getFriends.postMessage(null)}}]),a}();function b64DecodeUnicode(a){return decodeURIComponent(atob(a).split('').map(function(a){return'%'+('00'+a.charCodeAt(0).toString(16)).slice(-2)}).join(''))}function sanitize(a,b){var c=a;if(b){var d=b64DecodeUnicode(a);c=JSON.parse(d)}return c}window.funTypeCallback=function(a,b,c,d){if(null!=miniApp.callbacks[a]){var e=miniApp.callbacks[a];switch(a){case'showTitleInput':case'getJoinPreviewData':case'getFriends':e(sanitize(c,d));break;default:if(null!=b){var f=miniApp.callbacks[a];null!=f[b]&&(e=f[b],e(b,sanitize(c,d)))}}}};var miniApp=new Core;exports.miniApp=miniApp;",
+    "static": true,
+    "longname": "build/core_old.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 74,
+    "kind": "variable",
+    "name": "_createClass",
+    "memberof": "build/core_old.js",
+    "static": true,
+    "longname": "build/core_old.js~_createClass",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/core_old.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 75,
+    "kind": "function",
+    "name": "_classCallCheck",
+    "memberof": "build/core_old.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/core_old.js~_classCallCheck",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/core_old.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "b",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 76,
+    "kind": "function",
+    "name": "_postToWebKit",
+    "memberof": "build/core_old.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/core_old.js~_postToWebKit",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/core_old.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "b",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 77,
+    "kind": "variable",
+    "name": "Core",
+    "memberof": "build/core_old.js",
+    "static": true,
+    "longname": "build/core_old.js~Core",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/core_old.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 78,
+    "kind": "function",
+    "name": "b64DecodeUnicode",
+    "memberof": "build/core_old.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/core_old.js~b64DecodeUnicode",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/core_old.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 79,
+    "kind": "function",
+    "name": "sanitize",
+    "memberof": "build/core_old.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/core_old.js~sanitize",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/core_old.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "b",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 80,
+    "kind": "function",
+    "name": "funTypeCallback",
+    "memberof": "build/core_old.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/core_old.js~funTypeCallback",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/core_old.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "b",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "c",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "d",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 81,
+    "kind": "variable",
+    "name": "miniApp",
+    "memberof": "build/core_old.js",
+    "static": true,
+    "longname": "build/core_old.js~miniApp",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/core_old.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "Core"
+      ]
+    }
+  },
+  {
+    "__docId__": 82,
+    "kind": "file",
+    "name": "build/index.js",
+    "content": "'use strict';Object.defineProperty(exports,'__esModule',{value:!0});var _core_old=require('./core_old');Object.defineProperty(exports,'MiniApp',{enumerable:!0,get:function get(){return _core_old.miniApp}});var _UIBridge=require('./UIBridge');Object.defineProperty(exports,'defaultUIBridge',{enumerable:!0,get:function get(){return _UIBridge.defaultUIBridge}});var _CoreBridge=require('./CoreBridge');Object.defineProperty(exports,'defaultCoreBridge',{enumerable:!0,get:function get(){return _CoreBridge.defaultCoreBridge}});var _CloudStorage=require('./CloudStorage');Object.keys(_CloudStorage).forEach(function(a){'default'===a||'__esModule'===a||Object.defineProperty(exports,a,{enumerable:!0,get:function get(){return _CloudStorage[a]}})});var _MediaStorage=require('./MediaStorage');Object.keys(_MediaStorage).forEach(function(a){'default'===a||'__esModule'===a||Object.defineProperty(exports,a,{enumerable:!0,get:function get(){return _MediaStorage[a]}})});var _LifeCycle=require('./LifeCycle');Object.keys(_LifeCycle).forEach(function(a){'default'===a||'__esModule'===a||Object.defineProperty(exports,a,{enumerable:!0,get:function get(){return _LifeCycle[a]}})});",
+    "static": true,
+    "longname": "build/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 83,
+    "kind": "variable",
+    "name": "_core_old",
+    "memberof": "build/index.js",
+    "static": true,
+    "longname": "build/index.js~_core_old",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 84,
+    "kind": "variable",
+    "name": "_UIBridge",
+    "memberof": "build/index.js",
+    "static": true,
+    "longname": "build/index.js~_UIBridge",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 85,
+    "kind": "variable",
+    "name": "_CoreBridge",
+    "memberof": "build/index.js",
+    "static": true,
+    "longname": "build/index.js~_CoreBridge",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 86,
+    "kind": "variable",
+    "name": "_CloudStorage",
+    "memberof": "build/index.js",
+    "static": true,
+    "longname": "build/index.js~_CloudStorage",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 87,
+    "kind": "variable",
+    "name": "_MediaStorage",
+    "memberof": "build/index.js",
+    "static": true,
+    "longname": "build/index.js~_MediaStorage",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 88,
+    "kind": "variable",
+    "name": "_LifeCycle",
+    "memberof": "build/index.js",
+    "static": true,
+    "longname": "build/index.js~_LifeCycle",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 89,
+    "kind": "file",
+    "name": "build/ui.js",
+    "content": "'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.defaultUIBridge = undefined;\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nvar _CallbackHelper = require('./CallbackHelper');\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\n/**\nCore class that allows a MiniApp to request various UI selectors available\nin the AQ App\n\nCopyright (c) 2017 AQ Software Inc.\n*/\n\nvar MESSAGE_SHOW_TITLE_INPUT = 'showTitleInput';\nvar MESSAGE_SHOW_WEB_IMAGE_SELECTOR = 'showWebImageSelector';\nvar MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR = 'showGalleryImageSelector';\nvar MESSAGE_SHOW_FRIENDS_SELECTOR = 'showFriendsSelector';\nvar MESSAGE_SHOW_PREVIEW_WITH_DATA = 'showPreviewWithData';\n\nvar UIBridge = function () {\n  function UIBridge(callbackHelper) {\n    _classCallCheck(this, UIBridge);\n\n    this._callbackHelper = callbackHelper;\n  }\n\n  _createClass(UIBridge, [{\n    key: '_saveCallbackAndProcessMessage',\n    value: function _saveCallbackAndProcessMessage(message) {\n      var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;\n      var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;\n      var param = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;\n\n      if (key && callback) {\n        this._callbackHelper.setUiCallback(message, key, callback);\n      }\n      this._callbackHelper.processMessage(message, key, param);\n    }\n\n    /**\n    Requests the AQ App to show a text input UI for the user to input a title\n     @param {function(value: string): void} callback - Callback function to be called when\n      a title has been input by the user\n    */\n\n  }, {\n    key: 'showTitleInput',\n    value: function showTitleInput(callback) {\n      this._saveCallbackAndProcessMessage(MESSAGE_SHOW_TITLE_INPUT, 'default', function (k, v) {\n        callback(v);\n      });\n    }\n\n    /**\n    Requests the AQ App to show a selector UI from a list of image web urls\n     @param {string} key - Unique key identifying this particular Requests\n    @param {string} title - Title to be shown to the selector UI\n    @param {string[]} imageUrls - An array of urls pointing to images that will be\n      shown by the selector UI\n    @param {function(key: string, value: string): void} callback - Callback function to be called when\n      an image is selected from imageUrls\n    */\n\n  }, {\n    key: 'showWebImageSelector',\n    value: function showWebImageSelector(key, title, imageUrls, callback) {\n      this._saveCallbackAndProcessMessage(MESSAGE_SHOW_WEB_IMAGE_SELECTOR, key, callback, {\n        title: title,\n        imageUrls: imageUrls\n      });\n    }\n\n    /**\n    Requests the AQ App to show a selector UI showing a list of available gallery images\n     @param {string} key - Unique key identifying this particular Requests\n    @param {string} title - Title to be shown to the selector UI\n    @param {function(key: string, value: string): void} callback - Callback function to be called when\n      an image is selected\n    */\n\n  }, {\n    key: 'showGalleryImageSelector',\n    value: function showGalleryImageSelector(key, title, callback) {\n      this._saveCallbackAndProcessMessage(MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR, key, callback, {\n        title: title\n      });\n    }\n\n    /**\n    Requests the AQ App to show a selector UI showing a list of friends\n     @param {string} key - Unique key identifying this particular Requests\n    @param {function(key: string, value: string): void} callback - Callback function to be called when\n      a list of friends has been selected\n    */\n\n  }, {\n    key: 'showFriendsSelector',\n    value: function showFriendsSelector(key, callback) {\n      this._saveCallbackAndProcessMessage(MESSAGE_SHOW_FRIENDS_SELECTOR, key, callback);\n    }\n\n    /**\n    Requests the AQ App to show the preivew screen given some data.\n     This function will trigger the AQ App to show the preview dialogue of the mini-app,\n    eventually passing the given parameters as data for the preview.\n     If any of the parameters, except data, is null, the preview screen will not be shown.\n     @param {string} title - Title obtained from user through showTitleInput()\n    @param {string} coverImageUrl - Cover image obtained from user. This can be a data-uri image,\n      or normal web url.\n    @param {Object} data - Any mini-app specific data.\n    */\n\n  }, {\n    key: 'showPreviewWithData',\n    value: function showPreviewWithData(title, coverImageUrl, data) {\n      this._saveCallbackAndProcessMessage(MESSAGE_SHOW_PREVIEW_WITH_DATA, null, null, {\n        title: title,\n        coverImageUrl: coverImageUrl,\n        data: data\n      });\n    }\n  }]);\n\n  return UIBridge;\n}();\n\nvar defaultUIBridge = new UIBridge(_CallbackHelper.defaultCallbackHelper);\nexports.defaultUIBridge = defaultUIBridge;",
+    "static": true,
+    "longname": "build/ui.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 90,
+    "kind": "variable",
+    "name": "_createClass",
+    "memberof": "build/ui.js",
+    "static": true,
+    "longname": "build/ui.js~_createClass",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/ui.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 91,
+    "kind": "variable",
+    "name": "_CallbackHelper",
+    "memberof": "build/ui.js",
+    "static": true,
+    "longname": "build/ui.js~_CallbackHelper",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/ui.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 92,
+    "kind": "function",
+    "name": "_classCallCheck",
+    "memberof": "build/ui.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "build/ui.js~_classCallCheck",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/ui.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "instance",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "Constructor",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 93,
+    "kind": "variable",
+    "name": "MESSAGE_SHOW_TITLE_INPUT",
+    "memberof": "build/ui.js",
+    "static": true,
+    "longname": "build/ui.js~MESSAGE_SHOW_TITLE_INPUT",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/ui.js",
+    "importStyle": null,
+    "description": "Core class that allows a MiniApp to request various UI selectors available\nin the AQ App\n\nCopyright (c) 2017 AQ Software Inc.",
+    "lineNumber": 21,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 94,
+    "kind": "variable",
+    "name": "MESSAGE_SHOW_WEB_IMAGE_SELECTOR",
+    "memberof": "build/ui.js",
+    "static": true,
+    "longname": "build/ui.js~MESSAGE_SHOW_WEB_IMAGE_SELECTOR",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/ui.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 22,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 95,
+    "kind": "variable",
+    "name": "MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR",
+    "memberof": "build/ui.js",
+    "static": true,
+    "longname": "build/ui.js~MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/ui.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 23,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 96,
+    "kind": "variable",
+    "name": "MESSAGE_SHOW_FRIENDS_SELECTOR",
+    "memberof": "build/ui.js",
+    "static": true,
+    "longname": "build/ui.js~MESSAGE_SHOW_FRIENDS_SELECTOR",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/ui.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 24,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 97,
+    "kind": "variable",
+    "name": "MESSAGE_SHOW_PREVIEW_WITH_DATA",
+    "memberof": "build/ui.js",
+    "static": true,
+    "longname": "build/ui.js~MESSAGE_SHOW_PREVIEW_WITH_DATA",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/ui.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 25,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 98,
+    "kind": "variable",
+    "name": "UIBridge",
+    "memberof": "build/ui.js",
+    "static": true,
+    "longname": "build/ui.js~UIBridge",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/ui.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 27,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 99,
+    "kind": "variable",
+    "name": "defaultUIBridge",
+    "memberof": "build/ui.js",
+    "static": true,
+    "longname": "build/ui.js~defaultUIBridge",
+    "access": null,
+    "export": false,
+    "importPath": "aq-miniapp/build/ui.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 134,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "UIBridge"
+      ]
+    }
+  },
+  {
+    "__docId__": 101,
     "kind": "external",
     "name": "Infinity",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
@@ -436,7 +2883,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 21,
+    "__docId__": 102,
     "kind": "external",
     "name": "NaN",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
@@ -448,7 +2895,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 22,
+    "__docId__": 103,
     "kind": "external",
     "name": "undefined",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
@@ -460,7 +2907,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 23,
+    "__docId__": 104,
     "kind": "external",
     "name": "null",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
@@ -472,7 +2919,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 24,
+    "__docId__": 105,
     "kind": "external",
     "name": "Object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -484,7 +2931,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 25,
+    "__docId__": 106,
     "kind": "external",
     "name": "object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -496,7 +2943,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 26,
+    "__docId__": 107,
     "kind": "external",
     "name": "Function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -508,7 +2955,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 27,
+    "__docId__": 108,
     "kind": "external",
     "name": "function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -520,7 +2967,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 28,
+    "__docId__": 109,
     "kind": "external",
     "name": "Boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -532,7 +2979,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 29,
+    "__docId__": 110,
     "kind": "external",
     "name": "boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -544,7 +2991,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 30,
+    "__docId__": 111,
     "kind": "external",
     "name": "Symbol",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
@@ -556,7 +3003,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 31,
+    "__docId__": 112,
     "kind": "external",
     "name": "Error",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
@@ -568,7 +3015,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 32,
+    "__docId__": 113,
     "kind": "external",
     "name": "EvalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
@@ -580,7 +3027,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 33,
+    "__docId__": 114,
     "kind": "external",
     "name": "InternalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
@@ -592,7 +3039,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 34,
+    "__docId__": 115,
     "kind": "external",
     "name": "RangeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
@@ -604,7 +3051,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 35,
+    "__docId__": 116,
     "kind": "external",
     "name": "ReferenceError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
@@ -616,7 +3063,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 36,
+    "__docId__": 117,
     "kind": "external",
     "name": "SyntaxError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
@@ -628,7 +3075,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 37,
+    "__docId__": 118,
     "kind": "external",
     "name": "TypeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
@@ -640,7 +3087,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 38,
+    "__docId__": 119,
     "kind": "external",
     "name": "URIError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
@@ -652,7 +3099,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 39,
+    "__docId__": 120,
     "kind": "external",
     "name": "Number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -664,7 +3111,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 40,
+    "__docId__": 121,
     "kind": "external",
     "name": "number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -676,7 +3123,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 41,
+    "__docId__": 122,
     "kind": "external",
     "name": "Date",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
@@ -688,7 +3135,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 42,
+    "__docId__": 123,
     "kind": "external",
     "name": "String",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -700,7 +3147,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 43,
+    "__docId__": 124,
     "kind": "external",
     "name": "string",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -712,7 +3159,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 44,
+    "__docId__": 125,
     "kind": "external",
     "name": "RegExp",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
@@ -724,7 +3171,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 45,
+    "__docId__": 126,
     "kind": "external",
     "name": "Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
@@ -736,7 +3183,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 46,
+    "__docId__": 127,
     "kind": "external",
     "name": "Int8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
@@ -748,7 +3195,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 47,
+    "__docId__": 128,
     "kind": "external",
     "name": "Uint8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
@@ -760,7 +3207,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 48,
+    "__docId__": 129,
     "kind": "external",
     "name": "Uint8ClampedArray",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
@@ -772,7 +3219,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 49,
+    "__docId__": 130,
     "kind": "external",
     "name": "Int16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
@@ -784,7 +3231,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 50,
+    "__docId__": 131,
     "kind": "external",
     "name": "Uint16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
@@ -796,7 +3243,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 51,
+    "__docId__": 132,
     "kind": "external",
     "name": "Int32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
@@ -808,7 +3255,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 52,
+    "__docId__": 133,
     "kind": "external",
     "name": "Uint32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
@@ -820,7 +3267,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 53,
+    "__docId__": 134,
     "kind": "external",
     "name": "Float32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
@@ -832,7 +3279,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 54,
+    "__docId__": 135,
     "kind": "external",
     "name": "Float64Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
@@ -844,7 +3291,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 55,
+    "__docId__": 136,
     "kind": "external",
     "name": "Map",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
@@ -856,7 +3303,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 56,
+    "__docId__": 137,
     "kind": "external",
     "name": "Set",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
@@ -868,7 +3315,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 57,
+    "__docId__": 138,
     "kind": "external",
     "name": "WeakMap",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
@@ -880,7 +3327,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 58,
+    "__docId__": 139,
     "kind": "external",
     "name": "WeakSet",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
@@ -892,7 +3339,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 59,
+    "__docId__": 140,
     "kind": "external",
     "name": "ArrayBuffer",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
@@ -904,7 +3351,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 60,
+    "__docId__": 141,
     "kind": "external",
     "name": "DataView",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
@@ -916,7 +3363,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 61,
+    "__docId__": 142,
     "kind": "external",
     "name": "JSON",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
@@ -928,7 +3375,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 62,
+    "__docId__": 143,
     "kind": "external",
     "name": "Promise",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
@@ -940,7 +3387,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 63,
+    "__docId__": 144,
     "kind": "external",
     "name": "Generator",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
@@ -952,7 +3399,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 64,
+    "__docId__": 145,
     "kind": "external",
     "name": "GeneratorFunction",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
@@ -964,7 +3411,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 65,
+    "__docId__": 146,
     "kind": "external",
     "name": "Reflect",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
@@ -976,7 +3423,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 66,
+    "__docId__": 147,
     "kind": "external",
     "name": "Proxy",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
@@ -989,7 +3436,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 68,
+    "__docId__": 149,
     "kind": "external",
     "name": "CanvasRenderingContext2D",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
@@ -1001,7 +3448,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 69,
+    "__docId__": 150,
     "kind": "external",
     "name": "DocumentFragment",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
@@ -1013,7 +3460,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 70,
+    "__docId__": 151,
     "kind": "external",
     "name": "Element",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
@@ -1025,7 +3472,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 71,
+    "__docId__": 152,
     "kind": "external",
     "name": "Event",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
@@ -1037,7 +3484,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 72,
+    "__docId__": 153,
     "kind": "external",
     "name": "Node",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
@@ -1049,7 +3496,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 73,
+    "__docId__": 154,
     "kind": "external",
     "name": "NodeList",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
@@ -1061,7 +3508,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 74,
+    "__docId__": 155,
     "kind": "external",
     "name": "XMLHttpRequest",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
@@ -1073,7 +3520,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 75,
+    "__docId__": 156,
     "kind": "external",
     "name": "AudioContext",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",

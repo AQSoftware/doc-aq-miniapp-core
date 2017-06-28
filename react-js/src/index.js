@@ -5,3 +5,4 @@ export { defaultCoreBridge } from './CoreBridge';
 export * from './CloudStorage';
 export * from './MediaStorage';
 export * from './LifeCycle';
+export * from './components';

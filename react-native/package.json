@@ -10,7 +10,7 @@
   "scripts": {
     "build": "npm run babel && npm run doc",
     "babel": "babel ./src --out-dir=./build",
-    "watch": "babel --watch ./src --out-dir=/Users/ryanbrozo/Documents/projects/iteb/tf/code/react/sdk/bitbucket/aq-native-miniapp",
+    "watch": "babel --watch ./src --out-dir=../../aq-native-miniapp/build",
     "doc": "./node_modules/.bin/esdoc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "nodeify": "rn-nodeify --install crypto,url,stream,vm,process --hack"
