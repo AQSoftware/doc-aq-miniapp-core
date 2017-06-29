@@ -1,4 +1,5 @@
 // @flow
-export * from './Button';
-export * from './StaticCanvas';
-export * from './Panel';
+export * from './js/Background';
+export * from './js/Button';
+export * from './js/StaticCanvas';
+export * from './js/Panel';

@@ -13,11 +13,16 @@
     "copycss": "rm -rf ../../aq-miniapp/src/components/css && cp -R ./src/components/css ../../aq-miniapp/src/components/css/",
     "watch": "babel --watch ./src --out-dir=./build",
     "doc": "./node_modules/.bin/esdoc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "styleguide": "styleguidist server",
+    "styleguide:build": "styleguidist build"
   },
   "author": "Ryan C. Brozo",
-  "license": "Copyrighted",
+  "license": "UNLICENSED",
   "devDependencies": {
+    "@webpack-blocks/babel6": "^0.4.1",
+    "@webpack-blocks/postcss": "^0.4.3",
+    "@webpack-blocks/webpack2": "^0.4.0",
     "babel-cli": "^6.24.0",
     "babel-plugin-transform-es2015-destructuring": "^6.23.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
@@ -31,12 +36,16 @@
     "flow-bin": "^0.41.0",
     "jsdoc": "^3.4.3",
     "postcss-loader": "^2.0.6",
-    "style-loader": "^0.18.2"
+    "react-styleguidist": "^5.5.0",
+    "style-loader": "^0.18.2",
+    "webpack": "2.6.1"
   },
   "dependencies": {
+    "base64-js": "^1.2.1",
     "hawk": "^6.0.1",
-    "react": "16.0.0-alpha.12",
-    "react-dom": "16.0.0-alpha.12",
+    "react": "15.6.1",
+    "react-dom": "15.6.1",
+    "text-encoding": "^0.6.4",
     "uuid": "^3.0.1",
     "whatwg-fetch": "^2.0.3"
   },

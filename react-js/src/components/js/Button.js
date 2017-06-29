@@ -1,11 +1,19 @@
+// @flow
 import React, { Component } from 'react';
 import '../css/Button.css';
 
+/**
+ * Rounded button component.
+ */
 export class Button extends Component {
   render(){
     let className = 'button uppercase bold';
     if (this.props.isActive){
       className += ' buttonActive';
+    }
+
+    if (this.props.className){
+      className += ' ' + this.props.className;
     }
     return (
       <a className={className} href="#" onClick={this.props.onClick}>{this.props.title}</a>

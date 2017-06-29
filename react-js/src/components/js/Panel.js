@@ -1,7 +1,8 @@
+// @flow
 import React, { Component } from 'react';
-import './Panel.css';
+import '../css/Panel.css';
 
-export default class Panel extends Component {
+export class Panel extends Component {
   render(){
     var panelStyle = {
       backgroundColor: this.props.backgroundColor,

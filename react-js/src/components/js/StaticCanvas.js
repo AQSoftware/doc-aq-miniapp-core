@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 
 let requestAnimationFrame =
@@ -8,16 +9,30 @@ let requestAnimationFrame =
     global.setTimeout(callback, 1000 / 60);
   };
 
-export default class StaticCanvas extends Component {
+type State = {
+  width: number,
+  height: number
+}
 
-  animate(handle){
+type Props = {
+  width: number,
+  height: number
+}
+
+export class StaticCanvas extends Component {
+  state: State;
+
+  canvas: HTMLCanvasElement;
+  updateDimensions: () => void;
+
+  animate(handle: () => void){
     handle();
     requestAnimationFrame(() => {
       this.animate(handle);
     });
   }
 
-  noise(ctx, stateCallback) {
+  noise(ctx: CanvasRenderingContext2D, stateCallback: () => State) {
     var w = stateCallback().width,
         h = stateCallback().height,
         idata = ctx.createImageData(w, h),
@@ -40,12 +55,14 @@ export default class StaticCanvas extends Component {
 
     var ctx = this.canvas.getContext('2d');
     this.animate(() => {
-      this.noise(ctx, () => {return this.state; });
+      if (ctx != null) {
+        this.noise(ctx, () => {return this.state; });
+      }
     });
 
   }
 
-  constructor(props){
+  constructor(props: Props){
     super(props);
     this.state = { width: props.width, height: props.height };
     this.updateDimensions = this.updateDimensions.bind(this);
