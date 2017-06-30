@@ -5,7 +5,7 @@ import '../css/Button.css';
 /**
  * Rounded button component.
  */
-export class Button extends Component {
+export default class Button extends Component {
   render(){
     let className = 'button uppercase bold';
     if (this.props.isActive){

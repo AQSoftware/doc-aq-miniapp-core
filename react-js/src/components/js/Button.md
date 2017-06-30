@@ -1,2 +1,7 @@
 Button example:
-<Button title="Done" onClick={() => this.props.onClick(this.state.output)}/>
+```html
+<Button title="Click me" onClick={this._onClick.bind(this)}/>
+```
+```example
+<Button title="Click me" isActive={true} onClick={() => { alert('Clicked!'); }}/>
+```

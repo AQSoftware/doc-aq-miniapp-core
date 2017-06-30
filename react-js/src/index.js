@@ -5,4 +5,9 @@ export { defaultCoreBridge } from './CoreBridge';
 export * from './CloudStorage';
 export * from './MediaStorage';
 export * from './LifeCycle';
-export * from './components';
+export { default as Background } from './components/js/Background';
+export { default as Button } from './components/js/Button';
+export { default as Panel } from './components/js/Panel';
+export { default as StaticCanvas } from './components/js/StaticCanvas';
+
+// export StaticCanvas;

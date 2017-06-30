@@ -2,7 +2,10 @@
 import React, { Component } from 'react';
 import '../css/Panel.css';
 
-export class Panel extends Component {
+/**
+* Panel component
+*/
+export default class Panel extends Component {
   render(){
     var panelStyle = {
       backgroundColor: this.props.backgroundColor,

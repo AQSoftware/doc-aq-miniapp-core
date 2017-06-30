@@ -19,7 +19,10 @@ type Props = {
   height: number
 }
 
-export class StaticCanvas extends Component {
+/**
+Component that renders random static noise just like an old TV
+*/
+export default class StaticCanvas extends Component {
   state: State;
 
   canvas: HTMLCanvasElement;
