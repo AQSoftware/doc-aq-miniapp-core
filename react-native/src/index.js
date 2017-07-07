@@ -2,11 +2,11 @@
 
 // import './shim.js';
 import { NativeModules } from 'react-native';
-import { LifeCycle } from './LifeCycle';
-import { UIBridge } from './UIBridge';
+import { LifeCycle } from './core/LifeCycle';
+import { UIBridge } from './core/UIBridge';
 
-// export * from './CloudStorage';
-export * from './MediaStorage';
+export * from './core/CloudStorage';
+export * from './core/MediaStorage';
 
 // export const defaultLifeCycle = NativeModules.RNMiniAppLifeCycleBridge;
 // export const defaultUIBridge = NativeModules.RNMiniAppUIBridge;
@@ -22,3 +22,6 @@ if (defaultUIBridge === undefined){
   defaultUIBridge = new UIBridge();
 }
 export { defaultUIBridge };
+
+export * from './components';
+export { default as MiniApp } from './app/MiniApp';

@@ -15,7 +15,8 @@
     "doc": "./node_modules/.bin/esdoc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "styleguide": "styleguidist server",
-    "styleguide:build": "styleguidist build"
+    "styleguide:build": "styleguidist build",
+    "styleguide:deploy": "aws s3 sync styleguide/ s3://fma-sdk/aq-miniapp-doc"
   },
   "author": "Ryan C. Brozo",
   "license": "UNLICENSED",

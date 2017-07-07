@@ -8,15 +8,16 @@
   },
   "main": "build/index.js",
   "scripts": {
-    "build": "npm run babel && npm run doc",
-    "babel": "babel ./src --out-dir=./build",
+    "build": "npm run babel && npm run copyassets && npm run doc",
+    "babel": "rm -rf ../../aq-native-miniapp/build && babel ./src --out-dir=../../aq-native-miniapp/build",
+    "copyassets": "rm -rf ../../aq-native-miniapp/build/assets && cp -R ./src/assets ../../aq-native-miniapp/build/assets/",
     "watch": "babel --watch ./src --out-dir=../../aq-native-miniapp/build",
     "doc": "./node_modules/.bin/esdoc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "nodeify": "rn-nodeify --install crypto,url,stream,vm,process --hack"
   },
   "author": "Ryan C. Brozo",
-  "license": "Copyrighted",
+  "license": "UNLICENSED",
   "devDependencies": {
     "babel-cli": "^6.24.0",
     "babel-plugin-transform-es2015-destructuring": "^6.23.0",
@@ -31,7 +32,7 @@
   },
   "peerDependencies": {
     "react": "16.0.0-alpha.6",
-    "react-native": "^0.44.0"
+    "react-native": "^0.46.0"
   },
   "keywords": [
     "mini-app",
@@ -39,6 +40,7 @@
   ],
   "dependencies": {
     "base64-js": "^1.2.1",
+    "prop-types": "^15.5.10",
     "react-native-crypto": "^2.0.2",
     "react-native-randombytes": "^2.0.0"
   }

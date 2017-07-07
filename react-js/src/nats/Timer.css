@@ -9,11 +9,15 @@
 }
 
 .aq_timer {
-	display: inline-block;
+	display: block;
 	padding: 8px 20px;
 	font-family: 'Digital';
 	font-size: 20px;
 	text-align: center;
   box-sizing: border-box;
   height: 35px;
+}
+.aq_timer_span {
+  display: inline-block;
+  width: 50px;
 }
