@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './Timer.css';
 
 type Props = {
-  /** Initial timer duration */
+  /** Initial timer duration in seconds */
   duration: number,
   /** Width of timer */
   width?: number,

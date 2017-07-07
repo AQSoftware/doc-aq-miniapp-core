@@ -10,7 +10,7 @@
   "scripts": {
     "build": "npm run babel && npm run copycss",
     "babel": "rm -rf ../../aq-miniapp/src && babel ./src --out-dir=../../aq-miniapp/src",
-    "copycss": "rm -rf ../../aq-miniapp/src/components/css && cp -R ./src/components/css ../../aq-miniapp/src/components/css/ && cp -R ./src/app/css ../../aq-miniapp/src/app/css/",
+    "copycss": "rm -rf ../../aq-miniapp/src/components/css && cp -R ./src/components/css ../../aq-miniapp/src/components/css/ && rm -rf ../../aq-miniapp/src/app/css && cp -R ./src/app/css ../../aq-miniapp/src/app/css/ && rm -rf ../../aq-miniapp/src/nats/*.css && cp -R ./src/nats/*.css ../../aq-miniapp/src/nats/ && rm -rf ../../aq-miniapp/src/fonts && cp -R ./src/fonts/ ../../aq-miniapp/src/fonts",
     "watch": "babel --watch ./src --out-dir=./build",
     "doc": "./node_modules/.bin/esdoc",
     "test": "echo \"Error: no test specified\" && exit 1",
