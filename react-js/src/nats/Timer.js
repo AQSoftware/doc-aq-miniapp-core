@@ -1,25 +1,21 @@
 // @flow
 import React, { Component} from 'react';
 import PropTypes from 'prop-types';
-import './Timer.css';
+// import './Timer.css';
 
 type Props = {
   /** Initial timer duration in seconds */
   duration: number,
-  /** Width of timer */
-  width?: number,
-  /** Height of timer */
-  height?: number,
-  /** Border thickness */
-  borderWidth?: number,
-  /** Border color */
-  borderColor?: string,
-  /** Rounded corner radius */
-  borderRadius?: number,
-  /** Text color */
-  textColor?: string,
-  /** Background color */
-  backgroundColor?: string,
+  /**
+  Callback to be called when timer needs to be rendered.
+  Duration is passed in milliseconds.
+  */
+  onRender: (duration: number) => Object,
+  /**
+  Interval delay. How often onRender should be called in milliseconds.
+  Passed as parameter to `setInterval()`
+  */
+  delay?: number,
   /** Callback to be called when timer reaches zero */
   onTimeout: () => void
 }
@@ -38,13 +34,7 @@ export default class Timer extends Component {
 
   static defaultProps = {
     duration: 0,
-    width: 200,
-    height: 40,
-    borderWidth: 0,
-    borderColor: 'white',
-    borderRadius: 20,
-    textColor: 'black',
-    backgroundColor: 'red'
+    delay: 50
   }
 
   constructor(props: Props){
@@ -83,7 +73,18 @@ export default class Timer extends Component {
                 if (this.timer) clearInterval(this.timer);
                 this.setState({started: false});
             }
-        }, 50);
+        }, this.props.delay);
+    }
+  }
+
+  /**
+  * Resets the timer
+  *
+  * @public
+  */
+  reset(){
+    if (!this.state.started) {
+      this.setState({duration: this.props.duration * 1000});
     }
   }
 
@@ -111,24 +112,26 @@ export default class Timer extends Component {
   }
 
   render() {
-    return(
-      <div>
-        <div
-          className="aq_timer"
-          style={{
-            width: this.props.width,
-            height: this.props.height,
-            borderStyle: 'solid',
-            borderColor: this.props.borderColor,
-            borderWidth: this.props.borderWidth,
-            borderRadius: this.props.borderRadius,
-            color: this.props.textColor,
-            backgroundColor: this.props.backgroundColor
-          }}
-        >
-            Time left: <span className='aq_timer_span'>{this.state.duration.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</span>
-        </div>
-      </div>
-    );
+    return this.props.onRender(this.state.duration);
+
+    // return(
+    //   <div>
+    //     <div
+    //       className="aq_timer"
+    //       style={{
+    //         width: this.props.width,
+    //         height: this.props.height,
+    //         borderStyle: 'solid',
+    //         borderColor: this.props.borderColor,
+    //         borderWidth: this.props.borderWidth,
+    //         borderRadius: this.props.borderRadius,
+    //         color: this.props.textColor,
+    //         backgroundColor: this.props.backgroundColor
+    //       }}
+    //     >
+    //         Time left: <span className='aq_timer_span'>{this.state.duration.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</span>
+    //     </div>
+    //   </div>
+    // );
   }
 }

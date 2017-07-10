@@ -1,6 +1,5 @@
-
 {
-  "name": "react-native-mini-app-core",
+  "name": "aq-native-miniapp-core",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,11 +9,16 @@
   "keywords": [
     "react-native"
   ],
-  "author": "",
-  "license": "",
+  "author": "Ryan C. Brozo",
+  "license": "UNLICENSED",
+  "files": [
+    "index.js",
+    "android",
+    "ios",
+    "windows"
+  ],
   "peerDependencies": {
     "react-native": "^0.41.2",
-    "react-native-windows": "0.41.0-rc.1"
-
+    "react": "16.0.0-alpha.12"
   }
 }
