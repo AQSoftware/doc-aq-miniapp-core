@@ -73,7 +73,7 @@ export default class StaticCanvas extends Component {
 
   render() {
     return(
-      <canvas width={this.state.width} height={this.state.height} ref={(input) => { this.canvas = input; }}></canvas>
+      <canvas id={this.props.id} width={this.state.width} height={this.state.height} ref={(input) => { this.canvas = input; }}></canvas>
     );
   }
 }

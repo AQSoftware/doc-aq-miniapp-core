@@ -7,4 +7,5 @@ module.exports = {
 		babel(),
 		postcss()
 	])
+  // serverHost: '192.168.100.162'
 };

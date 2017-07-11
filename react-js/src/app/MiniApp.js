@@ -26,9 +26,9 @@ export default class MiniApp extends Component {
   }
 
   static propTypes = {
-    default: PropTypes.element,
-    create: PropTypes.element,
-    join: PropTypes.element.isRequired,
+    default: PropTypes.func,
+    create: PropTypes.func,
+    join: PropTypes.func.isRequired,
     credentials: PropTypes.shape({
       id: PropTypes.string,
       key: PropTypes.string
