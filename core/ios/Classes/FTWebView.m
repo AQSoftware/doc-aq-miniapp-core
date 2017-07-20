@@ -45,6 +45,7 @@ id<FTWebFunTypeProtocol> _webFunType;
                                        MESSAGE_JOIN,
                                        MESSAGE_END,
                                        MESSAGE_GET_FRIENDS,
+                                       MESSAGE_GET_BM_BALANCE,
                                        MESSAGE_PUBLISH_STATUS
                                        ];
 
@@ -172,6 +173,9 @@ id<FTWebFunTypeProtocol> _webFunType;
     }
     else if ([messageName isEqualToString:MESSAGE_GET_FRIENDS]){
       [self.funTypeDelegate funTypeView:self didRequestSelector:messageName withKey:MESSAGE_GET_FRIENDS data:nil];
+    }
+    else if ([messageName isEqualToString:MESSAGE_GET_BM_BALANCE]){
+        [self.funTypeDelegate funTypeView:self didRequestSelector:messageName withKey:MESSAGE_GET_BM_BALANCE data:nil];
     }
     else {
       NSString *key = dictionary[@"key"];

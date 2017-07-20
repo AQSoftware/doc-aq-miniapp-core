@@ -2,6 +2,7 @@
 import { CallbackHelper, defaultCallbackHelper } from './CallbackHelper';
 
 const MESSAGE_GET_FRIENDS = 'getFriends';
+const MESSAGE_GET_BM_BALANCE = 'getBmBalance';
 
 /**
 Core class that allows a MiniApp to send/receive various core messages
@@ -34,6 +35,16 @@ class CoreBridge {
   */
   getFriends(callback: (value: Array<Object>) => void){
     this._saveCallbackAndProcessMessage(MESSAGE_GET_FRIENDS, callback);
+  }
+
+  /**
+  Requests the AQ App to return a list of available Bengga Money balances.
+
+  @param {Core~requestCallback} callback - Callback function to be called when
+    with the list of BM Balance as the parameter.
+  */
+  getBmBalance(callback: (value: number) => void){
+    this._saveCallbackAndProcessMessage(MESSAGE_GET_BM_BALANCE, callback);
   }
 }
 

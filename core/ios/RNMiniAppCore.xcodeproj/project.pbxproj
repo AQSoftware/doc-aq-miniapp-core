@@ -16,12 +16,6 @@
 		E3D1D2EA1EF9083500B8CD54 /* FTWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = E3D1D2DA1EF904AF00B8CD54 /* FTWebView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E3D1D2EB1EF908BD00B8CD54 /* RNMiniAppCore.h in Headers */ = {isa = PBXBuildFile; fileRef = B3E7B5881CC2AC0600A0062D /* RNMiniAppCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E3D1D2F81EF90A8100B8CD54 /* RNMiniAppCore.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = B3E7B5881CC2AC0600A0062D /* RNMiniAppCore.h */; };
-		E3D1D3021EF90FB700B8CD54 /* RNMiniAppCore.h in Headers */ = {isa = PBXBuildFile; fileRef = E3D1D3001EF90FB700B8CD54 /* RNMiniAppCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E3D1D30D1EF9103300B8CD54 /* FTCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D1D2D11EF904AF00B8CD54 /* FTCommon.m */; };
-		E3D1D30E1EF9103300B8CD54 /* FTNativeView.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D1D2D31EF904AF00B8CD54 /* FTNativeView.m */; };
-		E3D1D30F1EF9103300B8CD54 /* FTService.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D1D2D51EF904AF00B8CD54 /* FTService.m */; };
-		E3D1D3101EF9103300B8CD54 /* FTWebFunType.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D1D2D91EF904AF00B8CD54 /* FTWebFunType.m */; };
-		E3D1D3111EF9103300B8CD54 /* FTWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D1D2DB1EF904AF00B8CD54 /* FTWebView.m */; };
 		E3DE22B01EFB728E00E5BC23 /* FTCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D1D2D11EF904AF00B8CD54 /* FTCommon.m */; };
 		E3DE22B11EFB728E00E5BC23 /* FTMessages.h in Headers */ = {isa = PBXBuildFile; fileRef = E3DE22AE1EFB6C5A00E5BC23 /* FTMessages.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E3DE22B21EFB728E00E5BC23 /* FTNativeView.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D1D2D31EF904AF00B8CD54 /* FTNativeView.m */; };
@@ -99,7 +93,6 @@
 		E3D1D2D91EF904AF00B8CD54 /* FTWebFunType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTWebFunType.m; sourceTree = "<group>"; };
 		E3D1D2DA1EF904AF00B8CD54 /* FTWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTWebView.h; sourceTree = "<group>"; };
 		E3D1D2DB1EF904AF00B8CD54 /* FTWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTWebView.m; sourceTree = "<group>"; };
-		E3D1D2FE1EF90FB700B8CD54 /* RNMiniAppCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RNMiniAppCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3D1D3001EF90FB700B8CD54 /* RNMiniAppCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNMiniAppCore.h; sourceTree = "<group>"; };
 		E3D1D3011EF90FB700B8CD54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E3DE22851EFB617C00E5BC23 /* RNMiniAppUIBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNMiniAppUIBridge.h; sourceTree = "<group>"; };
@@ -113,13 +106,6 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		58B511D81A9E6C8500147676 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E3D1D2FA1EF90FB700B8CD54 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -144,7 +130,6 @@
 				B3E7B5881CC2AC0600A0062D /* RNMiniAppCore.h */,
 				E3D1D2FF1EF90FB700B8CD54 /* RNMiniAppCore */,
 				134814211AA4EA7D00B7C361 /* Products */,
-				E3D1D2FE1EF90FB700B8CD54 /* RNMiniAppCore.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -211,14 +196,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E3D1D2FB1EF90FB700B8CD54 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E3D1D3021EF90FB700B8CD54 /* RNMiniAppCore.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -240,24 +217,6 @@
 			productReference = 134814201AA4EA6300B7C361 /* libRNMiniAppCore.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		E3D1D2FD1EF90FB700B8CD54 /* RNMiniAppCore */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E3D1D3031EF90FB700B8CD54 /* Build configuration list for PBXNativeTarget "RNMiniAppCore" */;
-			buildPhases = (
-				E3D1D2F91EF90FB700B8CD54 /* Sources */,
-				E3D1D2FA1EF90FB700B8CD54 /* Frameworks */,
-				E3D1D2FB1EF90FB700B8CD54 /* Headers */,
-				E3D1D2FC1EF90FB700B8CD54 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = RNMiniAppCore;
-			productName = RNMiniAppCore;
-			productReference = E3D1D2FE1EF90FB700B8CD54 /* RNMiniAppCore.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -269,11 +228,6 @@
 				TargetAttributes = {
 					58B511DA1A9E6C8500147676 = {
 						CreatedOnToolsVersion = 6.1.1;
-					};
-					E3D1D2FD1EF90FB700B8CD54 = {
-						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = A9B52MSUJ8;
-						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -290,20 +244,9 @@
 			projectRoot = "";
 			targets = (
 				58B511DA1A9E6C8500147676 /* RNMiniAppCoreLib */,
-				E3D1D2FD1EF90FB700B8CD54 /* RNMiniAppCore */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXResourcesBuildPhase section */
-		E3D1D2FC1EF90FB700B8CD54 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		58B511D71A9E6C8500147676 /* Sources */ = {
@@ -320,18 +263,6 @@
 				E3DE22BF1EFB728E00E5BC23 /* RNMiniAppUIBridge.m in Sources */,
 				E3DE22B51EFB728E00E5BC23 /* FTWebView.m in Sources */,
 				E3DE22BB1EFB728E00E5BC23 /* RNMiniAppBridge.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E3D1D2F91EF90FB700B8CD54 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E3D1D30D1EF9103300B8CD54 /* FTCommon.m in Sources */,
-				E3D1D30E1EF9103300B8CD54 /* FTNativeView.m in Sources */,
-				E3D1D30F1EF9103300B8CD54 /* FTService.m in Sources */,
-				E3D1D3101EF9103300B8CD54 /* FTWebFunType.m in Sources */,
-				E3D1D3111EF9103300B8CD54 /* FTWebView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,68 +377,6 @@
 			};
 			name = Release;
 		};
-		E3D1D3041EF90FB700B8CD54 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = A9B52MSUJ8;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_TESTABILITY = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = RNMiniAppCore/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bengga.RNMiniAppCore;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		E3D1D3051EF90FB700B8CD54 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = A9B52MSUJ8;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = RNMiniAppCore/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bengga.RNMiniAppCore;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -525,15 +394,6 @@
 			buildConfigurations = (
 				58B511F01A9E6C8500147676 /* Debug */,
 				58B511F11A9E6C8500147676 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E3D1D3031EF90FB700B8CD54 /* Build configuration list for PBXNativeTarget "RNMiniAppCore" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E3D1D3041EF90FB700B8CD54 /* Debug */,
-				E3D1D3051EF90FB700B8CD54 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

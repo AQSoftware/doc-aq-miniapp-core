@@ -20,6 +20,7 @@ NSString *const MESSAGE_SHOW_FRIENDS_SELECTOR = @"showFriendsSelector";
 
 // CoreBridge Messages
 NSString *const MESSAGE_GET_FRIENDS = @"getFriends";
+NSString *const MESSAGE_GET_BM_BALANCE = @"getBmBalance";
 
 // LifCycle Messages
 NSString *const MESSAGE_SHOW_PREVIEW_WITH_DATA = @"showPreviewWithData";

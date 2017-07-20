@@ -16,6 +16,7 @@ extern NSString *const MESSAGE_SHOW_FRIENDS_SELECTOR;
 
 // CoreBridge Messages
 extern NSString *const MESSAGE_GET_FRIENDS;
+extern NSString *const MESSAGE_GET_BM_BALANCE;
 
 // LifCycle Messages
 extern NSString *const MESSAGE_SHOW_PREVIEW_WITH_DATA;

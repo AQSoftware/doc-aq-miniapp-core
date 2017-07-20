@@ -80,7 +80,7 @@ RCT_CUSTOM_VIEW_PROPERTY(funType, NSString*, UIView){
 //      funType.type = kInternal;
 //    }
     NSInteger type = [json[@"type"] integerValue];
-    funType.type = type;
+    funType.type = (FTFunTypeEnum)type;
     if (json[@"webUrl"]) {
       funType.webUrl = [NSURL URLWithString:json[@"webUrl"]];
     }

@@ -14,8 +14,7 @@
   "files": [
     "index.js",
     "android",
-    "ios",
-    "windows"
+    "ios"
   ],
   "peerDependencies": {
     "react-native": "^0.41.2",

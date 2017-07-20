@@ -46,6 +46,9 @@
   else if([message isEqualToString:MESSAGE_GET_FRIENDS]){
     
   }
+  else if([message isEqualToString:MESSAGE_GET_BM_BALANCE]){
+      
+  }
   else if([message isEqualToString:MESSAGE_SHOW_PREVIEW_WITH_DATA] ||
           [message isEqualToString:MESSAGE_JOIN] ||
           [message isEqualToString:MESSAGE_END] ||

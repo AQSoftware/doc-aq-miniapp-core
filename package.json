@@ -15,7 +15,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ryan C. Brozo",
-  "license": "Copyrighted",
+  "license": "UNLICENSED",
+  "files": [
+    "core/ios",
+    "core/android",
+    "core/index.js",
+    "core/package.json"
+  ],
   "devDependencies": {
     "babel-cli": "^6.24.0",
     "babel-plugin-transform-es2015-destructuring": "^6.23.0",
