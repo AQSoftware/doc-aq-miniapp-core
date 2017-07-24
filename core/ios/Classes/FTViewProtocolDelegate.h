@@ -24,6 +24,7 @@
 -(void)funTypeView:(id<FTViewProtocol> _Nonnull)funTypeView didRequestShowPreviewWithTitle:(NSString * _Nonnull)title
      coverImageUrl:(NSString * _Nonnull)coverImageUrl data:(NSDictionary *_Nullable)data;
 -(void)funTypeView:(id<FTViewProtocol> _Nonnull)funTypeView didInformPublishStatus:(BOOL)status;
+-(void)funTypeView:(id<FTViewProtocol> _Nonnull)funTypeView didSetAppData:(NSDictionary * _Nonnull)appData;
 
 @end
 

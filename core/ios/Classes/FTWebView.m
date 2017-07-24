@@ -177,6 +177,12 @@ id<FTWebFunTypeProtocol> _webFunType;
     else if ([messageName isEqualToString:MESSAGE_GET_BM_BALANCE]){
         [self.funTypeDelegate funTypeView:self didRequestSelector:messageName withKey:MESSAGE_GET_BM_BALANCE data:nil];
     }
+    else if ([messageName isEqualToString:MESSAGE_SET_APP_DATA]){
+        id appData = dictionary[@"appData"];
+        if (appData && [appData isKindOfClass:[NSDictionary class]]) {
+            [self.funTypeDelegate funTypeView:self didSetAppData:appData];
+        }
+    }
     else {
       NSString *key = dictionary[@"key"];
       NSDictionary *data = nil;

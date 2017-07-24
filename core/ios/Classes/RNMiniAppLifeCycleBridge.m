@@ -53,6 +53,11 @@ RCT_EXPORT_METHOD(showPreviewWithData:(NSString *)title
   }
 }
 
+RCT_EXPORT_METHOD(setAppData:(NSDictionary *)appData){
+  if (self.funTypeDelegate && [appData isKindOfClass:[NSDictionary class]]){
+    [self.funTypeDelegate funTypeView:self.funTypeView didSetAppData:appData];
+  }
+}
 
 RCT_EXPORT_METHOD(join:(NSString *)joinId
                   joinImageUrl:(NSString *)joinImageUrl

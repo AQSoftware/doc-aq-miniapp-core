@@ -19,6 +19,7 @@ extern NSString *const MESSAGE_GET_FRIENDS;
 extern NSString *const MESSAGE_GET_BM_BALANCE;
 
 // LifCycle Messages
+extern NSString *const MESSAGE_SET_APP_DATA;
 extern NSString *const MESSAGE_SHOW_PREVIEW_WITH_DATA;
 extern NSString *const MESSAGE_JOIN;
 extern NSString *const MESSAGE_END;

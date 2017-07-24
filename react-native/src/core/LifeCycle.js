@@ -66,6 +66,15 @@ export class LifeCycle {
   showPreviewWithData(title: String, coverImageUrl: string, data: Object) {}
 
   /**
+  Requests the AQ App to set some app-specific data.
+
+  This function will set app-specific data that may or may not be utilized by the AQ App.
+
+  @param {Object} appData - Any mini-app specific data.
+  */
+  setAppData(appData: Object) {}
+
+  /**
   Generates a unique URL-safe Base64-encoded Id
   */
   generateId(): string {

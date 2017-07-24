@@ -1,10 +1,12 @@
 {
-  "name": "aq-native-miniapp-core",
+  "name": "aq-react-native-miniapp-sdk",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run clean && npm run copy",
+    "copy": "cp -R ./ios ../../aq-react-native-miniapp-sdk/ios/ && cp -R ./android ../../aq-react-native-miniapp-sdk/android/ && cp ./index.js ../../aq-react-native-miniapp-sdk",
+    "clean": "rm -rf ../../aq-react-native-miniapp-sdk/ios && rm -rf ../../aq-react-native-miniapp-sdk/android && rm -rf ../../aq-react-native-miniapp-sdk/index.js"
   },
   "keywords": [
     "react-native"
@@ -17,7 +19,7 @@
     "ios"
   ],
   "peerDependencies": {
-    "react-native": "^0.41.2",
+    "react-native": "^0.45.1",
     "react": "16.0.0-alpha.12"
   }
 }

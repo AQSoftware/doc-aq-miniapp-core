@@ -139,6 +139,10 @@ __strong UIView *_subView;
                          });
 }
 
+-(void)funTypeView:(id<FTViewProtocol>)funTypeView didSetAppData:(NSDictionary *)appData {
+    self.onSetAppData(appData);
+}
+
 -(void)funTypeView:(id<FTViewProtocol> _Nonnull)funTypeView didJoinWithId:(NSString * _Nullable)joinId joinImageUrl:(NSString * _Nonnull)joinImageUrl winCriteriaPassed:(BOOL)winCriteriaPassed notificationItem:(NSDictionary * _Nullable)notificationItem {
   NSMutableDictionary *params = @{
                                   @"joinImageUrl": joinImageUrl,

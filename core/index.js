@@ -22,6 +22,7 @@ export const Messages = {
   MESSAGE_SHOW_WEB_IMAGE_SELECTOR: 'showWebImageSelector',
   MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR: 'showGalleryImageSelector',
   MESSAGE_SHOW_FRIENDS_SELECTOR: 'showFriendsSelector',
+  MESSAGE_SET_APP_DATA: 'setAppData',
   MESSAGE_SHOW_PREVIEW_WITH_DATA: 'showPreviewWithData',
   MESSAGE_REQUEST_PREVIEW: 'requestPreview',
   MESSAGE_ON_DATA: 'onData',
@@ -57,6 +58,7 @@ type Props = {
   onJoin?: (string, string, bool, Object) => void,
   onEnd?: () => void,
   onRequestShowPreviewWithData?: (string, string, any) => void,
+  onSetAppData?: (object) => void,
   onPublishStatus?: (boolean) => void
 }
 
@@ -68,6 +70,7 @@ export class FunTypeView extends Component {
   _onJoin: (Event) => void;
   _onEnd: (Event) => void;
   _onRequestShowPreviewWithData: (Event) => void;
+  _onSetAppData: (Event) => void;
   _onEndContentEditorOutput: (Event) => void;
   _onPublishStatus: (Event) => void;
 
@@ -82,6 +85,7 @@ export class FunTypeView extends Component {
     this._onJoin = this._onJoin.bind(this);
     this._onEnd = this._onEnd.bind(this);
     this._onRequestShowPreviewWithData = this._onRequestShowPreviewWithData.bind(this);
+    this._onSetAppData = this._onSetAppData.bind(this);
     this._onPublishStatus = this._onPublishStatus.bind(this);
   }
 
@@ -111,6 +115,13 @@ export class FunTypeView extends Component {
       return;
     }
     this.props.onRequestPreviewData();
+  }
+
+  _onSetAppData(event: Event){
+    if (!this.props._onSetAppData){
+      return;
+    }
+    this.props._onSetAppData(event.nativeEvent.appData);
   }
 
   _onJoin(event: Event){
@@ -177,6 +188,7 @@ RNFunTypeView.propTypes = {
   onError: React.PropTypes.func,
   onRequestSelector: React.PropTypes.func,
   onRequestPreviewData: React.PropTypes.func,
+  onSetAppData: React.PropTypes.func,
   onJoin: React.PropTypes.func,
   onEnd: React.PropTypes.func,
   onRequestShowPreviewWithData: React.PropTypes.func,

@@ -5,6 +5,7 @@ import { CallbackHelper, defaultCallbackHelper } from './CallbackHelper';
 
 const MESSAGE_REQUEST_PREVIEW = 'requestPreview';
 const MESSAGE_ON_DATA = 'onData';
+const MESSAGE_SET_APP_DATA = 'setAppData';
 const MESSAGE_SHOW_PREVIEW_WITH_DATA = 'showPreviewWithData';
 const MESSAGE_JOIN = 'join';
 const MESSAGE_PUBLISH = 'publish';
@@ -99,6 +100,19 @@ class LifeCycle {
       title: title,
       coverImageUrl: coverImageUrl,
       ...data
+    });
+  }
+
+  /**
+  Requests the AQ App to set some app-specific data.
+
+  This function will set app-specific data that may or may not be utilized by the AQ App.
+
+  @param {Object} appData - Any mini-app specific data.
+  */
+  setAppData(appData: Object) {
+    this._saveCallbackAndProcessMessage(MESSAGE_SET_APP_DATA, null, {
+      appData: appData
     });
   }
 
