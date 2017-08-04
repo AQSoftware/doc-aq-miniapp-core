@@ -1,6 +1,6 @@
 // @flow
 import Base64JS from 'base64-js';
-import { TextDecoder } from 'text-encoding';
+import { TextDecoder } from 'text-encoding-utf-8';
 
 export class CallbackHelper {
   uiCallbacks: Object;

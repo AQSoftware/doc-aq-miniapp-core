@@ -24,7 +24,7 @@
     "@webpack-blocks/babel6": "^0.4.1",
     "@webpack-blocks/postcss": "^0.4.3",
     "@webpack-blocks/webpack2": "^0.4.0",
-    "babel-cli": "^6.24.0",
+    "babel-cli": "^6.24.1",
     "babel-plugin-transform-es2015-destructuring": "^6.23.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-preset-babili": "^0.1.4",
@@ -50,7 +50,7 @@
     "react-dom": "15.6.1",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
-    "text-encoding": "^0.6.4",
+    "text-encoding-utf-8": "^1.0.1",
     "uuid": "^3.0.1",
     "whatwg-fetch": "^2.0.3"
   },

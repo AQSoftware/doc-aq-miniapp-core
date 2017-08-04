@@ -15,9 +15,9 @@ import {
 import QueryString from 'query-string';
 import Create from './Create';
 
-function Warning(props) {
-  return <div style={{padding: 10}}>Warning: {props.message}</div>;
-}
+// function Warning(props) {
+//   return <div style={{padding: 10}}>Warning: {props.message}</div>;
+// }
 
 export default class MiniApp extends Component {
 
@@ -105,7 +105,7 @@ export default class MiniApp extends Component {
           if (query.id == null) {
             let message = 'id was not passed for action=join';
             console.error(message);
-            render = <Warning message={message}/>
+            render = <div style={{padding: 10}}>Warning: {message}</div>;
           }
           else {
             render = React.createElement(
