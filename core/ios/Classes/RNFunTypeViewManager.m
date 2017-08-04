@@ -30,6 +30,7 @@ RCT_EXPORT_VIEW_PROPERTY(onRequestPreviewData, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onJoin, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onEnd, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onPublishStatus, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onSetAppData, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onRequestShowPreviewWithData, RCTDirectEventBlock)
 
 
@@ -52,6 +53,7 @@ RCT_CUSTOM_VIEW_PROPERTY(engagementId, NSString*, UIView){
   }
   else {
     RNFunTypeView* funTypeView = (RNFunTypeView *)view;
+    funTypeView.clipsToBounds = YES;
     funTypeView.engagementId = json;
     [funTypeView updateContent];
   }

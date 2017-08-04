@@ -35,12 +35,26 @@ id<FTWebFunTypeProtocol> _webFunType;
   return webView;
 }
 
+-(WKWebViewConfiguration* _Nonnull)webConfigurationWithContenController:(WKUserContentController *)contentController {
+    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc]init];
+    
+  config.applicationNameForUserAgent = @"Bengga";
+  config.suppressesIncrementalRendering = YES;
+  config.userContentController = contentController;
+  config.allowsInlineMediaPlayback = YES;
+  config.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
+
+  
+  return config;
+}
+
 -(void)setupWithFunTypeDelegate:(id<FTViewProtocolDelegate> _Nonnull)funTypeDelegate {
   NSArray *const STANDARD_MESSAGES = @[
                                        MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR,
                                        MESSAGE_SHOW_WEB_IMAGE_SELECTOR,
                                        MESSAGE_SHOW_TITLE_INPUT,
                                        MESSAGE_SHOW_FRIENDS_SELECTOR,
+                                       MESSAGE_SET_APP_DATA,
                                        MESSAGE_SHOW_PREVIEW_WITH_DATA,
                                        MESSAGE_JOIN,
                                        MESSAGE_END,
@@ -67,10 +81,7 @@ id<FTWebFunTypeProtocol> _webFunType;
       [contentController addScriptMessageHandler:self name:message];
     }
     
-    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc]init];
-    config.userContentController = contentController;
-    
-    WKWebView *webView = [[WKWebView alloc]initWithFrame:CGRectZero configuration:config];
+    WKWebView *webView = [[WKWebView alloc]initWithFrame:CGRectZero configuration:[self webConfigurationWithContenController:contentController]];
     
     // Setup webview layout and properties
     webView.navigationDelegate = self;

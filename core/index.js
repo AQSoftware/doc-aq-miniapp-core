@@ -118,10 +118,10 @@ export class FunTypeView extends Component {
   }
 
   _onSetAppData(event: Event){
-    if (!this.props._onSetAppData){
+    if (!this.props.onSetAppData){
       return;
     }
-    this.props._onSetAppData(event.nativeEvent.appData);
+    this.props.onSetAppData(event.nativeEvent.appData);
   }
 
   _onJoin(event: Event){
@@ -165,6 +165,7 @@ export class FunTypeView extends Component {
         onFunTypeViewError={this._onError}
         onRequestSelector={this._onRequestSelector}
         onRequestPreviewData={this._onRequestPreviewData}
+        onSetAppData={this._onSetAppData}
         onJoin={this._onJoin}
         onEnd={this._onEnd}
         onRequestShowPreviewWithData={this._onRequestShowPreviewWithData}
