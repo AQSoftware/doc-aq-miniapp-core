@@ -11,6 +11,13 @@
 #import "FTMessages.h"
 #import <WebKit/WebKit.h>
 
+#define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
+#define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
+
+
 @interface FTWebView() <WKScriptMessageHandler, WKNavigationDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicatorView;
@@ -42,7 +49,13 @@ id<FTWebFunTypeProtocol> _webFunType;
   config.suppressesIncrementalRendering = YES;
   config.userContentController = contentController;
   config.allowsInlineMediaPlayback = YES;
-  config.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
+  
+  if(SYSTEM_VERSION_LESS_THAN(@"10.0")){
+    config.requiresUserActionForMediaPlayback = NO;
+  }
+  else {
+    config.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
+  }
 
   
   return config;
@@ -222,6 +235,8 @@ id<FTWebFunTypeProtocol> _webFunType;
   [self.webView setHidden:NO];
   
   [self.webView evaluateJavaScript:@"document.body.style.webkitTouchCallout='none';" completionHandler:nil];
+  [self.webView evaluateJavaScript:@"document.body.style.webkitUserSelect='none';" completionHandler:nil];
+  [self.webView evaluateJavaScript:@"document.body.style.webkitTapHighlightColor='rgba(0,0,0,0)';" completionHandler:nil];
   [self.funTypeDelegate funTypeViewDidLoad:self];
 }
 
