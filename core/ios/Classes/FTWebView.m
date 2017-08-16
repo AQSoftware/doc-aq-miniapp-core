@@ -17,6 +17,12 @@
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
+/*
+ Showing the FTWwebView right after it has loaded the webpage shows a blank white page
+ before the actual content. We set a delay before actually showing the web content
+ to avoid this
+ */
+#define DELAY_BEFORE_SHOWING_WEBVIEW_IN_SECS 0.3
 
 @interface FTWebView() <WKScriptMessageHandler, WKNavigationDelegate, UIScrollViewDelegate>
 
@@ -230,9 +236,12 @@ id<FTWebFunTypeProtocol> _webFunType;
 
 #pragma mark - WKNavigationDelegate methods
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-  // Unhide the webview upon loading
-  [self.activityIndicatorView stopAnimating];
-  [self.webView setHidden:NO];
+
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(DELAY_BEFORE_SHOWING_WEBVIEW_IN_SECS * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    // Unhide the webview upon loading
+    [self.activityIndicatorView stopAnimating];
+    [self.webView setHidden:NO];
+  });
   
   [self.webView evaluateJavaScript:@"document.body.style.webkitTouchCallout='none';" completionHandler:nil];
   [self.webView evaluateJavaScript:@"document.body.style.webkitUserSelect='none';" completionHandler:nil];
