@@ -8,6 +8,7 @@
 
 #import "RNFunTypeView.h"
 #import <RNMiniAppCore/RNMiniAppCore.h>
+#import "FTWebView.h"
 
 @interface RNFunTypeView() <FTViewProtocolDelegate>
 
@@ -15,6 +16,17 @@
 @implementation RNFunTypeView
 
 __strong UIView *_subView;
+
+-(void)dealloc {
+  // Remove all subviews first
+  for (int i=0; i<[[self subviews]count]; i++){
+    UIView *view = self.subviews[i];
+    if ([view isKindOfClass:[FTWebView class]]){
+      [((FTWebView *)view) unSetup];
+    }
+    [view removeFromSuperview];
+  }
+}
 
 -(void)setSubView:(UIView *)subView {
   if (![subView conformsToProtocol:@protocol(FTViewProtocol)]) {
@@ -26,12 +38,15 @@ __strong UIView *_subView;
     
   }
   else {
-//    // Add self as funTypeDelegate of this subView
-//    [(id<FTViewProtocol>)subView setFunTypeDelegate:self];
+    //    // Add self as funTypeDelegate of this subView
+    //    [(id<FTViewProtocol>)subView setFunTypeDelegate:self];
     
     // Remove all subviews first
     for (int i=0; i<[[self subviews]count]; i++){
       UIView *view = self.subviews[i];
+      if ([view isKindOfClass:[FTWebView class]]){
+        [((FTWebView *)view) unSetup];
+      }
       [view removeFromSuperview];
     }
     
@@ -77,7 +92,7 @@ __strong UIView *_subView;
     UIView *subView = [[FTService sharedInstance] createFunTypeView:self.funType
                                                            withMode:mode
                                                        engagementId:self.engagementId
-                       funTypeDelegate:self];
+                                                    funTypeDelegate:self];
     [self setSubView:subView];
     
   }
@@ -123,10 +138,10 @@ __strong UIView *_subView;
 
 - (void)funTypeView:(id<FTViewProtocol>)funTypeView didRequestShowPreviewWithTitle:(NSString *)title coverImageUrl:(NSString *)coverImageUrl data:(NSDictionary *)data {
   self.onRequestShowPreviewWithData(@{
-                                  @"title" : title,
-                                  @"coverImageUrl": coverImageUrl,
-                                  @"data": data
-                                  });
+                                      @"title" : title,
+                                      @"coverImageUrl": coverImageUrl,
+                                      @"data": data
+                                      });
 }
 
 - (void)funTypeViewDidRequestPreviewData:(id<FTViewProtocol>)funTypeView {
@@ -140,9 +155,9 @@ __strong UIView *_subView;
 }
 
 -(void)funTypeView:(id<FTViewProtocol>)funTypeView didSetAppData:(NSDictionary * _Nonnull)appData {
-    self.onSetAppData(@{
-                        @"appData": appData
-                        });
+  self.onSetAppData(@{
+                      @"appData": appData
+                      });
 }
 
 -(void)funTypeView:(id<FTViewProtocol> _Nonnull)funTypeView didJoinWithId:(NSString * _Nullable)joinId joinImageUrl:(NSString * _Nonnull)joinImageUrl winCriteriaPassed:(BOOL)winCriteriaPassed notificationItem:(NSDictionary * _Nullable)notificationItem {

@@ -17,12 +17,7 @@
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
-/*
- Showing the FTWwebView right after it has loaded the webpage shows a blank white page
- before the actual content. We set a delay before actually showing the web content
- to avoid this
- */
-#define DELAY_BEFORE_SHOWING_WEBVIEW_IN_SECS 0.3
+
 
 @interface FTWebView() <WKScriptMessageHandler, WKNavigationDelegate, UIScrollViewDelegate>
 
@@ -37,20 +32,25 @@
 
 id<FTWebFunTypeProtocol> _webFunType;
 
+NSArray *STANDARD_MESSAGES;
+
+
 +(instancetype _Nonnull) createInstanceWithFunTypeDelegate:(id<FTViewProtocolDelegate> _Nonnull)funTypeDelegate {
   static UINib *nib;
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
     nib = [UINib nibWithNibName:@"FTWebView" bundle:[NSBundle bundleWithIdentifier:@"com.bengga.funtype.core"]];
   });
-  FTWebView *webView = [nib instantiateWithOwner:nil options:nil][0];
+  NSArray *rootObjects = [nib instantiateWithOwner:nil options:nil];
+  FTWebView *webView = rootObjects[0];
+  rootObjects = nil;
   [webView setupWithFunTypeDelegate:funTypeDelegate];
   return webView;
 }
 
 -(WKWebViewConfiguration* _Nonnull)webConfigurationWithContenController:(WKUserContentController *)contentController {
-    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc]init];
-    
+  WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc]init];
+  
   config.applicationNameForUserAgent = @"Bengga";
   config.suppressesIncrementalRendering = YES;
   config.userContentController = contentController;
@@ -62,26 +62,44 @@ id<FTWebFunTypeProtocol> _webFunType;
   else {
     config.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
   }
-
+  
   
   return config;
 }
 
--(void)setupWithFunTypeDelegate:(id<FTViewProtocolDelegate> _Nonnull)funTypeDelegate {
-  NSArray *const STANDARD_MESSAGES = @[
-                                       MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR,
-                                       MESSAGE_SHOW_WEB_IMAGE_SELECTOR,
-                                       MESSAGE_SHOW_TITLE_INPUT,
-                                       MESSAGE_SHOW_FRIENDS_SELECTOR,
-                                       MESSAGE_SET_APP_DATA,
-                                       MESSAGE_SHOW_PREVIEW_WITH_DATA,
-                                       MESSAGE_JOIN,
-                                       MESSAGE_END,
-                                       MESSAGE_GET_FRIENDS,
-                                       MESSAGE_GET_BM_BALANCE,
-                                       MESSAGE_PUBLISH_STATUS
-                                       ];
+- (void) unSetup
+{
+  // remove standard messages
+  for (int i=0; i < [STANDARD_MESSAGES count]; i++){
+    NSString *message = [STANDARD_MESSAGES objectAtIndex:i];
+    [self.webView.configuration.userContentController removeScriptMessageHandlerForName:message];
+  }
+  
+  // remove messages to be handled
+  for (int i=0; i < [self.webFunType.ft_webInfo.webKitMessages count]; i++){
+    NSString *message = [STANDARD_MESSAGES objectAtIndex:i];
+    [self.webView.configuration.userContentController removeScriptMessageHandlerForName:message];
+  }
+}
 
+
+
+-(void)setupWithFunTypeDelegate:(id<FTViewProtocolDelegate> _Nonnull)funTypeDelegate {
+  
+  STANDARD_MESSAGES = @[
+                        MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR,
+                        MESSAGE_SHOW_WEB_IMAGE_SELECTOR,
+                        MESSAGE_SHOW_TITLE_INPUT,
+                        MESSAGE_SHOW_FRIENDS_SELECTOR,
+                        MESSAGE_SET_APP_DATA,
+                        MESSAGE_SHOW_PREVIEW_WITH_DATA,
+                        MESSAGE_JOIN,
+                        MESSAGE_END,
+                        MESSAGE_GET_FRIENDS,
+                        MESSAGE_GET_BM_BALANCE,
+                        MESSAGE_PUBLISH_STATUS
+                        ];
+  
   self.funTypeDelegate = funTypeDelegate;
   
   if (self.webView == nil){
@@ -122,7 +140,7 @@ id<FTWebFunTypeProtocol> _webFunType;
     
     self.webView = webView;
   }
-
+  
 }
 
 -(void)setWebFunType:(id<FTWebFunTypeProtocol>)webFunType {
@@ -186,7 +204,7 @@ id<FTWebFunTypeProtocol> _webFunType;
       NSString *joinImageUrl = dictionary[@"joinImageUrl"];
       BOOL winCriteriaPassed = [dictionary[@"winCriteriaPassed"] boolValue];
       NSDictionary *notificationItem = dictionary[@"notificationItem"];
-
+      
       [self.funTypeDelegate funTypeView:self didJoinWithId:joinId joinImageUrl:joinImageUrl winCriteriaPassed:winCriteriaPassed notificationItem:notificationItem];
     }
     else if ([messageName isEqualToString:MESSAGE_END]){
@@ -205,18 +223,18 @@ id<FTWebFunTypeProtocol> _webFunType;
       [self.funTypeDelegate funTypeView:self didRequestSelector:messageName withKey:MESSAGE_GET_FRIENDS data:nil];
     }
     else if ([messageName isEqualToString:MESSAGE_GET_BM_BALANCE]){
-        [self.funTypeDelegate funTypeView:self didRequestSelector:messageName withKey:MESSAGE_GET_BM_BALANCE data:nil];
+      [self.funTypeDelegate funTypeView:self didRequestSelector:messageName withKey:MESSAGE_GET_BM_BALANCE data:nil];
     }
     else if ([messageName isEqualToString:MESSAGE_SET_APP_DATA]){
-        id appData = dictionary[@"appData"];
-        if (appData && [appData isKindOfClass:[NSDictionary class]]) {
-            [self.funTypeDelegate funTypeView:self didSetAppData:appData];
-        }
+      id appData = dictionary[@"appData"];
+      if (appData && [appData isKindOfClass:[NSDictionary class]]) {
+        [self.funTypeDelegate funTypeView:self didSetAppData:appData];
+      }
     }
     else {
       NSString *key = dictionary[@"key"];
       NSDictionary *data = nil;
-
+      
       if ([messageName isEqualToString:MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR]){
         data = @{ @"title" : dictionary[@"title"] == nil ? @"" : dictionary[@"title"] };
       }
@@ -236,12 +254,9 @@ id<FTWebFunTypeProtocol> _webFunType;
 
 #pragma mark - WKNavigationDelegate methods
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-
-  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(DELAY_BEFORE_SHOWING_WEBVIEW_IN_SECS * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    // Unhide the webview upon loading
-    [self.activityIndicatorView stopAnimating];
-    [self.webView setHidden:NO];
-  });
+  // Unhide the webview upon loading
+  [self.activityIndicatorView stopAnimating];
+  [self.webView setHidden:NO];
   
   [self.webView evaluateJavaScript:@"document.body.style.webkitTouchCallout='none';" completionHandler:nil];
   [self.webView evaluateJavaScript:@"document.body.style.webkitUserSelect='none';" completionHandler:nil];
@@ -259,6 +274,10 @@ id<FTWebFunTypeProtocol> _webFunType;
   if (self.funTypeDelegate != nil){
     [self.funTypeDelegate funTypeView:self didFailNavigationWithError:error];
   }
+}
+
+-(void)webViewWebContentProcessDidTerminate:(WKWebView *)webView {
+  NSLog(@"Web view process terminated");
 }
 
 #pragma mark - UIScrollViewDelegate methods
