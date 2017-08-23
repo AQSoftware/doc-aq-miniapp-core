@@ -1,0 +1,30 @@
+{
+  "name": "aq-miniapp-core",
+  "version": "0.0.1",
+  "description": "AQSoft MiniApp Core JS Library",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "npm run babel",
+    "babel": "rm -rf ../../../aq-miniapp-core/src && babel ./src --out-dir=../../../aq-miniapp-core/src",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "private": true,
+  "author": "AQSoftware Inc.",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-minify": "^0.2.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "flow-bin": "^0.53.1"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "stage-0",
+      "flow",
+      "minify"
+    ]
+  }
+}
