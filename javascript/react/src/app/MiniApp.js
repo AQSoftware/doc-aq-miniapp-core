@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import {
   CloudStorage,
   MediaStorage,
-  defaultLifeCycle,
+  defaultLifeCycle
+} from 'aq-miniapp-core';
+import {
   StaticCanvas
 } from '..';
 import type { MiniAppCredentials } from '..';

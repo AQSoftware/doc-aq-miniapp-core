@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import {
   CloudStorage,
   MediaStorage,
-  defaultLifeCycle,
+  defaultLifeCycle
+} from 'aq-miniapp-core';
+import {
   StaticCanvas
 } from '..';
 import Create1 from './js/Create1';

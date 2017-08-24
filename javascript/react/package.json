@@ -4,8 +4,11 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "build": "npm run babel",
+    "build": "npm run babel && npm run copycss-1 && npm run copycss-2 && npm run copycss-3",
     "babel": "rm -rf ../../../aq-miniapp-react/src && babel ./src --out-dir=../../../aq-miniapp-react/src",
+    "copycss-1": "rm -rf ../../../aq-miniapp-react/src/components/css && cp -R ./src/components/css ../../../aq-miniapp-react/src/components/css/" ,
+    "copycss-2": "rm -rf ../../../aq-miniapp-react/src/app/css        && cp -R ./src/app/css        ../../../aq-miniapp-react/src/app/css/",
+    "copycss-3": "rm -rf ../../../aq-miniapp-react/src/nats/*.css     && cp -R ./src/nats/*.css     ../../../aq-miniapp-react/src/nats/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "private": true,
@@ -25,8 +28,7 @@
       "es2015",
       "react",
       "stage-0",
-      "flow",
-      "minify"
+      "flow"
     ]
   }
 }
