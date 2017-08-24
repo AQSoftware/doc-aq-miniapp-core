@@ -23,6 +23,7 @@ export const Messages = {
   MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR: 'showGalleryImageSelector',
   MESSAGE_SHOW_FRIENDS_SELECTOR: 'showFriendsSelector',
   MESSAGE_SET_APP_DATA: 'setAppData',
+  MESSAGE_INFORM_READY: 'informReady',
   MESSAGE_SHOW_PREVIEW_WITH_DATA: 'showPreviewWithData',
   MESSAGE_REQUEST_PREVIEW: 'requestPreview',
   MESSAGE_ON_DATA: 'onData',
@@ -59,6 +60,7 @@ type Props = {
   onEnd?: () => void,
   onRequestShowPreviewWithData?: (string, string, any) => void,
   onSetAppData?: (object) => void,
+  onReady?: () => void,
   onPublishStatus?: (boolean) => void
 }
 
@@ -71,6 +73,7 @@ export class FunTypeView extends Component {
   _onEnd: (Event) => void;
   _onRequestShowPreviewWithData: (Event) => void;
   _onSetAppData: (Event) => void;
+  _onReady: (Event) => void;
   _onEndContentEditorOutput: (Event) => void;
   _onPublishStatus: (Event) => void;
 
@@ -86,6 +89,7 @@ export class FunTypeView extends Component {
     this._onEnd = this._onEnd.bind(this);
     this._onRequestShowPreviewWithData = this._onRequestShowPreviewWithData.bind(this);
     this._onSetAppData = this._onSetAppData.bind(this);
+    this._onReady = this._onReady.bind(this);
     this._onPublishStatus = this._onPublishStatus.bind(this);
   }
 
@@ -122,6 +126,13 @@ export class FunTypeView extends Component {
       return;
     }
     this.props.onSetAppData(event.nativeEvent.appData);
+  }
+
+  _onReady(event: Event){
+    if (!this.props.onReady || !event.nativeEvent){
+      return;
+    }
+    this.props.onReady();
   }
 
   _onJoin(event: Event){
@@ -168,6 +179,7 @@ export class FunTypeView extends Component {
         onSetAppData={this._onSetAppData}
         onJoin={this._onJoin}
         onEnd={this._onEnd}
+        onReady={this._onReady}
         onRequestShowPreviewWithData={this._onRequestShowPreviewWithData}
         onPublishStatus={this._onPublishStatus}
       />
@@ -190,6 +202,7 @@ RNFunTypeView.propTypes = {
   onRequestSelector: React.PropTypes.func,
   onRequestPreviewData: React.PropTypes.func,
   onSetAppData: React.PropTypes.func,
+  onReady: React.PropTypes.func,
   onJoin: React.PropTypes.func,
   onEnd: React.PropTypes.func,
   onRequestShowPreviewWithData: React.PropTypes.func,

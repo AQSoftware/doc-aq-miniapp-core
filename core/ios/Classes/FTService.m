@@ -24,6 +24,7 @@ NSString *const MESSAGE_GET_BM_BALANCE = @"getBmBalance";
 
 // LifCycle Messages
 NSString *const MESSAGE_SET_APP_DATA = @"setAppData";
+NSString *const MESSAGE_INFORM_READY = @"informReady";
 NSString *const MESSAGE_SHOW_PREVIEW_WITH_DATA = @"showPreviewWithData";
 NSString *const MESSAGE_JOIN = @"join";
 NSString *const MESSAGE_END = @"end";

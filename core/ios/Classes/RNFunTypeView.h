@@ -21,6 +21,7 @@
 @property (nonatomic, copy) RCTDirectEventBlock _Nullable onEnd;
 @property (nonatomic, copy) RCTDirectEventBlock _Nullable onPublishStatus;
 @property (nonatomic, copy) RCTDirectEventBlock _Nullable onSetAppData;
+@property (nonatomic, copy) RCTDirectEventBlock _Nullable onReady;
 @property (nonatomic, copy) RCTDirectEventBlock _Nullable onRequestShowPreviewWithData;
 
 @property (nonatomic, weak) UIView * _Nullable subView;

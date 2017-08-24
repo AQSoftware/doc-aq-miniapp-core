@@ -17,4 +17,5 @@
 
 
 +(instancetype _Nonnull) createInstanceWithFunTypeDelegate:(id<FTViewProtocolDelegate> _Nonnull)funTypeDelegate;
+- (void) unSetup;
 @end
