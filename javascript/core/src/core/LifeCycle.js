@@ -12,6 +12,7 @@ const MESSAGE_JOIN = 'join';
 const MESSAGE_PUBLISH = 'publish';
 const MESSAGE_PUBLISH_STATUS = 'publishStatus';
 const MESSAGE_END = 'end';
+const MESSAGE_RESET = 'reset';
 
 
 type NotificationItem = {
@@ -53,6 +54,17 @@ class LifeCycle {
   */
   setOnDataCallback(callback: (value: any) => void) {
     this._callbackHelper.setCoreCallback(MESSAGE_ON_DATA, callback);
+  }
+
+  /**
+  Sets the callback function to be called when the AQ App requests the miniapp
+  to reset itself
+
+  @param {function(value: Object): void} callback - Callback function to call
+    when AQ App requests a reset
+  */
+  setOnDataCallback(callback: (value: any) => void) {
+    this._callbackHelper.setCoreCallback(MESSAGE_RESET, callback);
   }
 
   /**
