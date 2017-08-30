@@ -3,16 +3,36 @@ import Base64JS from 'base64-js';
 import uuidv1 from 'uuid/v1';
 import { CallbackHelper, defaultCallbackHelper } from './CallbackHelper';
 
-const MESSAGE_REQUEST_PREVIEW = 'requestPreview';
-const MESSAGE_ON_DATA = 'onData';
-const MESSAGE_INFORM_READY = 'informReady';
-const MESSAGE_SET_APP_DATA = 'setAppData';
-const MESSAGE_SHOW_PREVIEW_WITH_DATA = 'showPreviewWithData';
-const MESSAGE_JOIN = 'join';
-const MESSAGE_PUBLISH = 'publish';
-const MESSAGE_PUBLISH_STATUS = 'publishStatus';
-const MESSAGE_END = 'end';
-const MESSAGE_RESET = 'reset';
+// const MESSAGE_REQUEST_PREVIEW = 'requestPreview';
+// const MESSAGE_ON_DATA = 'onData';
+// const MESSAGE_INFORM_READY = 'informReady';
+// const MESSAGE_SET_APP_DATA = 'setAppData';
+// const MESSAGE_SHOW_PREVIEW_WITH_DATA = 'showPreviewWithData';
+// const MESSAGE_JOIN = 'join';
+// const MESSAGE_PUBLISH = 'publish';
+// const MESSAGE_PUBLISH_STATUS = 'publishStatus';
+// const MESSAGE_END = 'end';
+// const MESSAGE_RESET = 'reset';
+
+export const Messages = {
+  MESSAGE_SHOW_TITLE_INPUT: 'showTitleInput',
+  MESSAGE_SHOW_WEB_IMAGE_SELECTOR: 'showWebImageSelector',
+  MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR: 'showGalleryImageSelector',
+  MESSAGE_SHOW_FRIENDS_SELECTOR: 'showFriendsSelector',
+  MESSAGE_SET_APP_DATA: 'setAppData',
+  MESSAGE_INFORM_READY: 'informReady',
+  MESSAGE_SHOW_PREVIEW_WITH_DATA: 'showPreviewWithData',
+  MESSAGE_REQUEST_PREVIEW: 'requestPreview',
+  MESSAGE_ON_DATA: 'onData',
+  MESSAGE_GET_FRIENDS: 'getFriends',
+  MESSAGE_GET_BM_BALANCE: 'getBmBalance',
+  MESSAGE_PUBLISH: 'publish',
+  MESSAGE_PUBLISH_STATUS: 'publishStatus',
+  MESSAGE_JOIN: 'join',
+  MESSAGE_START: 'start',
+  MESSAGE_END: 'end',
+  MESSAGE_RESET: 'reset'
+};
 
 
 type NotificationItem = {
@@ -53,7 +73,7 @@ class LifeCycle {
     when data is available from the AQ App
   */
   setOnDataCallback(callback: (value: any) => void) {
-    this._callbackHelper.setCoreCallback(MESSAGE_ON_DATA, callback);
+    this._callbackHelper.setCoreCallback(Messages.MESSAGE_ON_DATA, callback);
   }
 
   /**
@@ -63,8 +83,8 @@ class LifeCycle {
   @param {function(value: Object): void} callback - Callback function to call
     when AQ App requests a reset
   */
-  setOnDataCallback(callback: (value: any) => void) {
-    this._callbackHelper.setCoreCallback(MESSAGE_RESET, callback);
+  setOnResetCallback(callback: (value: any) => void) {
+    this._callbackHelper.setCoreCallback(Messages.MESSAGE_RESET, callback);
   }
 
   /**
@@ -76,7 +96,7 @@ class LifeCycle {
     when the AQ App requests the current item data
   */
   setRequestPreviewCallback(callback: () => void) {
-    this._callbackHelper.setCoreCallback(MESSAGE_REQUEST_PREVIEW, callback);
+    this._callbackHelper.setCoreCallback(Messages.MESSAGE_REQUEST_PREVIEW, callback);
   }
 
   /**
@@ -92,7 +112,23 @@ class LifeCycle {
     when the AQ App requests the the miniapp to publish the data
   */
   setPublishCallback(callback: (string) => void) {
-    this._callbackHelper.setCoreCallback(MESSAGE_PUBLISH, callback);
+    this._callbackHelper.setCoreCallback(Messages.MESSAGE_PUBLISH, callback);
+  }
+
+  /**
+  Sends a message to the AQ App with optional parameters. Calling this method is generally
+  not recommended and is put here for internal development purposes.
+
+  This function will trigger the AQ App to show the preview dialogue of the mini-app,
+  eventually passing the given parameters as data for the preview.
+
+  If any of the parameters, except data, is null, the preview screen will not be shown.
+
+  @param {string} message - Name of message to send.
+  @param {string} params - Optional JSON encoded parameters specific to the message.
+  */
+  sendMessage(message: string, params: ?Object) {
+    this._saveCallbackAndProcessMessage(message, null, params);
   }
 
   /**
@@ -109,7 +145,7 @@ class LifeCycle {
   @param {Object} data - Any mini-app specific data.
   */
   showPreviewWithData(title: String, coverImageUrl: string, data: Object) {
-    this._saveCallbackAndProcessMessage(MESSAGE_SHOW_PREVIEW_WITH_DATA, null, {
+    this._saveCallbackAndProcessMessage(Messages.MESSAGE_SHOW_PREVIEW_WITH_DATA, null, {
       title: title,
       coverImageUrl: coverImageUrl,
       ...data
@@ -124,7 +160,7 @@ class LifeCycle {
   @param {Object} appData - Any mini-app specific data.
   */
   setAppData(appData: Object) {
-    this._saveCallbackAndProcessMessage(MESSAGE_SET_APP_DATA, null, {
+    this._saveCallbackAndProcessMessage(Messages.MESSAGE_SET_APP_DATA, null, {
       appData: appData
     });
   }
@@ -133,7 +169,7 @@ class LifeCycle {
   Informs the AQ App that the miniapp has been fully loaded and is ready to be operated upon.
   */
   informReady() {
-    this._saveCallbackAndProcessMessage(MESSAGE_INFORM_READY, null, null);
+    this._saveCallbackAndProcessMessage(Messages.MESSAGE_INFORM_READY, null, null);
   }
 
   /**
@@ -160,7 +196,7 @@ class LifeCycle {
     users
   */
   join(id: ?string, joinImageUrl: string, winCriteriaPassed: boolean, notificationItem: ?NotificationItem) {
-    this._saveCallbackAndProcessMessage(MESSAGE_JOIN, null, {
+    this._saveCallbackAndProcessMessage(Messages.MESSAGE_JOIN, null, {
       id: id,
       joinImageUrl: joinImageUrl,
       winCriteriaPassed: winCriteriaPassed,
@@ -169,10 +205,17 @@ class LifeCycle {
   }
 
   /**
+  Signals the AQ App that the mini app has started
+  */
+  start() {
+    this._saveCallbackAndProcessMessage(Messages.MESSAGE_START, null, null);
+  }
+
+  /**
   Ends the join screen, providing the AQ App with a caption and a join output image.
   */
   end() {
-    this._saveCallbackAndProcessMessage(MESSAGE_END, null, null);
+    this._saveCallbackAndProcessMessage(Messages.MESSAGE_END, null, null);
   }
 
   /**
@@ -180,7 +223,7 @@ class LifeCycle {
 
   */
   publishSucceded(){
-    this._saveCallbackAndProcessMessage(MESSAGE_PUBLISH_STATUS, null, {
+    this._saveCallbackAndProcessMessage(Messages.MESSAGE_PUBLISH_STATUS, null, {
       status: true
     });
   }
@@ -189,7 +232,7 @@ class LifeCycle {
   Informs the AQ App that publishing failed
   */
   publishFailed(){
-    this._saveCallbackAndProcessMessage(MESSAGE_PUBLISH_STATUS, null, {
+    this._saveCallbackAndProcessMessage(Messages.MESSAGE_PUBLISH_STATUS, null, {
       status: false
     });
   }
