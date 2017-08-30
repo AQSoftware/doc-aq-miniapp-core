@@ -64,7 +64,7 @@ type Props = {
   onSetAppData?: (object) => void,
   onReady?: () => void,
   onPublishStatus?: (boolean) => void,
-  onMessage?: (?Object) => void
+  onMessage?: (?Object) => void,
   onLoadProgress?: (?number) => void
 }
 
@@ -205,7 +205,7 @@ export class FunTypeView extends Component {
         onRequestShowPreviewWithData={this._onRequestShowPreviewWithData}
         onPublishStatus={this._onPublishStatus}
         onMessage={this._onMessage}
-        onLoadProgress=(this._onLoadProgress)
+        onLoadProgress={this._onLoadProgress}
       />
     )
   }
