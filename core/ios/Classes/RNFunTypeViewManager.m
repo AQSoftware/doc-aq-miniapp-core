@@ -33,6 +33,7 @@ RCT_EXPORT_VIEW_PROPERTY(onPublishStatus, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onSetAppData, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onReady, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onRequestShowPreviewWithData, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onMessage, RCTDirectEventBlock)
 
 
 RCT_CUSTOM_VIEW_PROPERTY(mode, NSString*, UIView){

@@ -9,6 +9,7 @@
 #import "RNFunTypeView.h"
 #import <RNMiniAppCore/RNMiniAppCore.h>
 #import "FTWebView.h"
+#import "FTMacros.h"
 
 @interface RNFunTypeView() <FTViewProtocolDelegate>
 
@@ -21,7 +22,7 @@ __strong UIView *_subView;
     // Remove all subviews first
     for (int i=0; i<[[self subviews]count]; i++){
         UIView *view = self.subviews[i];
-        if ([view isKindOfClass:[FTWebView class]]){
+        if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0") && [view isKindOfClass:[FTWebView class]]){
             [((FTWebView *)view) unSetup];
         }
         [view removeFromSuperview];
@@ -44,7 +45,7 @@ __strong UIView *_subView;
         // Remove all subviews first
         for (int i=0; i<[[self subviews]count]; i++){
             UIView *view = self.subviews[i];
-            if ([view isKindOfClass:[FTWebView class]]){
+            if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0") && [view isKindOfClass:[FTWebView class]]){
                 [((FTWebView *)view) unSetup];
             }
             [view removeFromSuperview];
@@ -181,6 +182,10 @@ __strong UIView *_subView;
 
 -(void)funTypeViewDidEnd:(id<FTViewProtocol>)funTypeView {
     self.onEnd(nil);
+}
+
+-(void)funTypeView:(id<FTViewProtocol>)funTypeView didReceiveMessage:(NSString *)message params:(NSDictionary *)params {
+    self.onMessage(params);
 }
 
 

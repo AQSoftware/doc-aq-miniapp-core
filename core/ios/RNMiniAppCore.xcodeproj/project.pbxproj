@@ -81,6 +81,7 @@
 		E3270AF61EFA56CC00F6BB1A /* RNFunTypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNFunTypeView.m; sourceTree = "<group>"; };
 		E3270AF71EFA56CC00F6BB1A /* RNFunTypeViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNFunTypeViewManager.h; sourceTree = "<group>"; };
 		E3270AF81EFA56CC00F6BB1A /* RNFunTypeViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNFunTypeViewManager.m; sourceTree = "<group>"; };
+		E379E2501F5659420047991B /* FTMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FTMacros.h; sourceTree = "<group>"; };
 		E3D1D2D01EF904AF00B8CD54 /* FTCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCommon.h; sourceTree = "<group>"; };
 		E3D1D2D11EF904AF00B8CD54 /* FTCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCommon.m; sourceTree = "<group>"; };
 		E3D1D2D21EF904AF00B8CD54 /* FTNativeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNativeView.h; sourceTree = "<group>"; };
@@ -138,6 +139,7 @@
 			children = (
 				E3D1D2D01EF904AF00B8CD54 /* FTCommon.h */,
 				E3D1D2D11EF904AF00B8CD54 /* FTCommon.m */,
+				E379E2501F5659420047991B /* FTMacros.h */,
 				E3DE22AE1EFB6C5A00E5BC23 /* FTMessages.h */,
 				E3D1D2D21EF904AF00B8CD54 /* FTNativeView.h */,
 				E3D1D2D31EF904AF00B8CD54 /* FTNativeView.m */,

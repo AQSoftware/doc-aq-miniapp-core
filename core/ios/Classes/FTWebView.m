@@ -9,14 +9,8 @@
 #import "FTWebView.h"
 #import "FTViewProtocolDelegate.h"
 #import "FTMessages.h"
+#import "FTMacros.h"
 #import <WebKit/WebKit.h>
-
-#define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
-#define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
-#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
-#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
-#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
-
 
 
 @interface FTWebView() <WKScriptMessageHandler, WKNavigationDelegate, UIScrollViewDelegate>
@@ -46,6 +40,14 @@ NSArray *STANDARD_MESSAGES;
     rootObjects = nil;
     [webView setupWithFunTypeDelegate:funTypeDelegate];
     return webView;
+}
+
+-(void)dealloc {
+    // Remove KVO Observer
+    @try {
+        [self.webView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress))];
+    }
+    @catch (NSException * __unused exception) {}
 }
 
 -(WKWebViewConfiguration* _Nonnull)webConfigurationWithContenController:(WKUserContentController *)contentController {
@@ -95,6 +97,7 @@ NSArray *STANDARD_MESSAGES;
                           MESSAGE_INFORM_READY,
                           MESSAGE_SHOW_PREVIEW_WITH_DATA,
                           MESSAGE_JOIN,
+                          MESSAGE_START,
                           MESSAGE_END,
                           MESSAGE_GET_FRIENDS,
                           MESSAGE_GET_BM_BALANCE,
@@ -138,6 +141,12 @@ NSArray *STANDARD_MESSAGES;
         
         // Initially hide the webview until content loads
         [webView setHidden:YES];
+        
+        // Add KVO Observer for estimatedProgress
+        [webView addObserver:self
+                  forKeyPath:NSStringFromSelector(@selector(estimatedProgress))
+                     options:NSKeyValueObservingOptionNew
+                     context:NULL];
         
         self.webView = webView;
     }
@@ -251,6 +260,10 @@ NSArray *STANDARD_MESSAGES;
             if (key != nil && messageName != nil) {
                 [self.funTypeDelegate funTypeView:self didRequestSelector:messageName withKey:key data:data];
             }
+            else {
+                [self.funTypeDelegate funTypeView:self didReceiveMessage:messageName params:dictionary];
+            }
+            
         }
     }
 }
@@ -259,6 +272,7 @@ NSArray *STANDARD_MESSAGES;
 #pragma mark - WKNavigationDelegate methods
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     // Unhide the webview upon loading
+    NSLog(@"loaded %f", self.webView.estimatedProgress);
     [self.activityIndicatorView stopAnimating];
     [self.webView setHidden:NO];
     
@@ -289,5 +303,22 @@ NSArray *STANDARD_MESSAGES;
     return nil;
 }
 
+#pragma mark - Key Value Observing
 
+-(void)observeValueForKeyPath:(NSString *)keyPath
+                     ofObject:(id)object
+                       change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                      context:(void *)context {
+    
+    if ([keyPath isEqualToString:NSStringFromSelector(@selector(estimatedProgress))] && object == self.webView) {
+        NSLog(@"progress %f", self.webView.estimatedProgress);
+        // estimatedProgress is a value from 0.0 to 1.0
+        // Update your UI here accordingly
+    }
+    else {
+        // Make sure to call the superclass's implementation in the else block in case it is also implementing KVO
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+    
+}
 @end

@@ -11,10 +11,10 @@ import invariant from 'invariant';
 import React, {Component} from 'react';
 import { findNodeHandle, requireNativeComponent, Event, NativeModules } from 'react-native';
 
-export const MESSAGE_SHOW_TITLE_INPUT = 'showTitleInput';
-export const MESSAGE_SHOW_WEB_IMAGE_SELECTOR = 'showWebImageSelector';
-export const MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR = 'showGalleryImageSelector';
-export const MESSAGE_SHOW_FRIENDS_SELECTOR = 'showFriendsSelector';
+// export const MESSAGE_SHOW_TITLE_INPUT = 'showTitleInput';
+// export const MESSAGE_SHOW_WEB_IMAGE_SELECTOR = 'showWebImageSelector';
+// export const MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR = 'showGalleryImageSelector';
+// export const MESSAGE_SHOW_FRIENDS_SELECTOR = 'showFriendsSelector';
 export const MESSAGE_SHOW_PREVIEW_WITH_DATA = 'showPreviewWithData';
 
 export const Messages = {
@@ -32,7 +32,9 @@ export const Messages = {
   MESSAGE_PUBLISH: 'publish',
   MESSAGE_PUBLISH_STATUS: 'publishStatus',
   MESSAGE_JOIN: 'join',
-  MESSAGE_END: 'end'
+  MESSAGE_START: 'start',
+  MESSAGE_END: 'end',
+  MESSAGE_RESET: 'reset'
 };
 
 export type NotificationItem = {
@@ -61,7 +63,8 @@ type Props = {
   onRequestShowPreviewWithData?: (string, string, any) => void,
   onSetAppData?: (object) => void,
   onReady?: () => void,
-  onPublishStatus?: (boolean) => void
+  onPublishStatus?: (boolean) => void,
+  onMessage?: (?Object) => void
 }
 
 export class FunTypeView extends Component {
@@ -76,6 +79,7 @@ export class FunTypeView extends Component {
   _onReady: (Event) => void;
   _onEndContentEditorOutput: (Event) => void;
   _onPublishStatus: (Event) => void;
+  _onMessage: (Event) => void;
 
   funTypeView: RNFunTypeView;
 
@@ -91,6 +95,7 @@ export class FunTypeView extends Component {
     this._onSetAppData = this._onSetAppData.bind(this);
     this._onReady = this._onReady.bind(this);
     this._onPublishStatus = this._onPublishStatus.bind(this);
+    this._onMessage = this._onMessage.bind(this);
   }
 
   _onLoad(event: Event){
@@ -163,6 +168,13 @@ export class FunTypeView extends Component {
     this.props.onPublishStatus(event.nativeEvent.status);
   }
 
+  _onMessage(event: Event){
+    if (!this.props.onMessage || !event.nativeEvent){
+      return;
+    }
+    this.props.onMessage(event.nativeEvent);
+  }
+
   triggerCallback(message: string, key: string, value: any){
     RNFunTypeViewManager.triggerViewCallbackWithTag(findNodeHandle(this.funTypeView), message, key, value);
   }
@@ -182,6 +194,7 @@ export class FunTypeView extends Component {
         onReady={this._onReady}
         onRequestShowPreviewWithData={this._onRequestShowPreviewWithData}
         onPublishStatus={this._onPublishStatus}
+        onMessage={this._onMessage}
       />
     )
   }
@@ -206,5 +219,6 @@ RNFunTypeView.propTypes = {
   onJoin: React.PropTypes.func,
   onEnd: React.PropTypes.func,
   onRequestShowPreviewWithData: React.PropTypes.func,
-  onPublishStatus: React.PropTypes.func
+  onPublishStatus: React.PropTypes.func,
+  onMessage: React.PropTypes.func
 };
