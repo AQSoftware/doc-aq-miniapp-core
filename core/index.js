@@ -65,6 +65,7 @@ type Props = {
   onReady?: () => void,
   onPublishStatus?: (boolean) => void,
   onMessage?: (?Object) => void
+  onLoadProgress?: (?number) => void
 }
 
 export class FunTypeView extends Component {
@@ -80,6 +81,7 @@ export class FunTypeView extends Component {
   _onEndContentEditorOutput: (Event) => void;
   _onPublishStatus: (Event) => void;
   _onMessage: (Event) => void;
+  _onLoadProgress: (Event) => void;
 
   funTypeView: RNFunTypeView;
 
@@ -96,6 +98,7 @@ export class FunTypeView extends Component {
     this._onReady = this._onReady.bind(this);
     this._onPublishStatus = this._onPublishStatus.bind(this);
     this._onMessage = this._onMessage.bind(this);
+    this._onLoadProgress = this._onLoadProgress.bind(this);
   }
 
   _onLoad(event: Event){
@@ -175,6 +178,13 @@ export class FunTypeView extends Component {
     this.props.onMessage(event.nativeEvent);
   }
 
+  _onLoadProgress(event: Event){
+    if (!this.props.onLoadProgress || !event.nativeEvent){
+      return;
+    }
+    this.props.onLoadProgress(event.nativeEvent.progress);
+  }
+
   triggerCallback(message: string, key: string, value: any){
     RNFunTypeViewManager.triggerViewCallbackWithTag(findNodeHandle(this.funTypeView), message, key, value);
   }
@@ -195,6 +205,7 @@ export class FunTypeView extends Component {
         onRequestShowPreviewWithData={this._onRequestShowPreviewWithData}
         onPublishStatus={this._onPublishStatus}
         onMessage={this._onMessage}
+        onLoadProgress=(this._onLoadProgress)
       />
     )
   }
@@ -220,5 +231,6 @@ RNFunTypeView.propTypes = {
   onEnd: React.PropTypes.func,
   onRequestShowPreviewWithData: React.PropTypes.func,
   onPublishStatus: React.PropTypes.func,
-  onMessage: React.PropTypes.func
+  onMessage: React.PropTypes.func,
+  onLoadProgress: React.PropTypes.func
 };

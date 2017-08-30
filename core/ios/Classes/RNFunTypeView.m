@@ -185,10 +185,17 @@ __strong UIView *_subView;
 }
 
 -(void)funTypeView:(id<FTViewProtocol>)funTypeView didReceiveMessage:(NSString *)message params:(NSDictionary *)params {
-    self.onMessage(params);
+    self.onMessage(@{
+                     @"message": message,
+                     @"params": params
+                     });
 }
 
 
-
+-(void)funTypeView:(id<FTViewProtocol>)funTypeView loadProgress:(double)progress {
+    self.onLoadProgress(@{
+                          @"progress" : @(progress)
+                          });
+}
 
 @end

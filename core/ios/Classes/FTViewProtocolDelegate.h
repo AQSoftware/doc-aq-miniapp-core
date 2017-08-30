@@ -27,6 +27,7 @@
 -(void)funTypeView:(id<FTViewProtocol> _Nonnull)funTypeView didSetAppData:(NSDictionary * _Nonnull)appData;
 -(void)funTypeViewDidInformReady:(id<FTViewProtocol> _Nonnull)funTypeView;
 -(void)funTypeView:(id<FTViewProtocol> _Nonnull)funTypeView didReceiveMessage:(NSString * _Nonnull)message params:(NSDictionary * _Nullable)params;
+-(void)funTypeView:(id<FTViewProtocol> _Nonnull)funTypeView loadProgress:(double)progress;
 
 @end
 

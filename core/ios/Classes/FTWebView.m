@@ -272,7 +272,6 @@ NSArray *STANDARD_MESSAGES;
 #pragma mark - WKNavigationDelegate methods
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     // Unhide the webview upon loading
-    NSLog(@"loaded %f", self.webView.estimatedProgress);
     [self.activityIndicatorView stopAnimating];
     [self.webView setHidden:NO];
     
@@ -312,8 +311,7 @@ NSArray *STANDARD_MESSAGES;
     
     if ([keyPath isEqualToString:NSStringFromSelector(@selector(estimatedProgress))] && object == self.webView) {
         NSLog(@"progress %f", self.webView.estimatedProgress);
-        // estimatedProgress is a value from 0.0 to 1.0
-        // Update your UI here accordingly
+        [self.funTypeDelegate funTypeView:self loadProgress:self.webView.estimatedProgress];
     }
     else {
         // Make sure to call the superclass's implementation in the else block in case it is also implementing KVO
