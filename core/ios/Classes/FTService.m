@@ -41,6 +41,7 @@ NSString *const MESSAGE_PUBLISH_STATUS = @"publishStatus";
 @implementation FTService
 
 NSMutableDictionary *_factory, *_createWebFunTypeControllers;
+FTDownloader *_downloader;
 FTFunType *_currentlyDownloadingFunType;
 void (^_downloadCompletion)(NSError * _Nullable);
 void (^_downloadProgress)(float);
@@ -59,6 +60,7 @@ void (^_downloadProgress)(float);
   if (self){
     _factory = [[NSMutableDictionary alloc]initWithCapacity:10];
     _createWebFunTypeControllers = [[NSMutableDictionary alloc]initWithCapacity:10];
+    _downloader = [[FTDownloader alloc]initWithDelegate:self];
   }
   return self;
 }
@@ -70,10 +72,12 @@ void (^_downloadProgress)(float);
 
 - (NSURL *)resolvedUrlForFunType:(FTFunType *)funType {
   if (funType.packageFileUrl) {
-    NSString *urlString = [NSString stringWithFormat:@"%@/%@_%@/index.html", self.funTypeWebRoot, funType.name, funType.packageFileHash];
+    NSString *urlString = [NSString stringWithFormat:@"%@/%@_%@/index.html", self.funTypeWebRoot, funType.funTypeId, funType.packageFileHash];
+    NSLog(@"resolvedUrlForFunType = %@", urlString);
     return [NSURL URLWithString:urlString];
   }
   else {
+    NSLog(@"resolvedUrlForFunType = %@", funType.webUrl.absoluteString);
     return funType.webUrl;
   }
 }
@@ -113,13 +117,13 @@ void (^_downloadProgress)(float);
       webView.webFunType = webFunType;
       
       return webView;
-//      FTWebFunType *webFunType = [[FTWebFunType alloc]initWithId:funType.funTypeId url:funType.webUrl];
-//      FTFunTypeWebController *controller = [[FTFunTypeWebController alloc]init:webFunType];
-//      controller.delegate = self;
-//      [_createWebFunTypeControllers setObject:controller forKey:funType.funTypeId];
+      //      FTWebFunType *webFunType = [[FTWebFunType alloc]initWithId:funType.funTypeId url:funType.webUrl];
+      //      FTFunTypeWebController *controller = [[FTFunTypeWebController alloc]init:webFunType];
+      //      controller.delegate = self;
+      //      [_createWebFunTypeControllers setObject:controller forKey:funType.funTypeId];
       
       
-//      return controller.view;
+      //      return controller.view;
     }
       break;
     default:
@@ -127,13 +131,13 @@ void (^_downloadProgress)(float);
       return [[UIView alloc]init];
       
       break;
-
+      
   }
 }
 
 - (FTFunTypeDownloadEnum) isFunTypeDownloaded:(FTFunType* _Nonnull)funType {
   NSFileManager *fileManager = [NSFileManager defaultManager];
-
+  
   if (self.funTypePath == nil) {
     NSException *exception = [NSException exceptionWithName:@"FunTypePathNotSetException"
                                                      reason:@"funTypePath is not set"
@@ -145,7 +149,7 @@ void (^_downloadProgress)(float);
     return kOnline;
   }
   else {
-    NSString *funTypePath = [NSString stringWithFormat:@"%@/%@_%@", self.funTypePath, funType.name, funType.packageFileHash];
+    NSString *funTypePath = [NSString stringWithFormat:@"%@/%@_%@", self.funTypePath, funType.funTypeId, funType.packageFileHash];
     return [fileManager fileExistsAtPath:funTypePath] ? kInAppDownloaded : kInAppNotDownloaded;
   }
   
@@ -165,12 +169,12 @@ void (^_downloadProgress)(float);
   _downloadCompletion = completion;
   _downloadProgress = progress;
   
-  FTDownloader *downloader = [[FTDownloader alloc]initWithDelegate:self];
-  NSString *path = [NSString stringWithFormat:@"%@%@_%@_tmp.zip", NSTemporaryDirectory(), funType.name, funType.packageFileHash];
+  
+  NSString *path = [NSString stringWithFormat:@"%@%@_%@_tmp.zip", NSTemporaryDirectory(), funType.funTypeId, funType.packageFileHash];
   NSLog(@"Path = %@", path);
-  [downloader downloadFileFromUrl:[NSURL URLWithString:funType.packageFileUrl.absoluteString]
-                           toPath:path
-                     withSHA1Hash:funType.packageFileHash];
+  [_downloader downloadFileFromUrl:[NSURL URLWithString:funType.packageFileUrl.absoluteString]
+                            toPath:path
+                      withSHA1Hash:funType.packageFileHash];
   
 }
 
@@ -180,7 +184,7 @@ void (^_downloadProgress)(float);
   NSLog(@"Successfully downloaded to %@", path);
   
   // Unzip
-  NSString *webRootPath = [NSString stringWithFormat:@"%@/%@_%@", self.funTypePath, _currentlyDownloadingFunType.name, _currentlyDownloadingFunType.packageFileHash];
+  NSString *webRootPath = [NSString stringWithFormat:@"%@/%@_%@", self.funTypePath, _currentlyDownloadingFunType.funTypeId, _currentlyDownloadingFunType.packageFileHash];
   [SSZipArchive unzipFileAtPath:path toDestination:webRootPath];
   
   _currentlyDownloadingFunType = nil;

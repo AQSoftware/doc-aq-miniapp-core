@@ -28,12 +28,28 @@ NSString *const FTDownloaderErrorDomain = @"FTDownloaderErrorDomain";
 CC_SHA1_CTX hashObject;
 NSURL *tmpUrl;
 NSInputStream *iStream;
+NSURLSession *_defaultSession;
 
 - (instancetype)initWithDelegate:(id<FTDownloaderDelegate>)delegate {
   self = [[FTDownloader alloc]init];
   if (self) {
     self.delegate = delegate;
-    CC_SHA1_Init(&hashObject);
+    
+    
+    //  NSURLSessionConfiguration *defaultConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSessionConfiguration *defaultConfiguration = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier: @"FTDownloader"];
+    
+    NSString *cachesDirectory = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
+    NSString *cachePath = [cachesDirectory stringByAppendingPathComponent:@"FTDownloader"];
+    
+    NSURLCache *cache = [[NSURLCache alloc] initWithMemoryCapacity:16384 diskCapacity:268435456 diskPath:cachePath];
+    defaultConfiguration.URLCache = cache;
+    defaultConfiguration.requestCachePolicy = NSURLRequestUseProtocolCachePolicy;
+    
+    NSOperationQueue *operationQueue = [NSOperationQueue mainQueue];
+    
+    _defaultSession = [NSURLSession sessionWithConfiguration:defaultConfiguration delegate:self delegateQueue:operationQueue];
+    
   }
   return self;
 }
@@ -44,26 +60,15 @@ NSInputStream *iStream;
   self.url = url;
   self.fileHash = hash;
   
-//  NSURLSessionConfiguration *defaultConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-  NSURLSessionConfiguration *defaultConfiguration = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier: @"FTDownloader"];
   
-  NSString *cachesDirectory = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
-  NSString *cachePath = [cachesDirectory stringByAppendingPathComponent:@"FTDownloader"];
-  
-  NSURLCache *cache = [[NSURLCache alloc] initWithMemoryCapacity:16384 diskCapacity:268435456 diskPath:cachePath];
-  defaultConfiguration.URLCache = cache;
-  defaultConfiguration.requestCachePolicy = NSURLRequestUseProtocolCachePolicy;
-  
-  NSOperationQueue *operationQueue = [NSOperationQueue mainQueue];
-  
-  NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration:defaultConfiguration delegate:self delegateQueue:operationQueue];
-  
-  NSURLSessionDownloadTask *downloadTask = [defaultSession downloadTaskWithURL:url];
+  NSURLSessionDownloadTask *downloadTask = [_defaultSession downloadTaskWithURL:url];
   [downloadTask resume];
   
 }
 
 -(void)checkFileHash {
+  
+  CC_SHA1_Init(&hashObject);
   
   // Read file as stream
   iStream = [[NSInputStream alloc]initWithFileAtPath:self.downloadPath];
@@ -83,7 +88,7 @@ NSInputStream *iStream;
   // Remove file, if present
   [self removeFileAtDestination];
   [[NSFileManager defaultManager] copyItemAtURL:url toURL:destUrl error:error];
-
+  
 }
 
 #pragma mark NSStreamDelegate methods
@@ -110,7 +115,7 @@ NSInputStream *iStream;
         [output appendFormat:@"%02x", digest[i]];
       
       if ([[output lowercaseString] isEqualToString:self.fileHash]) {
-        [self.delegate downloader:self didFinishDownloadingUrlToPath:self.downloadPath];        
+        [self.delegate downloader:self didFinishDownloadingUrlToPath:self.downloadPath];
       }
       else if ([self.delegate respondsToSelector:@selector(downloader:didCompleteWithError:)]) {
         
