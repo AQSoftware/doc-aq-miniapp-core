@@ -9,8 +9,8 @@
 #import "ViewController.h"
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-
 #import <RNMiniAppCore/RNMiniAppCore.h>
+#import "Globals.h"
 
 @interface ViewController () <FTViewProtocolDelegate>
 
@@ -21,51 +21,126 @@
 
 -(void)loadView {
   
-//
-////  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-////  NSString *documentsDirectory = [paths objectAtIndex:0];
-////  NSString *databasePath = [documentsDirectory stringByAppendingString:@"/funtype.jsbundle"];
-////
-////
-////  [self copyFunTypeBundle:databasePath];
-//
-////  NSURL *jsCodeLocation = [NSURL URLWithString:@"https://s3.amazonaws.com/bengga-web-funtypes/funtype.jsbundle"];
-////  NSURL *jsCodeLocation = [NSURL URLWithString:@"http://localhost:8000/funtype.jsbundle"];
-//  NSURL *jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true&minify=false"];
-////  NSURL *jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
-////  NSURL *jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"funtype" withExtension:@"jsbundle"];
-//
-//
-//  RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
-//                                                      moduleName:@"FunType"
-//                                               initialProperties:nil
-//                                                   launchOptions:launchOptions];
+  UIActivityIndicatorView *progressView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+  [progressView startAnimating];
   
+  UIView *rootView = [[UIView alloc]initWithFrame:CGRectZero];
+  [rootView addSubview:progressView];
   
-  FTFunType *funType = [[FTFunType alloc]init];
-  funType.funTypeId = @"1234";
-  funType.type = kExternalNative;
-  //  funType.webUrl = [NSURL URLWithString:@"http://bengga-web-funtypes.s3-website-us-east-1.amazonaws.com/hotstuff/?action=join&id=1234"];
-  //  funType.webUrl = [NSURL URLWithString:@"http://bengga-web-funtypes.s3-website-us-east-1.amazonaws.com/hotstuff_pass_the_ball/"];
-  funType.name = @"template";
-  //  funType.webUrl = [NSURL URLWithString:@"https://s3.amazonaws.com/bengga-web-funtypes/funtype.jsbundle"];
-  funType.webUrl = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true&minify=false"];
+  // Setup autolayout constraints to fill the parent
+  NSDictionary *views = NSDictionaryOfVariableBindings(progressView);
+  NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[progressView]-0-|" options:0 metrics:nil views:views];
+  NSArray *verticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[progressView]-0-|" options:0 metrics:nil views:views];
   
+  [rootView addConstraints:horizontalConstraints];
+  [rootView addConstraints:verticalConstraints];
   
-  UIView *rootView = [[FTService sharedInstance] createFunTypeView:funType
+  self.view = rootView;
+}
+
+-(void)setFunTypeViewWithFunType:(FTFunType *)funType {
+  UIView *funTypeView = [[FTService sharedInstance] createFunTypeView:funType
                                                           withMode:kJoin
                                                       engagementId:@"vUSNmnCcQMusV1Y-Wk8Tow"
                                                    funTypeDelegate:self];
   
-  rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
+  funTypeView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
   
-  self.view = rootView;
+  
+  // Add as subview
+  [self.view addSubview:funTypeView];
+  funTypeView.frame = self.view.bounds;
+  
+  // Setup autolayout constraints to fill the parent
+  NSDictionary *views = NSDictionaryOfVariableBindings(funTypeView);
+  NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[funTypeView]-0-|" options:0 metrics:nil views:views];
+  NSArray *verticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[funTypeView]-0-|" options:0 metrics:nil views:views];
+  
+  [self.view addConstraints:horizontalConstraints];
+  [self.view addConstraints:verticalConstraints];
+  
 }
 
 
 - (void)viewDidLoad {
   [super viewDidLoad];
   // Do any additional setup after loading the view, typically from a nib.
+  
+  
+  
+  //
+  ////  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+  ////  NSString *documentsDirectory = [paths objectAtIndex:0];
+  ////  NSString *databasePath = [documentsDirectory stringByAppendingString:@"/funtype.jsbundle"];
+  ////
+  ////
+  ////  [self copyFunTypeBundle:databasePath];
+  //
+  ////  NSURL *jsCodeLocation = [NSURL URLWithString:@"https://s3.amazonaws.com/bengga-web-funtypes/funtype.jsbundle"];
+  ////  NSURL *jsCodeLocation = [NSURL URLWithString:@"http://localhost:8000/funtype.jsbundle"];
+  //  NSURL *jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true&minify=false"];
+  ////  NSURL *jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+  ////  NSURL *jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"funtype" withExtension:@"jsbundle"];
+  //
+  //
+  //  RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
+  //                                                      moduleName:@"FunType"
+  //                                               initialProperties:nil
+  //                                                   launchOptions:launchOptions];
+  
+  
+  FTService *funTypeService = [FTService sharedInstance];
+  
+  funTypeService.funTypePath = [[Globals sharedInstance] webRootPath];
+  funTypeService.funTypeWebRoot = [[Globals sharedInstance] webRoot];
+  
+  
+  FTFunType *funType = [[FTFunType alloc]init];
+  funType.funTypeId = @"1234";
+  funType.type = kExternalWebBased;
+  //  funType.webUrl = [NSURL URLWithString:@"http://bengga-web-funtypes.s3-website-us-east-1.amazonaws.com/hotstuff/?action=join&id=1234"];
+  //  funType.webUrl = [NSURL URLWithString:@"http://bengga-web-funtypes.s3-website-us-east-1.amazonaws.com/hotstuff_pass_the_ball/"];
+  funType.name = @"template";
+  //  funType.webUrl = [NSURL URLWithString:@"https://s3.amazonaws.com/bengga-web-funtypes/funtype.jsbundle"];
+  //  funType.webUrl = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true&minify=false"];
+  //  funType.webUrl = [NSURL URLWithString:@"http://localhost:4000/bubble_wrap_1b5a186c0ad70d4efad08719ec94cef67e24fd73/index.html"];
+  funType.webUrl = [NSURL URLWithString:@"http://bengga-web-funtypes.s3-website-us-east-1.amazonaws.com/production/horseman/"];
+  funType.packageFileUrl = [NSURL URLWithString:@"https://s3.amazonaws.com/bengga-web-funtypes/staging/horseman/horseman.zip"];
+  funType.packageFileHash = @"1b5a186c0ad70d4efad08719ec94cef67e24fd73";
+  
+  
+  //
+  
+  __weak ViewController *weakSelf = self;
+  
+  switch ([funTypeService isFunTypeDownloaded:funType]) {
+    case kOnline:
+    case kInAppDownloaded:
+      [self setFunTypeViewWithFunType:funType];
+      break;
+    case kInAppNotDownloaded:
+      [funTypeService downloadFunType:funType
+                             progress:^(float progress) {
+                               NSLog(@"Progress %f", progress);
+                             } completion:^(NSError * _Nullable error) {
+                               if (error) {
+                                 NSLog(@"Unable to download the %@ fun type.", funType.name);
+                               }
+                               else {
+                                 [weakSelf setFunTypeViewWithFunType:funType];
+                               }
+                             }];
+      break;
+  }
+  
+//  FTDownloader *downloader = [[FTDownloader alloc]initWithDelegate:self];
+//  NSString *path = [NSString stringWithFormat:@"%@test.zip", NSTemporaryDirectory()];
+//  NSLog(@"Path = %@", path);
+//  NSString *hash = @"1b5a186c0ad70d4efad08719ec94cef67e24fd73";
+//  [downloader downloadFileFromUrl:[NSURL URLWithString:@"https://s3.amazonaws.com/bengga-web-funtypes/staging/horseman/horseman.zip"]
+//                           toPath:path
+//                    withSHA1Hash:hash];
+  
 }
 
 
@@ -88,16 +163,39 @@
   
 }
 
+//#pragma mark - FTDownloaderDelegate methods 
+//
+//-(void)downloader:(FTDownloader *)downloader didFinishDownloadingUrlToPath:(NSString *)path {
+//  NSLog(@"Successfully downloaded to %@", path);
+//  
+//  // Unzip 
+//  NSString *hash = @"1b5a186c0ad70d4efad08719ec94cef67e24fd73";
+//  NSString *webRootPath = [NSString stringWithFormat:@"%@/bubble_wrap_%@", [[Globals sharedInstance]webRoot], hash];
+//  [SSZipArchive unzipFileAtPath:path toDestination:webRootPath];
+//  
+//}
+//
+//-(void)downloader:(FTDownloader *)downloader didCompleteWithError:(NSError *)error {
+//  NSLog(@"Unable to download: %@", [error description]);
+//}
+//
+//-(void)downloader:(FTDownloader *)downloader didDownloadProgress:(float)progress {
+//  NSLog(@"Download progress %f", progress);
+//}
+
 #pragma mark - FTViewProtocolDelegate methods
 
 -(void)funTypeViewDidLoad:(id<FTViewProtocol> _Nonnull)funTypeView
 {
   NSLog(@"funTypeViewDidLoad");
+  
+  [funTypeView sendResultFromMessage:@"onData" key:@"default" value:@{}];
 }
+
 
 -(void)funTypeView:(id<FTViewProtocol> _Nonnull)funTypeView didFailNavigationWithError:(NSError * _Nonnull)error
 {
-  NSLog(@"didFailNavigationWithError");
+  NSLog(@"didFailNavigationWithError %@", [error description]);
 }
 
 -(void)funTypeView:(id<FTViewProtocol> _Nonnull)funTypeView didRequestSelector:(NSString * _Nonnull)selector
@@ -146,8 +244,20 @@
 }
 
 
+-(void)funTypeViewDidInformReady:(id<FTViewProtocol>)funTypeView {
+  NSLog(@"funTypeViewDidInformReady");
+}
 
+-(void)funTypeView:(id<FTViewProtocol>)funTypeView didReceiveMessage:(NSString *)message params:(NSDictionary *)params {
+  NSLog(@"didReceiveMessage message=%@ params=%@", message, params);
+}
 
+-(void)funTypeView:(id<FTViewProtocol>)funTypeView didSetAppData:(NSDictionary *)appData {
+  NSLog(@"didSetAppData appData=%@", appData);
+}
 
+-(void)funTypeView:(id<FTViewProtocol>)funTypeView loadProgress:(double)progress {
+ NSLog(@"loadProgress appData=%f", progress);
+}
 
 @end

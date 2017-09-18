@@ -18,6 +18,9 @@
 
 __strong UIView *_subView;
 
+float funTypeDownloadProgress = 0;
+float funTypeLoadProgress = 0;
+
 -(void)dealloc {
     // Remove all subviews first
     for (int i=0; i<[[self subviews]count]; i++){
@@ -75,27 +78,60 @@ __strong UIView *_subView;
     else return nil;
 }
 
+- (float)normalizedLoadProgress {
+  return (funTypeDownloadProgress + funTypeLoadProgress) / 2.0;
+}
+
 - (void)updateContent {
-    
+  
+  FTService *funTypeService = [FTService sharedInstance];
+  __weak RNFunTypeView *weakSelf = self;
+  
+  
     if (self.funType != nil && self.mode != nil) {
-        
-        FTFunTypeMode mode;
-        if ([self.mode isEqualToString:@"join"]) {
+      
+      switch ([funTypeService isFunTypeDownloaded:self.funType]) {
+        case kOnline:
+        case kInAppDownloaded: {
+          funTypeDownloadProgress = 1.0;
+          FTFunTypeMode mode;
+          if ([self.mode isEqualToString:@"join"]) {
             mode = kJoin;
-        }
-        else if ([self.mode isEqualToString:@"preview"]) {
+          }
+          else if ([self.mode isEqualToString:@"preview"]) {
             mode = kPreview;
-        }
-        else {
+          }
+          else {
             mode = kCreate;
+          }
+          
+          UIView *subView = [[FTService sharedInstance] createFunTypeView:self.funType
+                                                                 withMode:mode
+                                                             engagementId:self.engagementId
+                                                          funTypeDelegate:self];
+          [self setSubView:subView];
         }
-        
-        UIView *subView = [[FTService sharedInstance] createFunTypeView:self.funType
-                                                               withMode:mode
-                                                           engagementId:self.engagementId
-                                                        funTypeDelegate:self];
-        [self setSubView:subView];
-        
+          break;
+        case kInAppNotDownloaded:
+          [funTypeService downloadFunType:self.funType
+                                 progress:^(float progress) {
+                                   NSLog(@"Progress %f", progress);
+                                   funTypeDownloadProgress = progress;
+                                   self.onLoadProgress(@{
+                                                         @"progress" : @([self normalizedLoadProgress])
+                                                         });
+                                   
+                                 } completion:^(NSError * _Nullable error) {
+                                   if (error) {
+                                     self.onFunTypeViewError(@{@"error": [NSString stringWithFormat:@"Unable to download the %@ fun type.", self.funType.name]});
+                                   }
+                                   else {
+                                     [weakSelf updateContent];
+                                   }
+                                 }];
+
+          break;
+      }
     }
     
 }
@@ -105,6 +141,7 @@ __strong UIView *_subView;
 }
 
 #pragma mark - FTViewProtocolDelegate methods
+
 
 - (void)funTypeViewDidLoad:(id<FTViewProtocol> _Nonnull)funTypeView {
     self.onFunTypeViewDidLoad(nil);
@@ -193,9 +230,10 @@ __strong UIView *_subView;
 
 
 -(void)funTypeView:(id<FTViewProtocol>)funTypeView loadProgress:(double)progress {
-    self.onLoadProgress(@{
-                          @"progress" : @(progress)
-                          });
+  funTypeLoadProgress = progress;
+  self.onLoadProgress(@{
+                        @"progress" : @([self normalizedLoadProgress])
+                        });
 }
 
 @end

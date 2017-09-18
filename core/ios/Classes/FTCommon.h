@@ -17,12 +17,21 @@ typedef enum {
   kExternalWebBased
 } FTFunTypeEnum;
 
+
+typedef enum {
+  kOnline,
+  kInAppNotDownloaded,
+  kInAppDownloaded
+} FTFunTypeDownloadEnum;
+
 @interface FTFunType : NSObject
 
 @property (nonatomic, strong) Id _Nonnull funTypeId;
 @property (nonatomic, strong) NSString * _Nonnull name;
 @property (nonatomic) FTFunTypeEnum type;
 @property (nonatomic, strong) NSURL* _Nullable webUrl;
+@property (nonatomic, strong) NSURL* _Nullable packageFileUrl;
+@property (nonatomic, strong) NSString* _Nullable packageFileHash;
 @end
 
 

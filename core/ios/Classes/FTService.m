@@ -10,6 +10,8 @@
 #import "FTWebFunType.h"
 #import "FTWebView.h"
 #import "FTNativeView.h"
+#import "FTDownloader.h"
+#import "ZipArchive.h"
 
 
 // UIBridge Messages
@@ -32,14 +34,16 @@ NSString *const MESSAGE_END = @"end";
 NSString *const MESSAGE_PUBLISH_STATUS = @"publishStatus";
 
 
-@interface FTService() // <FTFunTypeWebControllerDelegate>
+@interface FTService()<FTDownloaderDelegate> // <FTFunTypeWebControllerDelegate>
 
 @end
 
 @implementation FTService
 
 NSMutableDictionary *_factory, *_createWebFunTypeControllers;
-
+FTFunType *_currentlyDownloadingFunType;
+void (^_downloadCompletion)(NSError * _Nullable);
+void (^_downloadProgress)(float);
 
 + (instancetype _Nonnull)sharedInstance {
   static FTService *sharedInstance = nil;
@@ -64,6 +68,16 @@ NSMutableDictionary *_factory, *_createWebFunTypeControllers;
   [_factory setObject:value forKey:funTypeId];
 }
 
+- (NSURL *)resolvedUrlForFunType:(FTFunType *)funType {
+  if (funType.packageFileUrl) {
+    NSString *urlString = [NSString stringWithFormat:@"%@/%@_%@/index.html", self.funTypeWebRoot, funType.name, funType.packageFileHash];
+    return [NSURL URLWithString:urlString];
+  }
+  else {
+    return funType.webUrl;
+  }
+}
+
 - (UIView * _Nonnull) createFunTypeView:(FTFunType* _Nonnull)funType
                                withMode:(FTFunTypeMode)mode
                            engagementId:(Id _Nullable)engagementId
@@ -83,14 +97,14 @@ NSMutableDictionary *_factory, *_createWebFunTypeControllers;
       NSURL *webUrl;
       switch (mode) {
         case kCreate:
-          webUrl = [NSURL URLWithString:@"?action=create" relativeToURL:funType.webUrl];
+          webUrl = [NSURL URLWithString:@"?action=create" relativeToURL:[self resolvedUrlForFunType:funType]];
           break;
         case kJoin:
-          webUrl = [NSURL URLWithString:[NSString stringWithFormat:@"?action=join&id=%@", engagementId] relativeToURL:funType.webUrl];
+          webUrl = [NSURL URLWithString:[NSString stringWithFormat:@"?action=join&id=%@", engagementId] relativeToURL:[self resolvedUrlForFunType:funType]];
           break;
           
         case kPreview:
-          webUrl = [NSURL URLWithString:@"?action=preview" relativeToURL:funType.webUrl];
+          webUrl = [NSURL URLWithString:@"?action=preview" relativeToURL:[self resolvedUrlForFunType:funType]];
           break;
       }
       FTWebFunType *webFunType = [[FTWebFunType alloc]initWithId:funType.funTypeId url:webUrl];
@@ -117,38 +131,82 @@ NSMutableDictionary *_factory, *_createWebFunTypeControllers;
   }
 }
 
-//- (void)triggerCallbackForFunTypeId:(NSString * _Nonnull)funTypeId withMessage:(NSString * _Nonnull)message key:(NSString *_Nonnull)key value:(id _Nonnull)value {
-//  
-//  FTFunTypeWebController *controller = _createWebFunTypeControllers[funTypeId];
-//  if (controller != nil) {
-//    [controller triggerJsCallbackWithMessage:message key:key value:value];
-//  }
-//}
+- (FTFunTypeDownloadEnum) isFunTypeDownloaded:(FTFunType* _Nonnull)funType {
+  NSFileManager *fileManager = [NSFileManager defaultManager];
 
-//#pragma mark - FTFunTypeWebControllerDelegate methods
-//
-//-(void)webController:(FTFunTypeWebController *)webController didFailNavigationWithError:(NSError *)error {
-//  if (self.delegate != nil){
-//    if (_createWebFunTypeControllers[webController.webFunType.ft_webInfo.funTypeId] != nil){
-//      [self.delegate funTypeService:self createDidFailWithError:error];
-//    }
-//  }
-//}
-//
-//-(void)webController:(FTFunTypeWebController *)webController didRequestSelector:(NSString * _Nonnull)selector withKey:(NSString * _Nonnull)key {
-//  if (self.delegate != nil){
-//    if (_createWebFunTypeControllers[webController.webFunType.ft_webInfo.funTypeId] != nil){
-//      [self.delegate funTypeService:self didRequestSelector:selector withKey:key];
-//    }
-//  }
-//}
-//
-//-(void)webController:(FTFunTypeWebController * _Nonnull)webController didEndOutputWithCaption:(NSString * _Nonnull)caption imageUrl:(NSString * _Nonnull)imageUrl {
-//  if (self.delegate != nil){
-//    if (_createWebFunTypeControllers[webController.webFunType.ft_webInfo.funTypeId] != nil){
-//      [self.delegate funTypeService:self didEndOutputWithCaption:caption imageUrl:imageUrl];
-//    }
-//  }
-//}
+  if (self.funTypePath == nil) {
+    NSException *exception = [NSException exceptionWithName:@"FunTypePathNotSetException"
+                                                     reason:@"funTypePath is not set"
+                                                   userInfo:nil];
+    @throw exception;
+  }
+  
+  if (!funType.packageFileUrl) {
+    return kOnline;
+  }
+  else {
+    NSString *funTypePath = [NSString stringWithFormat:@"%@/%@_%@", self.funTypePath, funType.name, funType.packageFileHash];
+    return [fileManager fileExistsAtPath:funTypePath] ? kOfflineDownloaded : kOfflineNotDownloaded;
+  }
+  
+}
+
+- (void) downloadFunType:(FTFunType* _Nonnull)funType
+                progress:(void(^ _Nullable)(float))progress
+              completion:(void(^ _Nullable)(NSError * _Nullable))completion {
+  
+  
+  if ([_currentlyDownloadingFunType.funTypeId isEqualToString:funType.funTypeId]) {
+    // FunType is currently downloading. Do nothing
+    return;
+  }
+  
+  _currentlyDownloadingFunType = funType;
+  _downloadCompletion = completion;
+  _downloadProgress = progress;
+  
+  FTDownloader *downloader = [[FTDownloader alloc]initWithDelegate:self];
+  NSString *path = [NSString stringWithFormat:@"%@%@_%@_tmp.zip", NSTemporaryDirectory(), funType.name, funType.packageFileHash];
+  NSLog(@"Path = %@", path);
+  [downloader downloadFileFromUrl:[NSURL URLWithString:funType.packageFileUrl.absoluteString]
+                           toPath:path
+                     withSHA1Hash:funType.packageFileHash];
+  
+}
+
+#pragma mark - FTDownloaderDelegate methods
+
+-(void)downloader:(FTDownloader *)downloader didFinishDownloadingUrlToPath:(NSString *)path {
+  NSLog(@"Successfully downloaded to %@", path);
+  
+  // Unzip
+  NSString *webRootPath = [NSString stringWithFormat:@"%@/%@_%@", self.funTypePath, _currentlyDownloadingFunType.name, _currentlyDownloadingFunType.packageFileHash];
+  [SSZipArchive unzipFileAtPath:path toDestination:webRootPath];
+  
+  _currentlyDownloadingFunType = nil;
+  
+  if (_downloadCompletion) {
+    _downloadCompletion(nil);
+  }
+  
+}
+
+-(void)downloader:(FTDownloader *)downloader didCompleteWithError:(NSError *)error {
+  NSLog(@"Unable to download: %@", [error description]);
+  
+  if (_downloadCompletion) {
+    _downloadCompletion(error);
+  }
+}
+
+-(void)downloader:(FTDownloader *)downloader didDownloadProgress:(float)progress {
+  NSLog(@"Download progress %f", progress);
+  
+  if (_downloadProgress) {
+    _downloadProgress(progress);
+  }
+}
+
+
 
 @end
