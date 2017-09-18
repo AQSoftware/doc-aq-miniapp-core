@@ -146,7 +146,7 @@ void (^_downloadProgress)(float);
   }
   else {
     NSString *funTypePath = [NSString stringWithFormat:@"%@/%@_%@", self.funTypePath, funType.name, funType.packageFileHash];
-    return [fileManager fileExistsAtPath:funTypePath] ? kOfflineDownloaded : kOfflineNotDownloaded;
+    return [fileManager fileExistsAtPath:funTypePath] ? kInAppDownloaded : kInAppNotDownloaded;
   }
   
 }
