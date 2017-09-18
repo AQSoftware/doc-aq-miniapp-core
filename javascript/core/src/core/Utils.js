@@ -21,7 +21,7 @@ class Utils {
       nUpLn = /^\/(?:\.\.\/)*/.exec(sPath.slice(nEnd))[0].length;
       sDir = (sDir + sPath.substring(nStart, nEnd)).replace(new RegExp("(?:\\\/+[^\\\/]*){0," + ((nUpLn - 1) / 3) + "}$"), "/");
     }
-    return sDir + sPath.substr(nStart);
+    return window.location.origin + sDir + sPath.substr(nStart);
   }
 }
 
