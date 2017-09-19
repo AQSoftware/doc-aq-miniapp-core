@@ -89,10 +89,10 @@ RCT_CUSTOM_VIEW_PROPERTY(funType, NSString*, UIView){
     if (json[@"webUrl"]) {
       funType.webUrl = [NSURL URLWithString:json[@"webUrl"]];
     }
-    if (json[@"packageFileUrl"]) {
+    if (json[@"packageFileUrl"] && json[@"packageFileUrl"] != [NSNull null]) {
       funType.packageFileUrl = [NSURL URLWithString:json[@"packageFileUrl"]];
     }
-    if (json[@"packageFileHash"]) {
+    if (json[@"packageFileHash"] && json[@"packageFileUrl"] != [NSNull null]) {
       funType.packageFileHash = json[@"packageFileHash"];
     }
     funTypeView.funType = funType;
