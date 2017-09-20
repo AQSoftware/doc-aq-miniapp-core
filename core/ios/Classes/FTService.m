@@ -145,7 +145,7 @@ void (^_downloadProgress)(float);
     @throw exception;
   }
   
-  if (!funType.packageFileUrl) {
+  if (!funType.packageFileUrl || !funType.packageFileUrl) {
     return kOnline;
   }
   else {
