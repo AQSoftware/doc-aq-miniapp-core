@@ -1,4 +1,6 @@
 // @flow
+import Base64JS from 'base64-js';
+import uuidv1 from 'uuid/v1';
 
 /**
 Utility methods
@@ -7,6 +9,15 @@ Copyright (c) 2017 AQ Software Inc.
 */
 
 class Utils {
+
+  /**
+  Generates a unique URL-safe Base64-encoded Id
+  */
+  generateId(): string {
+    let arr = new Array(16);
+    uuidv1(null, arr, 0);
+    return Base64JS.fromByteArray(arr).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+  }
 
   /**
   Converts a relative url to it's absolute url equivalent
