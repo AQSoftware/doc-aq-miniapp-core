@@ -3,6 +3,9 @@ import { CallbackHelper, defaultCallbackHelper } from './CallbackHelper';
 
 const MESSAGE_GET_FRIENDS = 'getFriends';
 const MESSAGE_GET_BM_BALANCE = 'getBmBalance';
+const MESSAGE_CREATE_BET = 'createBet';
+const MESSAGE_CLAIM_BET = 'claimBet';
+const MESSAGE_PAY = 'pay';
 
 /**
 Core class that allows a MiniApp to send/receive various core messages
@@ -39,12 +42,48 @@ class CoreBridge {
 
   /**
   Requests the AQ App to return a list of available Bengga Money balances.
-
-  @param {Core~requestCallback} callback - Callback function to be called when
-    with the list of BM Balance as the parameter.
   */
-  getBmBalance(callback: (value: number) => void){
-    this._saveCallbackAndProcessMessage(MESSAGE_GET_BM_BALANCE, callback);
+  getBmBalance(){
+    return new Promise((resolve: (value: number) => void, reject) => {
+      this._saveCallbackAndProcessMessage(MESSAGE_GET_BM_BALANCE, resolve);
+    });
+  }
+
+  /**
+  Requests the AQ App to create a bet for the current user
+  */
+  createBet(amount: number, tag: string): Promise<number> {
+    return new Promise((resolve, reject) => {
+      this._saveCallbackAndProcessMessage(MESSAGE_CREATE_BET, resolve, {
+        amount: amount,
+        tag: tag
+      });
+    });
+  }
+
+  /**
+  Requests the AQ App to create a bet for the current user
+  */
+  claimBet(userId: string, amount: string, tag: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this._saveCallbackAndProcessMessage(MESSAGE_CLAIM_BET, resolve, {
+        userId: userId,
+        amount: amount,
+        tag: tag
+      });
+    });
+  }
+
+  /**
+  Requests the AQ App to pay another user
+  */
+  pay(userId: string, amount: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this._saveCallbackAndProcessMessage(MESSAGE_PAY, resolve, {
+        userId: userId,
+        amount: amount
+      });
+    });
   }
 }
 
