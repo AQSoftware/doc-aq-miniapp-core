@@ -13,10 +13,14 @@ extern NSString *const MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR;
 extern NSString *const MESSAGE_SHOW_WEB_IMAGE_SELECTOR;
 extern NSString *const MESSAGE_SHOW_TITLE_INPUT;
 extern NSString *const MESSAGE_SHOW_FRIENDS_SELECTOR;
+extern NSString *const MESSAGE_SHOW_ALERT;
 
 // CoreBridge Messages
 extern NSString *const MESSAGE_GET_FRIENDS;
 extern NSString *const MESSAGE_GET_BM_BALANCE;
+extern NSString *const MESSAGE_CREATE_BET;
+extern NSString *const MESSAGE_CLAIM_BET;
+extern NSString *const MESSAGE_PAY;
 
 // LifCycle Messages
 extern NSString *const MESSAGE_SET_APP_DATA;

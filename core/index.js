@@ -1,20 +1,8 @@
-//
-// import { NativeModules } from 'react-native';
-//
-// const { RNMiniAppCore } = NativeModules;
-//
-// export default RNMiniAppCore;
-
-
 // @flow
 import invariant from 'invariant';
 import React, {Component} from 'react';
 import { findNodeHandle, requireNativeComponent, Event, NativeModules } from 'react-native';
 
-// export const MESSAGE_SHOW_TITLE_INPUT = 'showTitleInput';
-// export const MESSAGE_SHOW_WEB_IMAGE_SELECTOR = 'showWebImageSelector';
-// export const MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR = 'showGalleryImageSelector';
-// export const MESSAGE_SHOW_FRIENDS_SELECTOR = 'showFriendsSelector';
 export const MESSAGE_SHOW_PREVIEW_WITH_DATA = 'showPreviewWithData';
 
 export const Messages = {
@@ -22,6 +10,7 @@ export const Messages = {
   MESSAGE_SHOW_WEB_IMAGE_SELECTOR: 'showWebImageSelector',
   MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR: 'showGalleryImageSelector',
   MESSAGE_SHOW_FRIENDS_SELECTOR: 'showFriendsSelector',
+  MESSAGE_SHOW_ALERT: 'showAlert',
   MESSAGE_SET_APP_DATA: 'setAppData',
   MESSAGE_INFORM_READY: 'informReady',
   MESSAGE_SHOW_PREVIEW_WITH_DATA: 'showPreviewWithData',
@@ -29,6 +18,9 @@ export const Messages = {
   MESSAGE_ON_DATA: 'onData',
   MESSAGE_GET_FRIENDS: 'getFriends',
   MESSAGE_GET_BM_BALANCE: 'getBmBalance',
+  MESSAGE_CREATE_BET: 'createBet',
+  MESSAGE_CLAIM_BET: 'claimBet',
+  MESSAGE_PAY: 'pay',
   MESSAGE_PUBLISH: 'publish',
   MESSAGE_PUBLISH_STATUS: 'publishStatus',
   MESSAGE_JOIN: 'join',
@@ -215,7 +207,6 @@ RNFunTypeView.propTypes = {
   funType: React.PropTypes.shape({
     id: React.PropTypes.string.isRequired,
     name: React.PropTypes.string.isRequired,
-    // type: React.PropTypes.oneOf(['internal', 'webBased']).isRequired,
     type: React.PropTypes.number.isRequired,
     webUrl: React.PropTypes.string
   }).isRequired,

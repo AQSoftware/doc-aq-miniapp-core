@@ -13,7 +13,7 @@
 #import <WebKit/WebKit.h>
 
 
-@interface FTWebView() <WKScriptMessageHandler, WKNavigationDelegate, UIScrollViewDelegate>
+@interface FTWebView() <WKScriptMessageHandler, WKNavigationDelegate, UIScrollViewDelegate, WKUIDelegate>
 
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 @property (nonatomic, strong) UINib *nib;
@@ -101,6 +101,9 @@ NSArray *STANDARD_MESSAGES;
                         MESSAGE_END,
                         MESSAGE_GET_FRIENDS,
                         MESSAGE_GET_BM_BALANCE,
+                        MESSAGE_CREATE_BET,
+                        MESSAGE_CLAIM_BET,
+                        MESSAGE_PAY,
                         MESSAGE_PUBLISH_STATUS
                         ];
   
@@ -126,6 +129,7 @@ NSArray *STANDARD_MESSAGES;
     
     // Setup webview layout and properties
     webView.navigationDelegate = self;
+    webView.UIDelegate = self;
     [webView.scrollView setScrollEnabled:NO];
     webView.scrollView.delegate = self;
     
@@ -300,6 +304,17 @@ NSArray *STANDARD_MESSAGES;
 -(void)webViewWebContentProcessDidTerminate:(WKWebView *)webView {
   NSLog(@"Web view process terminated");
 }
+
+#pragma mark - WKUIDelegate methods
+//-(void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message
+//                                                      initiatedByFrame:(WKFrameInfo *)frame
+//                                                     completionHandler:(void (^)(void))completionHandler {
+//
+//  [self.funTypeDelegate funTypeView:self didReceiveMessage:MESSAGE_SHOW_ALERT params:@{
+//                                                                                       @"message": message
+//                                                                                       }];
+//
+//}
 
 #pragma mark - UIScrollViewDelegate methods
 -(UIView *) viewForZoomingInScrollView:(UIScrollView *)scrollView {

@@ -19,10 +19,14 @@ NSString *const MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR = @"showGalleryImageSelector
 NSString *const MESSAGE_SHOW_WEB_IMAGE_SELECTOR = @"showWebImageSelector";
 NSString *const MESSAGE_SHOW_TITLE_INPUT = @"showTitleInput";
 NSString *const MESSAGE_SHOW_FRIENDS_SELECTOR = @"showFriendsSelector";
+NSString *const MESSAGE_SHOW_ALERT = @"showAlert";
 
 // CoreBridge Messages
 NSString *const MESSAGE_GET_FRIENDS = @"getFriends";
 NSString *const MESSAGE_GET_BM_BALANCE = @"getBmBalance";
+NSString *const MESSAGE_CREATE_BET = @"createBet";
+NSString *const MESSAGE_CLAIM_BET = @"claimBet";
+NSString *const MESSAGE_PAY = @"pay";
 
 // LifCycle Messages
 NSString *const MESSAGE_SET_APP_DATA = @"setAppData";
@@ -145,7 +149,7 @@ void (^_downloadProgress)(float);
     @throw exception;
   }
   
-  if (!funType.packageFileUrl || !funType.packageFileUrl) {
+  if (!funType.packageFileUrl) {
     return kOnline;
   }
   else {
