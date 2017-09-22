@@ -7,8 +7,8 @@ export type Friend = {
   avatarSmall: ?string
 }
 
-export type AppData {
-  source: Friend
+export type AppData = {
+  source: Friend,
   shouldWin: boolean,
   winImage: ?string
 }
