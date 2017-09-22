@@ -1,17 +1,13 @@
 // @flow
 import { CallbackHelper, defaultCallbackHelper } from './CallbackHelper';
+import type { Friend } from './Types';
 
 const MESSAGE_SHOW_TITLE_INPUT = 'showTitleInput';
 const MESSAGE_SHOW_WEB_IMAGE_SELECTOR = 'showWebImageSelector';
 const MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR = 'showGalleryImageSelector';
 const MESSAGE_SHOW_FRIENDS_SELECTOR = 'showFriendsSelector';
 
-export type Friend = {
-  id: string,
-  displayName: string,
-  avatarBig: ?string,
-  avatarSmall: ?string
-}
+
 
 /**
 Core class that allows a MiniApp to request various UI selectors available

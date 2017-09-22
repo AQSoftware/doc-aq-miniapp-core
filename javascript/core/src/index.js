@@ -5,3 +5,4 @@ export * from './core/CloudStorage';
 export * from './core/MediaStorage';
 export * from './core/LifeCycle';
 export { default as Utils } from './core/Utils';
+export * from './core/Types';
