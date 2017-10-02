@@ -10,6 +10,7 @@ export const Messages = {
   MESSAGE_SHOW_WEB_IMAGE_SELECTOR: 'showWebImageSelector',
   MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR: 'showGalleryImageSelector',
   MESSAGE_SHOW_FRIENDS_SELECTOR: 'showFriendsSelector',
+  MESSAGE_SHOW_FRIENDS_SELECTOR_PROMISE: 'showFriendsSelectorPromise',
   MESSAGE_SHOW_ALERT: 'showAlert',
   MESSAGE_SET_APP_DATA: 'setAppData',
   MESSAGE_INFORM_READY: 'informReady',
@@ -179,6 +180,10 @@ export class FunTypeView extends Component {
 
   triggerCallback(message: string, key: string, value: any){
     RNFunTypeViewManager.triggerViewCallbackWithTag(findNodeHandle(this.funTypeView), message, key, value);
+  }
+
+  triggerErrorCallback(message: string, value: any) {
+    RNFunTypeViewManager.triggerViewErrorCallbackWithTag(findNodeHandle(this.funTypeView), message, value);
   }
 
   render() {

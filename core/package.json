@@ -19,7 +19,7 @@
     "ios"
   ],
   "peerDependencies": {
-    "react-native": "^0.45.1",
+    "react-native": "^0.48.x",
     "react": "16.0.0-alpha.12"
   }
 }

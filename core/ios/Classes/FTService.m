@@ -19,6 +19,7 @@ NSString *const MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR = @"showGalleryImageSelector
 NSString *const MESSAGE_SHOW_WEB_IMAGE_SELECTOR = @"showWebImageSelector";
 NSString *const MESSAGE_SHOW_TITLE_INPUT = @"showTitleInput";
 NSString *const MESSAGE_SHOW_FRIENDS_SELECTOR = @"showFriendsSelector";
+NSString *const MESSAGE_SHOW_FRIENDS_SELECTOR_PROMISE = @"showFriendsSelectorPromise";
 NSString *const MESSAGE_SHOW_ALERT = @"showAlert";
 
 // CoreBridge Messages
@@ -75,7 +76,7 @@ void (^_downloadProgress)(float);
 }
 
 - (NSURL *)resolvedUrlForFunType:(FTFunType *)funType {
-  if (funType.packageFileUrl) {
+  if (funType.packageFileUrl && funType.packageFileHash) {
     NSString *urlString = [NSString stringWithFormat:@"%@/%@_%@/index.html", self.funTypeWebRoot, funType.funTypeId, funType.packageFileHash];
     NSLog(@"resolvedUrlForFunType = %@", urlString);
     return [NSURL URLWithString:urlString];
@@ -149,7 +150,7 @@ void (^_downloadProgress)(float);
     @throw exception;
   }
   
-  if (!funType.packageFileUrl) {
+  if (!funType.packageFileUrl || !funType.packageFileHash) {
     return kOnline;
   }
   else {

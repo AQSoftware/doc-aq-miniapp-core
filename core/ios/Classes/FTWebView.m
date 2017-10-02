@@ -93,6 +93,7 @@ NSArray *STANDARD_MESSAGES;
                         MESSAGE_SHOW_WEB_IMAGE_SELECTOR,
                         MESSAGE_SHOW_TITLE_INPUT,
                         MESSAGE_SHOW_FRIENDS_SELECTOR,
+                        MESSAGE_SHOW_FRIENDS_SELECTOR_PROMISE,
                         MESSAGE_SET_APP_DATA,
                         MESSAGE_INFORM_READY,
                         MESSAGE_SHOW_PREVIEW_WITH_DATA,
@@ -167,12 +168,7 @@ NSArray *STANDARD_MESSAGES;
   return _webFunType;
 }
 
-
-#pragma mark - FTViewProtocol methods
--(void)sendResultFromMessage:(NSString * _Nonnull)message key:(NSString *_Nonnull)key value:(id _Nullable)value {
-  
-  NSString *sanitizedValue = nil;
-  BOOL shouldDecode = NO;
+-(NSString * _Nullable)sanitize:(id _Nullable)value {
   if ([value isKindOfClass:[NSArray class]] || [value isKindOfClass:[NSDictionary class]]){
     
     NSError *error = nil;
@@ -183,32 +179,54 @@ NSArray *STANDARD_MESSAGES;
       NSLog(@"An error occurred while converting value to a valid json: %@", [error description]);
     }
     
-    sanitizedValue = [NSString stringWithFormat:@"'%@'", [result base64EncodedStringWithOptions:0]];
-    shouldDecode = YES;
+    return [NSString stringWithFormat:@"'%@'", [result base64EncodedStringWithOptions:0]];
     
   }
   else if ([value isKindOfClass:[NSString class]]){
-    sanitizedValue = [NSString stringWithFormat:@"'%@'", value];
+    return [NSString stringWithFormat:@"'%@'", value];
   }
   else if ([value isKindOfClass:[NSNumber class]]){
-    sanitizedValue = [value stringValue];
+    return [value stringValue];
   }
   else if (value == nil){
-    sanitizedValue = @"null";
+    return @"null";
   }
-  if (sanitizedValue){
-    NSString *js = [NSString stringWithFormat:@"window.funTypeCallback('%@', '%@', %@, %@);", message, key, sanitizedValue, shouldDecode? @"true" : @"false"];
-    [self.webView evaluateJavaScript:js completionHandler:^(id _Nullable obj, NSError * _Nullable error) {
-      if (error != nil) {
-        NSLog(@"An error occurred while calling callback: %@", [error description]);
-        
-        if (self.funTypeDelegate != nil){
-          [self.funTypeDelegate funTypeView:self didFailNavigationWithError:error];
-        }
-      }
-    }];
+  else {
+    return nil;
   }
 }
+
+- (BOOL)shouldDecode:(id _Nullable)value {
+  return [value isKindOfClass:[NSArray class]] || [value isKindOfClass:[NSDictionary class]];
+}
+
+-(void)sendToCallback:(NSString *)callback {
+  [self.webView evaluateJavaScript:callback completionHandler:^(id _Nullable obj, NSError * _Nullable error) {
+    if (error != nil) {
+      NSLog(@"An error occurred while calling callback: %@", [error description]);
+      
+      if (self.funTypeDelegate != nil){
+        [self.funTypeDelegate funTypeView:self didFailNavigationWithError:error];
+      }
+    }
+  }];
+}
+
+#pragma mark - FTViewProtocol methods
+-(void)sendResultFromMessage:(NSString * _Nonnull)message key:(NSString *_Nonnull)key value:(id _Nullable)value {
+  NSString *sanitizedValue = [self sanitize:value];
+  BOOL shouldDecode = [self shouldDecode:value];
+  NSString *js = [NSString stringWithFormat:@"window.funTypeCallback('%@', '%@', %@, %@);", message, key, sanitizedValue, shouldDecode? @"true" : @"false"];
+  [self sendToCallback:js];
+}
+
+-(void)sendErrorFromMessage:(NSString * _Nonnull)message value:(id _Nullable)value {
+  NSString *sanitizedValue = [self sanitize:value];
+  BOOL shouldDecode = [self shouldDecode:value];
+  NSString *js = [NSString stringWithFormat:@"errorCallback('%@', %@, %@);", message, sanitizedValue, shouldDecode? @"true" : @"false"];
+  [self sendToCallback:js];
+}
+
 
 #pragma mark - WKScriptMessageHandler methods
 

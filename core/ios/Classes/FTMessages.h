@@ -13,6 +13,7 @@ extern NSString *const MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR;
 extern NSString *const MESSAGE_SHOW_WEB_IMAGE_SELECTOR;
 extern NSString *const MESSAGE_SHOW_TITLE_INPUT;
 extern NSString *const MESSAGE_SHOW_FRIENDS_SELECTOR;
+extern NSString *const MESSAGE_SHOW_FRIENDS_SELECTOR_PROMISE;
 extern NSString *const MESSAGE_SHOW_ALERT;
 
 // CoreBridge Messages

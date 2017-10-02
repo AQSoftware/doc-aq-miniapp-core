@@ -17,6 +17,7 @@
 //@property (nonatomic, weak) id<FTViewProtocolDelegate> _Nullable funTypeDelegate;
 
 -(void)sendResultFromMessage:(NSString * _Nonnull)message key:(NSString *_Nonnull)key value:(id _Nullable)value;
+-(void)sendErrorFromMessage:(NSString * _Nonnull)message value:(id _Nullable)value;
 
 @end
 

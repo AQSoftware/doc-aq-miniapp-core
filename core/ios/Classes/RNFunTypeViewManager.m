@@ -100,11 +100,9 @@ RCT_CUSTOM_VIEW_PROPERTY(funType, NSString*, UIView){
   }
 }
 
-RCT_EXPORT_METHOD(triggerViewCallbackWithTag:(NSNumber * _Nonnull)reactTag
-                  message:(NSString *)message
-                  key:(NSString *)key
-                  value:(id)value)
-{
+- (void)triggerViewCallbackWithCallback:(void (^_Nonnull)(id<FTViewProtocol>))callback
+                                    tag:(NSNumber * _Nonnull)reactTag {
+  
   [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry) {
     UIView *view = viewRegistry[reactTag];
     if (![view isKindOfClass:[RNFunTypeView class]]) {
@@ -113,10 +111,32 @@ RCT_EXPORT_METHOD(triggerViewCallbackWithTag:(NSNumber * _Nonnull)reactTag
     else {
       RNFunTypeView *funTypeView = (RNFunTypeView *)view;
       if ([funTypeView.subView conformsToProtocol:@protocol(FTViewProtocol)]){
-        [((id<FTViewProtocol>)funTypeView.subView) sendResultFromMessage:message key:key value:value];
+        callback((id<FTViewProtocol>)funTypeView.subView);
       }
     }
   }];
+}
+
+
+RCT_EXPORT_METHOD(triggerViewCallbackWithTag:(NSNumber * _Nonnull)reactTag
+                  message:(NSString *)message
+                  key:(NSString *)key
+                  value:(id)value)
+{
+  [self triggerViewCallbackWithCallback:^(id<FTViewProtocol> ftView) {
+    [ftView sendResultFromMessage:message key:key value:value];
+  } tag:reactTag];
+  
+}
+
+RCT_EXPORT_METHOD(triggerViewErrorCallbackWithTag:(NSNumber * _Nonnull)reactTag
+                  message:(NSString *)message
+                  value:(id)value)
+{
+  [self triggerViewCallbackWithCallback:^(id<FTViewProtocol> ftView) {
+    [ftView sendErrorFromMessage:message value:value];
+  } tag:reactTag];
+  
 }
 
 
