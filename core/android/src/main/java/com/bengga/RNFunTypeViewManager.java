@@ -1,22 +1,33 @@
 
 package com.bengga;
 
+import android.widget.Toast;
+
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 
-public class RNMiniAppCoreModule extends ReactContextBaseJavaModule {
+import java.util.Collections;
+import java.util.Map;
+
+public class RNFunTypeViewManager extends ReactContextBaseJavaModule {
 
   private final ReactApplicationContext reactContext;
 
-  public RNMiniAppCoreModule(ReactApplicationContext reactContext) {
+  public RNFunTypeViewManager(ReactApplicationContext reactContext) {
     super(reactContext);
     this.reactContext = reactContext;
   }
 
   @Override
   public String getName() {
-    return "RNMiniAppCore";
+    return "RNFunTypeViewManager";
   }
+
+  @ReactMethod
+  public void stub() {
+    
+  }
+
 }
