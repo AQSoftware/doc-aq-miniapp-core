@@ -1,5 +1,5 @@
 
-package com.bengga;
+package com.bengga.react.core;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
@@ -17,6 +17,6 @@ public class RNMiniAppCorePackage implements ReactPackage {
 
   @Override
   public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
-    return Arrays.<ViewManager>asList(new RNFunTypeView());
+    return Arrays.<ViewManager>asList(new RNFunTypeViewManager(reactContext));
   }
 }
