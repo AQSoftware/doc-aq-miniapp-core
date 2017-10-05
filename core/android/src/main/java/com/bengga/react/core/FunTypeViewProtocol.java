@@ -8,6 +8,6 @@ import com.facebook.react.bridge.ReadableMap;
 
 public interface FunTypeViewProtocol {
 
-  void sendResult(String message, String key, ReadableMap value);
+  void sendResult(String message, String key, Object value);
   void sendError(String message, ReadableMap value);
 }

@@ -26,7 +26,7 @@ public class NativeFunTypeView extends RelativeLayout implements FunTypeViewProt
   }
 
   @Override
-  public void sendResult(String message, String key, ReadableMap value) {
+  public void sendResult(String message, String key, Object value) {
 
   }
 

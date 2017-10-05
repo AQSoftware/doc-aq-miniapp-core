@@ -2,6 +2,8 @@ package com.bengga.react.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Base64;
+import android.util.Log;
 import android.webkit.WebResourceError;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -13,12 +15,15 @@ import com.bengga.react.core.FunTypeViewProtocol;
 import com.bengga.react.core.FunTypeViewProtocolDelegate;
 import com.bengga.react.webkit.FunTypeWebChromeClient;
 import com.bengga.react.webkit.FunTypeWebViewClient;
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
+import com.google.gson.Gson;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
 
 /**
  * Created by ryanbrozo on 04/10/2017.
@@ -89,12 +94,46 @@ public class WebFunTypeView extends RelativeLayout implements FunTypeViewProtoco
     _webView = webView;
   }
 
+  private String toBase64(String input) {
+    byte[] sanitizedBytes = input.getBytes(Charset.forName("UTF-8"));
+    return Base64.encodeToString(sanitizedBytes, Base64.NO_WRAP);
+  }
+
+  private String sanitize(Object value){
+    Gson gson = new Gson();
+    if (value == null){
+      return "null";
+    }
+    else if (value instanceof ReadableMap){
+      return "'" + toBase64(gson.toJson(((ReadableMap) value).toHashMap())) + "'";
+    }
+    else if (value instanceof ReadableArray){
+      return "'" + toBase64(gson.toJson(((ReadableArray) value).toArrayList())) + "'";
+    }
+    else {
+      return "'" + value.toString() + "'";
+    }
+  }
+
+  private boolean shouldDecode(Object value){
+    return value instanceof ReadableMap || value instanceof ReadableArray;
+  }
+
+  private void sendToCallback(String jsCode){
+    this._webView.loadUrl("javascript:" + jsCode);
+  }
+
 
   //region FunTypeViewProtocol methods
 
   @Override
-  public void sendResult(String message, String key, ReadableMap value) {
-
+  public void sendResult(String message, String key, Object value) {
+    String sanitizedValue = sanitize(value);
+    Log.d(this.getClass().getPackage().getName(), "sendResult message=" + message + " key=" + key + " value=" + sanitizedValue);
+    boolean shouldDecode = shouldDecode(value);
+    String jsCode = "window.funTypeCallback('" + message + "', '" + key + "', " + sanitizedValue + ", " + Boolean.toString(shouldDecode) + ");";
+    Log.d(this.getClass().getPackage().getName(), "jsCode = " + jsCode);
+    sendToCallback(jsCode);
   }
 
   @Override

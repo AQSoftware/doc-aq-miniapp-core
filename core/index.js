@@ -1,7 +1,13 @@
 // @flow
 import invariant from 'invariant';
 import React, {Component} from 'react';
-import { findNodeHandle, requireNativeComponent, Event, NativeModules } from 'react-native';
+import { 
+  findNodeHandle, 
+  requireNativeComponent, 
+  Event, 
+  NativeModules,
+  Platform
+} from 'react-native';
 
 export const MESSAGE_SHOW_PREVIEW_WITH_DATA = 'showPreviewWithData';
 
@@ -38,7 +44,15 @@ export type NotificationItem = {
   additionalInfo: ?Object
 }
 
-const RNFunTypeView = requireNativeComponent('RNFunTypeView', null);
+const RNFunTypeView = null;
+
+if (Platform.OS === 'ios') {
+  RNFunTypeView = requireNativeComponent('RNFunTypeView', null);
+}
+else {
+  RNFunTypeView = requireNativeComponent('RNFunTypeViewManager', null);
+}
+
 const RNFunTypeViewManager = NativeModules.RNFunTypeViewManager;
 invariant(RNFunTypeViewManager,
 `RNFunTypeViewManager: the native module is not available.
@@ -179,7 +193,24 @@ export class FunTypeView extends Component {
   }
 
   triggerCallback(message: string, key: string, value: any){
-    RNFunTypeViewManager.triggerViewCallbackWithTag(findNodeHandle(this.funTypeView), message, key, value);
+    const nodeHandle = findNodeHandle(this.funTypeView);
+    if (Platform.OS === 'ios') {
+      RNFunTypeViewManager.triggerViewCallbackWithTag(nodeHandle, message, key, value);
+    }
+    else {
+      if (value === null){
+        RNFunTypeViewManager.triggerViewCallbackNull(nodeHandle, message, key);
+      }
+      else if (Array.isArray(value)){
+        RNFunTypeViewManager.triggerViewCallbackArray(nodeHandle, message, key, value);
+      }
+      else if (typeof(value) === 'object') {
+        RNFunTypeViewManager.triggerViewCallbackMap(nodeHandle, message, key, value);
+      }
+      else if (typeof (value) !== 'undefined'){
+        RNFunTypeViewManager.triggerViewCallbackString(nodeHandle, message, key, value.toString());
+      }
+    }
   }
 
   triggerErrorCallback(message: string, value: any) {

@@ -13,6 +13,7 @@ import com.bengga.react.views.FunTypeView;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.NativeViewHierarchyManager;
@@ -79,7 +80,7 @@ public class RNFunTypeViewManager extends SimpleViewManager<FunTypeView> {
       funType.webUrl = new URL(value.getString("webUrl"));
     }
     catch(MalformedURLException e){
-      Log.w(getName(), "Unable to parse webUrl: " + value.getString("webUrl"));
+      Log.w(this.getClass().getPackage().getName(), "Unable to parse webUrl: " + value.getString("webUrl"));
     }
     try {
       if (value.getString("packageFileUrl") != null) {
@@ -87,7 +88,7 @@ public class RNFunTypeViewManager extends SimpleViewManager<FunTypeView> {
       }
     }
     catch(MalformedURLException e){
-      Log.w(getName(), "Unable to parse packageFileUrl: " + value.getString("packageFileUrl"));
+      Log.w(this.getClass().getPackage().getName(), "Unable to parse packageFileUrl: " + value.getString("packageFileUrl"));
     }
     funType.packageFileHash = value.getString("packageFileHash");
     view.funType = funType;
@@ -96,11 +97,41 @@ public class RNFunTypeViewManager extends SimpleViewManager<FunTypeView> {
   }
 
   @ReactMethod
-  public void triggerViewCallbackWithTag(int tag, final String message, final String key, final ReadableMap value) {
+  public void triggerViewCallbackMap(int tag, final String message, final String key, final ReadableMap value) {
     triggerViewCallback(tag, new TriggerCallback() {
       @Override
       public void execute(FunTypeViewProtocol view) {
         view.sendResult(message, key, value);
+      }
+    });
+  }
+
+  @ReactMethod
+  public void triggerViewCallbackArray(int tag, final String message, final String key, final ReadableArray value) {
+    triggerViewCallback(tag, new TriggerCallback() {
+      @Override
+      public void execute(FunTypeViewProtocol view) {
+        view.sendResult(message, key, value);
+      }
+    });
+  }
+
+  @ReactMethod
+  public void triggerViewCallbackString(int tag, final String message, final String key, final String value) {
+    triggerViewCallback(tag, new TriggerCallback() {
+      @Override
+      public void execute(FunTypeViewProtocol view) {
+        view.sendResult(message, key, value);
+      }
+    });
+  }
+
+  @ReactMethod
+  public void triggerViewCallbackNull(int tag, final String message, final String key) {
+    triggerViewCallback(tag, new TriggerCallback() {
+      @Override
+      public void execute(FunTypeViewProtocol view) {
+        view.sendResult(message, key, null);
       }
     });
   }
@@ -123,10 +154,10 @@ public class RNFunTypeViewManager extends SimpleViewManager<FunTypeView> {
         View view = nativeViewHierarchyManager.resolveView(tag);
 
         if (!(view instanceof FunTypeView)) {
-          Log.w(getName(), "Expecting FunTypeView, got: " + view.getClass().getName());
+          Log.w(this.getClass().getPackage().getName(), "Expecting FunTypeView, got: " + view.getClass().getName());
         }
         else {
-          Log.d(getName(), "triggerViewCallback tag = " + tag + ", view = " + view.getClass().getName());
+          Log.d(this.getClass().getPackage().getName(), "triggerViewCallback tag = " + tag + ", view = " + view.getClass().getName());
           if (((FunTypeView) view).subView != null) {
             callback.execute(((FunTypeView) view).subView);
           }

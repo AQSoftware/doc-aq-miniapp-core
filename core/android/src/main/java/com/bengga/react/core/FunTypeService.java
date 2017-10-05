@@ -67,7 +67,7 @@ public class FunTypeService {
           }
         }
         catch (MalformedURLException e){
-          Log.e(this.getClass().getName(), "Unable to produce a valid webUrl for " + resolveUrl(funType));
+          Log.e(this.getClass().getPackage().getName(), "Unable to produce a valid webUrl for " + resolveUrl(funType));
         }
         if (webUrl != null) {
           return new WebFunTypeView(context, webUrl, delegate);
