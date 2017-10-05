@@ -21,7 +21,7 @@ export class CallbackHelper {
   }
 
   postToAndroidAqApp(message: string, param: ?Object) {
-    window.aqJsInterface.postMessage(message, param);
+    window.aqJsPostMessage(message, param);
   }
 
   postToSimulator(message: string, param: ?Object){
@@ -53,7 +53,7 @@ export class CallbackHelper {
     if (typeof window.webkit !== "undefined") {
       this.postToWebKit(message, parameters);
     }
-    if (typeof window.aqJsInterface != 'undefined'){
+    if (typeof window.aqJsPostMessage != 'undefined'){
       this.postToAndroidAqApp(message, parameters);
     }
     else if (typeof window.parent !== "undefined") {
