@@ -2,8 +2,10 @@ package com.bengga.react.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.webkit.WebResourceError;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
@@ -12,7 +14,10 @@ import com.bengga.react.core.FunTypeViewProtocolDelegate;
 import com.bengga.react.webkit.FunTypeWebChromeClient;
 import com.bengga.react.webkit.FunTypeWebViewClient;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.WritableNativeMap;
 
+import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
@@ -104,6 +109,40 @@ public class WebFunTypeView extends RelativeLayout implements FunTypeViewProtoco
   @Override
   public void didLoad() {
     this._delegate.didLoad(this);
+  }
+
+  @Override
+  public void didFailNavigation(WebResourceError error) {
+    WritableMap errorMap = new WritableNativeMap();
+    switch (error.getErrorCode()){
+      case WebViewClient.ERROR_TIMEOUT:
+        errorMap.putString("error", "Timeout while accessing the fun type");
+        break;
+      case WebViewClient.ERROR_HOST_LOOKUP:
+        errorMap.putString("error", "Server associated with the fun type cannot be accessed.");
+        break;
+      case WebViewClient.ERROR_CONNECT:
+        errorMap.putString("error", "Failed to connect to the server");
+        break;
+      default:
+        errorMap.putString("error", "Unable to load the fun type");
+        break;
+    }
+    this._delegate.didFailNavigation(this, errorMap);
+  }
+
+  @Override
+  public void didReceiveHttpError(int code) {
+    WritableMap errorMap = new WritableNativeMap();
+    switch (code){
+      case HttpURLConnection.HTTP_NOT_FOUND:
+        errorMap.putString("error", "URL associated with the fun type was not found.");
+        break;
+      default:
+        errorMap.putString("error", "Unable to load the fun type");
+        break;
+    }
+    this._delegate.didFailNavigation(this, errorMap);
   }
 
   //endregion

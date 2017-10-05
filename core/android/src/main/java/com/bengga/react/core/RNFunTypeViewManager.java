@@ -8,6 +8,7 @@ import android.view.View;
 import com.bengga.core.FunType;
 import com.bengga.core.FunTypeType;
 import com.bengga.react.events.FunTypeLoadedEvent;
+import com.bengga.react.events.FunTypeNavigationFailedEvent;
 import com.bengga.react.views.FunTypeView;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
@@ -58,6 +59,7 @@ public class RNFunTypeViewManager extends SimpleViewManager<FunTypeView> {
       export = MapBuilder.newHashMap();
     }
     export.put(FunTypeLoadedEvent.EVENT_NAME, MapBuilder.of("registrationName", "onFunTypeViewDidLoad"));
+    export.put(FunTypeNavigationFailedEvent.EVENT_NAME, MapBuilder.of("registrationName", "onFunTypeViewError"));
     return export;
   }
 
@@ -131,13 +133,6 @@ public class RNFunTypeViewManager extends SimpleViewManager<FunTypeView> {
         }
       }
     });
-  }
-
-  protected static void dispatchEvent(FunTypeView funTypeView, Event event) {
-    ReactContext reactContext = (ReactContext) funTypeView.getContext();
-    EventDispatcher eventDispatcher =
-        reactContext.getNativeModule(UIManagerModule.class).getEventDispatcher();
-    eventDispatcher.dispatchEvent(event);
   }
 
 }

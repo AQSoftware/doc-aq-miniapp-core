@@ -13,7 +13,10 @@ import com.bengga.react.core.FunTypeService;
 import com.bengga.react.core.FunTypeViewProtocol;
 import com.bengga.react.core.FunTypeViewProtocolDelegate;
 import com.bengga.react.events.FunTypeLoadedEvent;
+import com.bengga.react.events.FunTypeNavigationFailedEvent;
 import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.UIManagerModule;
 import com.facebook.react.uimanager.events.Event;
 import com.facebook.react.uimanager.events.EventDispatcher;
@@ -85,16 +88,16 @@ public class FunTypeView extends RelativeLayout implements FunTypeViewProtocolDe
     eventDispatcher.dispatchEvent(event);
   }
 
-  private void emitEvent(){
-//    ReactContext reactContext = (ReactContext)getContext();
-//    reactContext.getJSModule(RCTEventEmitter.class).
-  }
-
   //region FunTypeViewProtocolDelegate methods
 
   @Override
   public void didLoad(FunTypeViewProtocol view) {
     dispatchEvent(new FunTypeLoadedEvent(getId(), null));
+  }
+
+  @Override
+  public void didFailNavigation(FunTypeViewProtocol view, WritableMap error) {
+    dispatchEvent(new FunTypeNavigationFailedEvent(getId(), error));
   }
 
   //endregion
