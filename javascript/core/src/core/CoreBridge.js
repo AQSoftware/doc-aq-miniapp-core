@@ -22,10 +22,14 @@ class CoreBridge {
   }
 
   _saveCallbackAndProcessMessage(message: string,
-                                callback: ?((value: any) => void) = null,
+                                resolve: ?((value: any) => void) = null,
+                                reject: ?((reason: any) => void) = null,
                                 param: ?Object = null) {
-    if (callback) {
-      this._callbackHelper.setCoreCallback(message, callback);
+    if (resolve) {
+      this._callbackHelper.setCoreCallback(message, resolve);
+    }
+    if (reject){
+      this._callbackHelper.setErrorCallback(message, reject);
     }
     this._callbackHelper.processMessage(message, null, param);
   }
@@ -43,9 +47,9 @@ class CoreBridge {
   /**
   Requests the AQ App to return a list of available Bengga Money balances.
   */
-  getBmBalance(){
+  getBmBalance(): Promise<number> {
     return new Promise((resolve: (value: number) => void, reject) => {
-      this._saveCallbackAndProcessMessage(MESSAGE_GET_BM_BALANCE, resolve);
+      this._saveCallbackAndProcessMessage(MESSAGE_GET_BM_BALANCE, resolve, reject);
     });
   }
 
@@ -54,7 +58,7 @@ class CoreBridge {
   */
   createBet(amount: number, tag: string): Promise<number> {
     return new Promise((resolve, reject) => {
-      this._saveCallbackAndProcessMessage(MESSAGE_CREATE_BET, resolve, {
+      this._saveCallbackAndProcessMessage(MESSAGE_CREATE_BET, resolve, reject, {
         amount: amount,
         tag: tag
       });
@@ -66,7 +70,7 @@ class CoreBridge {
   */
   claimBet(userId: string, amount: string, tag: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      this._saveCallbackAndProcessMessage(MESSAGE_CLAIM_BET, resolve, {
+      this._saveCallbackAndProcessMessage(MESSAGE_CLAIM_BET, resolve, reject, {
         userId: userId,
         amount: amount,
         tag: tag
@@ -79,7 +83,7 @@ class CoreBridge {
   */
   pay(userId: string, amount: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      this._saveCallbackAndProcessMessage(MESSAGE_PAY, resolve, {
+      this._saveCallbackAndProcessMessage(MESSAGE_PAY, resolve, reject, {
         userId: userId,
         amount: amount
       });

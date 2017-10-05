@@ -5,7 +5,7 @@ import { TextDecoder } from 'text-encoding-utf-8';
 export class CallbackHelper {
   uiCallbacks: Object;
   coreCallbacks: Object;
-
+  errorCallbacks: Object;
   /**
   Constructor
   @constructor
@@ -13,10 +13,15 @@ export class CallbackHelper {
   constructor(){
     this.uiCallbacks = {};
     this.coreCallbacks = {};
+    this.errorCallbacks = {};
   }
 
   postToWebKit(message: string, param: ?Object){
     window.webkit.messageHandlers[message].postMessage(param);
+  }
+
+  postToAndroidAqApp(message: string, param: ?Object) {
+    window.aqJsInterface.postMessage(message, param);
   }
 
   postToSimulator(message: string, param: ?Object){
@@ -37,12 +42,19 @@ export class CallbackHelper {
     this.coreCallbacks[message] = callback;
   }
 
+  setErrorCallback(message: string, callback: (value: any) => void) {
+    this.errorCallbacks[message] = callback;
+  }
+
   processMessage(message: string, key: ?string, param: ?Object) {
     let parameters = {...param};
     if (key) parameters.key = key;
 
     if (typeof window.webkit !== "undefined") {
       this.postToWebKit(message, parameters);
+    }
+    if (typeof window.aqJsInterface != 'undefined'){
+      this.postToAndroidAqApp(message, parameters);
     }
     else if (typeof window.parent !== "undefined") {
       this.postToSimulator(message, parameters);
@@ -77,6 +89,13 @@ window.funTypeCallback = function(message: string, key: string, value: any, shou
   }
   else if (defaultCallbackHelper.coreCallbacks[message] != null) {
     let callback = defaultCallbackHelper.coreCallbacks[message];
+    callback(sanitize(value, shouldDecode));
+  }
+}
+
+window.errorCallback = function (message: string, value: any, shouldDecode: boolean) {
+  if (defaultCallbackHelper.errorCallbacks[message] != null) {
+    let callback = defaultCallbackHelper.errorCallbacks[message];
     callback(sanitize(value, shouldDecode));
   }
 }

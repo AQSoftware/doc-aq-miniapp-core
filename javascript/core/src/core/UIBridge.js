@@ -5,6 +5,7 @@ const MESSAGE_SHOW_TITLE_INPUT = 'showTitleInput';
 const MESSAGE_SHOW_WEB_IMAGE_SELECTOR = 'showWebImageSelector';
 const MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR = 'showGalleryImageSelector';
 const MESSAGE_SHOW_FRIENDS_SELECTOR = 'showFriendsSelector';
+const MESSAGE_SHOW_FRIENDS_SELECTOR_PROMISE = 'showFriendsSelectorPromise';
 
 export type Friend = {
   id: string,
@@ -31,8 +32,13 @@ class UIBridge {
   _saveCallbackAndProcessMessage(message: string, key: ?string = null,
                                 callback: ?((key: string, value: any) => void) = null,
                                 param: ?Object = null) {
-    if (key && callback) {
-      this._callbackHelper.setUiCallback(message, key, callback);
+    if (callback) {
+      if (key) {
+        this._callbackHelper.setUiCallback(message, key, callback);
+      }
+      else {
+        this._callbackHelper.setCoreCallback(message, callback);
+      }
     }
     this._callbackHelper.processMessage(message, key, param);
   }
@@ -87,6 +93,15 @@ class UIBridge {
   */
   showFriendsSelector(key: string, callback: (key: string, value: Array<Object>) => void) {
     this._saveCallbackAndProcessMessage(MESSAGE_SHOW_FRIENDS_SELECTOR, key, callback);
+  }
+
+  /**
+  Requests the AQ App to show a selector UI showing a list of friends
+  */
+  showFriendsSelector(options: ?Object) {
+    return new Promise((resolve, reject) => {
+      this._saveCallbackAndProcessMessage(MESSAGE_SHOW_FRIENDS_SELECTOR_PROMISE, '', resolve, options);
+    });
   }
 
 
