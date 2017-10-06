@@ -17,6 +17,7 @@ import com.bengga.react.events.FunTypeDidRequestSelectorEvent;
 import com.bengga.react.events.FunTypeDidRequestShowPreviewEvent;
 import com.bengga.react.events.FunTypeDidSetAppDataEvent;
 import com.bengga.react.events.FunTypeNavigationFailedEvent;
+import com.bengga.react.events.FunTypeOnLoadProgressEvent;
 import com.bengga.react.views.FunTypeView;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactMethod;
@@ -74,6 +75,7 @@ public class RNFunTypeViewManager extends SimpleViewManager<FunTypeView> {
     export.put(FunTypeDidSetAppDataEvent.EVENT_NAME, MapBuilder.of("registrationName", "onSetAppData"));
     export.put(FunTypeDidInformReadyEvent.EVENT_NAME, MapBuilder.of("registrationName", "onReady"));
     export.put(FunTypeDidReceiveMessageEvent.EVENT_NAME, MapBuilder.of("registrationName", "onFunTypeMessage"));
+    export.put(FunTypeOnLoadProgressEvent.EVENT_NAME, MapBuilder.of("registrationName", "onLoadProgress"));
     return export;
   }
 

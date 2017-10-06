@@ -22,6 +22,7 @@ import com.bengga.react.events.FunTypeDidRequestSelectorEvent;
 import com.bengga.react.events.FunTypeDidRequestShowPreviewEvent;
 import com.bengga.react.events.FunTypeDidSetAppDataEvent;
 import com.bengga.react.events.FunTypeNavigationFailedEvent;
+import com.bengga.react.events.FunTypeOnLoadProgressEvent;
 import com.bengga.react.util.JSONHelper;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableMap;
@@ -195,6 +196,13 @@ public class FunTypeView extends RelativeLayout implements FunTypeViewProtocolDe
       eventParams.putNull("params");
     }
     dispatchEvent(new FunTypeDidReceiveMessageEvent(getId(), eventParams));
+  }
+
+  @Override
+  public void loadProgress(FunTypeViewProtocol view, double progress) {
+    WritableMap eventParams = new WritableNativeMap();
+    eventParams.putDouble("progress", progress);
+    dispatchEvent(new FunTypeOnLoadProgressEvent(getId(), eventParams));
   }
 
   //endregion

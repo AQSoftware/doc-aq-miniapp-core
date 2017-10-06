@@ -22,4 +22,5 @@ public interface FunTypeViewProtocolDelegate {
   void didSetAppData(FunTypeViewProtocol view, JSONObject data);
   void didInformReady(FunTypeViewProtocol view);
   void didReceiveMesssage(FunTypeViewProtocol view, String message, JSONObject params);
+  void loadProgress(FunTypeViewProtocol view, double progress);
 }

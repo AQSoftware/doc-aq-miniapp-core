@@ -36,7 +36,8 @@ import java.nio.charset.Charset;
  * Created by ryanbrozo on 04/10/2017.
  */
 
-public class WebFunTypeView extends RelativeLayout implements FunTypeViewProtocol, FunTypeWebViewClient.FunTypeWebViewClientCallback {
+public class WebFunTypeView extends RelativeLayout
+    implements FunTypeViewProtocol, FunTypeWebViewClient.FunTypeWebViewClientCallback, FunTypeWebChromeClient.FunTypeWebChromeClientCallback {
 
   private class FunTypeJsInterface {
     private FunTypeViewProtocolDelegate _delegate;
@@ -47,7 +48,7 @@ public class WebFunTypeView extends RelativeLayout implements FunTypeViewProtoco
 
     @JavascriptInterface
     public void postMessage(String message, String params, boolean shouldDecode){
-      Log.d(this.getClass().getPackage().getName(), "postMessage message=" + message + ", params=" + params + ", shouldDecode=" + Boolean.toString(shouldDecode));
+//      Log.d(this.getClass().getPackage().getName(), "postMessage message=" + message + ", params=" + params + ", shouldDecode=" + Boolean.toString(shouldDecode));
 
       if (this._delegate != null && Messages.isValid(message)){
         JSONObject json;
@@ -144,24 +145,11 @@ public class WebFunTypeView extends RelativeLayout implements FunTypeViewProtoco
     initView();
   }
 
-  private void initView(){
-    ProgressBar progressBar = new ProgressBar(getContext());
-    progressBar.setIndeterminate(true);
-    addView(progressBar);
-
-    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-        LayoutParams.WRAP_CONTENT,
-        LayoutParams.WRAP_CONTENT
-    );
-    layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-    progressBar.setLayoutParams(layoutParams);
-
-    _progressBar = progressBar;
-
+  private void initWebView(){
     WebView webView = new WebView(getContext());
     addView(webView);
 
-    layoutParams = new RelativeLayout.LayoutParams(
+    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
         LayoutParams.MATCH_PARENT,
         LayoutParams.MATCH_PARENT
     );
@@ -178,12 +166,43 @@ public class WebFunTypeView extends RelativeLayout implements FunTypeViewProtoco
     webSettings.setJavaScriptEnabled(true);
 
     webView.setWebViewClient(new FunTypeWebViewClient(this));
-    webView.setWebChromeClient(new FunTypeWebChromeClient());
+    webView.setWebChromeClient(new FunTypeWebChromeClient(this));
 
     webView.loadUrl(this._url.toString());
     webView.addJavascriptInterface(new FunTypeJsInterface(this._delegate), "AqJsInterface");
 
     _webView = webView;
+  }
+
+  private void initProgressBar(){
+    ProgressBar progressBar = new ProgressBar(getContext());
+    progressBar.setIndeterminate(true);
+    addView(progressBar);
+
+    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+        LayoutParams.WRAP_CONTENT,
+        LayoutParams.WRAP_CONTENT
+    );
+    layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+    progressBar.setLayoutParams(layoutParams);
+
+    _progressBar = progressBar;
+  }
+  private void initView(){
+    initWebView();
+    initProgressBar();
+    setLoadedState(false);
+  }
+
+  private void setLoadedState(boolean isLoaded){
+    if (isLoaded){
+      _progressBar.setVisibility(GONE);
+      _webView.setVisibility(VISIBLE);
+    }
+    else {
+      _progressBar.setVisibility(VISIBLE);
+      _webView.setVisibility(INVISIBLE);
+    }
   }
 
   private String toBase64(String input) {
@@ -260,10 +279,10 @@ public class WebFunTypeView extends RelativeLayout implements FunTypeViewProtoco
   @Override
   public void sendResult(String message, String key, Object value) {
     String sanitizedValue = sanitize(value);
-    Log.d(this.getClass().getPackage().getName(), "sendResult message=" + message + " key=" + key + " value=" + sanitizedValue);
+//    Log.d(this.getClass().getPackage().getName(), "sendResult message=" + message + " key=" + key + " value=" + sanitizedValue);
     boolean shouldDecode = shouldDecode(value);
     String jsCode = "window.funTypeCallback('" + message + "', '" + key + "', " + sanitizedValue + ", " + Boolean.toString(shouldDecode) + ");";
-    Log.d(this.getClass().getPackage().getName(), "jsCode = " + jsCode);
+//    Log.d(this.getClass().getPackage().getName(), "jsCode = " + jsCode);
     sendToCallback(jsCode);
   }
 
@@ -279,6 +298,7 @@ public class WebFunTypeView extends RelativeLayout implements FunTypeViewProtoco
   @Override
   public void didLoad() {
     injectJsInterface();
+    setLoadedState(true);
     this._delegate.didLoad(this);
   }
 
@@ -307,6 +327,15 @@ public class WebFunTypeView extends RelativeLayout implements FunTypeViewProtoco
         break;
     }
     this._delegate.didFailNavigation(this, errorMap);
+  }
+
+  //endregion
+
+  //region FunTypeWebChromeClientCallback methods
+
+  @Override
+  public void onProgress(double progress) {
+    this._delegate.loadProgress(this, progress);
   }
 
   //endregion
