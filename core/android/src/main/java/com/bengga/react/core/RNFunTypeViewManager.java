@@ -7,11 +7,18 @@ import android.view.View;
 
 import com.bengga.core.FunType;
 import com.bengga.core.FunTypeType;
-import com.bengga.react.events.FunTypeLoadedEvent;
+import com.bengga.react.events.FunTypeDidEndEvent;
+import com.bengga.react.events.FunTypeDidInformPublishStatusEvent;
+import com.bengga.react.events.FunTypeDidInformReadyEvent;
+import com.bengga.react.events.FunTypeDidJoinEvent;
+import com.bengga.react.events.FunTypeDidLoadEvent;
+import com.bengga.react.events.FunTypeDidReceiveMessageEvent;
+import com.bengga.react.events.FunTypeDidRequestSelectorEvent;
+import com.bengga.react.events.FunTypeDidRequestShowPreviewEvent;
+import com.bengga.react.events.FunTypeDidSetAppDataEvent;
 import com.bengga.react.events.FunTypeNavigationFailedEvent;
 import com.bengga.react.views.FunTypeView;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
@@ -22,8 +29,6 @@ import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
 import com.facebook.react.uimanager.annotations.ReactProp;
-import com.facebook.react.uimanager.events.Event;
-import com.facebook.react.uimanager.events.EventDispatcher;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -59,8 +64,16 @@ public class RNFunTypeViewManager extends SimpleViewManager<FunTypeView> {
     if (export == null) {
       export = MapBuilder.newHashMap();
     }
-    export.put(FunTypeLoadedEvent.EVENT_NAME, MapBuilder.of("registrationName", "onFunTypeViewDidLoad"));
+    export.put(FunTypeDidLoadEvent.EVENT_NAME, MapBuilder.of("registrationName", "onFunTypeViewDidLoad"));
     export.put(FunTypeNavigationFailedEvent.EVENT_NAME, MapBuilder.of("registrationName", "onFunTypeViewError"));
+    export.put(FunTypeDidJoinEvent.EVENT_NAME, MapBuilder.of("registrationName", "onJoin"));
+    export.put(FunTypeDidEndEvent.EVENT_NAME, MapBuilder.of("registrationName", "onEnd"));
+    export.put(FunTypeDidRequestShowPreviewEvent.EVENT_NAME, MapBuilder.of("registrationName", "onRequestPreviewData"));
+    export.put(FunTypeDidInformPublishStatusEvent.EVENT_NAME, MapBuilder.of("registrationName", "onPublishStatus"));
+    export.put(FunTypeDidRequestSelectorEvent.EVENT_NAME, MapBuilder.of("registrationName", "onRequestSelector"));
+    export.put(FunTypeDidSetAppDataEvent.EVENT_NAME, MapBuilder.of("registrationName", "onSetAppData"));
+    export.put(FunTypeDidInformReadyEvent.EVENT_NAME, MapBuilder.of("registrationName", "onReady"));
+    export.put(FunTypeDidReceiveMessageEvent.EVENT_NAME, MapBuilder.of("registrationName", "onFunTypeMessage"));
     return export;
   }
 

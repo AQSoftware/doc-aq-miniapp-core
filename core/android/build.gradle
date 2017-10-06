@@ -31,7 +31,6 @@ repositories {
 }
 
 dependencies {
-    compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.facebook.react:react-native:+'
 }
   

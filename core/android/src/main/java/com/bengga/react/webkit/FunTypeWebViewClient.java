@@ -15,10 +15,12 @@ public class FunTypeWebViewClient extends WebViewClient {
   public interface FunTypeWebViewClientCallback {
     void didLoad();
     void didFailNavigation(WebResourceError error);
+    void didFailNavigation(int errorCode, String description);
     void didReceiveHttpError(int code);
   }
 
   private FunTypeWebViewClientCallback _callback;
+  private boolean _loaded;
 
   public FunTypeWebViewClient(FunTypeWebViewClientCallback callback) {
     this._callback = callback;
@@ -31,12 +33,21 @@ public class FunTypeWebViewClient extends WebViewClient {
 
   @Override
   public void onPageFinished(WebView view, String url) {
-    this._callback.didLoad();
+    // Don't fire onLoad event if page is loaded via <a href="#"/> links
+    if(!_loaded && !url.substring(url.length() -1, url.length()).equals("#")) {
+      this._callback.didLoad();
+      _loaded = true;
+    }
   }
 
   @Override
   public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
     this._callback.didFailNavigation(error);
+  }
+
+  @Override
+  public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+    this._callback.didFailNavigation(errorCode, description);
   }
 
   @Override
