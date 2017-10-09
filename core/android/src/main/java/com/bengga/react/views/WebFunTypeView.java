@@ -48,7 +48,7 @@ public class WebFunTypeView extends RelativeLayout
 
     @JavascriptInterface
     public void postMessage(String message, String params, boolean shouldDecode){
-//      Log.d(this.getClass().getPackage().getName(), "postMessage message=" + message + ", params=" + params + ", shouldDecode=" + Boolean.toString(shouldDecode));
+//      Log.d(getClass().getSimpleName(), "postMessage message=" + message + ", params=" + params + ", shouldDecode=" + Boolean.toString(shouldDecode));
 
       if (this._delegate != null && Messages.isValid(message)){
         JSONObject json;
@@ -113,10 +113,10 @@ public class WebFunTypeView extends RelativeLayout
           }
         }
         catch (JSONException ex) {
-          Log.e(this.getClass().getPackage().getName(), "Unable to convert postMessage with message='" + message + "'params to a jsonObject");
+          Log.e(getClass().getSimpleName(), "Unable to convert postMessage with message='" + message + "'params to a jsonObject");
         }
         catch (IllegalArgumentException ex) {
-          Log.e(this.getClass().getPackage().getName(), "Invalid message sent to postMessage: '" + message + "'");
+          Log.e(getClass().getSimpleName(), "Invalid message sent to postMessage: '" + message + "'");
         }
       }
     }
@@ -235,28 +235,33 @@ public class WebFunTypeView extends RelativeLayout
   }
 
   private void didFailNavigation(int errorCode){
-    WritableMap errorMap = new WritableNativeMap();
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-      switch (errorCode) {
-        case WebViewClient.ERROR_TIMEOUT:
-          errorMap.putString("error", "Timeout while accessing the fun type");
-          break;
-        case WebViewClient.ERROR_HOST_LOOKUP:
-          errorMap.putString("error", "Server associated with the fun type cannot be accessed.");
-          break;
-        case WebViewClient.ERROR_CONNECT:
-          errorMap.putString("error", "Failed to connect to the server");
-          break;
-        default:
-          errorMap.putString("error", "Unable to load the fun type");
-          break;
-      }
-    }
-    else {
-      errorMap.putString("error", "Unable to load the fun type");
-    }
 
-    this._delegate.didFailNavigation(this, errorMap);
+    JSONObject errorMap = new JSONObject();
+    try {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        switch (errorCode) {
+          case WebViewClient.ERROR_TIMEOUT:
+            errorMap.put("error", "Timeout while accessing the fun type");
+            break;
+          case WebViewClient.ERROR_HOST_LOOKUP:
+            errorMap.put("error", "Server associated with the fun type cannot be accessed.");
+            break;
+          case WebViewClient.ERROR_CONNECT:
+            errorMap.put("error", "Failed to connect to the server");
+            break;
+          default:
+            errorMap.put("error", "Unable to load the fun type");
+            break;
+        }
+      }
+      else {
+        errorMap.put("error", "Unable to load the fun type");
+      }
+      this._delegate.didFailNavigation(this, errorMap);
+    }
+    catch (JSONException e){
+      Log.e(getClass().getSimpleName(), "Unable to create JSONObject: " + e.getMessage());
+    }
   }
 
   private void injectJsInterface(){
@@ -279,10 +284,10 @@ public class WebFunTypeView extends RelativeLayout
   @Override
   public void sendResult(String message, String key, Object value) {
     String sanitizedValue = sanitize(value);
-//    Log.d(this.getClass().getPackage().getName(), "sendResult message=" + message + " key=" + key + " value=" + sanitizedValue);
+//    Log.d(getClass().getSimpleName(), "sendResult message=" + message + " key=" + key + " value=" + sanitizedValue);
     boolean shouldDecode = shouldDecode(value);
     String jsCode = "window.funTypeCallback('" + message + "', '" + key + "', " + sanitizedValue + ", " + Boolean.toString(shouldDecode) + ");";
-//    Log.d(this.getClass().getPackage().getName(), "jsCode = " + jsCode);
+//    Log.d(getClass().getSimpleName(), "jsCode = " + jsCode);
     sendToCallback(jsCode);
   }
 
@@ -317,16 +322,21 @@ public class WebFunTypeView extends RelativeLayout
 
   @Override
   public void didReceiveHttpError(int code) {
-    WritableMap errorMap = new WritableNativeMap();
-    switch (code){
-      case HttpURLConnection.HTTP_NOT_FOUND:
-        errorMap.putString("error", "URL associated with the fun type was not found.");
-        break;
-      default:
-        errorMap.putString("error", "Unable to load the fun type");
-        break;
+    JSONObject errorMap = new JSONObject();
+    try {
+      switch (code) {
+        case HttpURLConnection.HTTP_NOT_FOUND:
+          errorMap.put("error", "URL associated with the fun type was not found.");
+          break;
+        default:
+          errorMap.put("error", "Unable to load the fun type");
+          break;
+      }
+      this._delegate.didFailNavigation(this, errorMap);
     }
-    this._delegate.didFailNavigation(this, errorMap);
+    catch (JSONException e){
+      Log.e(getClass().getSimpleName(), "Unable to create JSONObject: " + e.getMessage());
+    }
   }
 
   //endregion

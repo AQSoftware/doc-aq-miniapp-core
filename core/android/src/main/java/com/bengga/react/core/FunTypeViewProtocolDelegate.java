@@ -1,11 +1,7 @@
 package com.bengga.react.core;
 
-import com.facebook.react.bridge.ReadableMap;
-import com.facebook.react.bridge.WritableMap;
 
 import org.json.JSONObject;
-
-import java.net.URL;
 
 /**
  * Created by ryanbrozo on 04/10/2017.
@@ -13,7 +9,7 @@ import java.net.URL;
 
 public interface FunTypeViewProtocolDelegate {
   void didLoad(FunTypeViewProtocol view);
-  void didFailNavigation(FunTypeViewProtocol view, WritableMap error);
+  void didFailNavigation(FunTypeViewProtocol view, JSONObject error);
   void didJoin(FunTypeViewProtocol view, String id, String imageUrl, boolean winCriteriaPassed, JSONObject notificationItem);
   void didEnd(FunTypeViewProtocol view);
   void didRequestShowPreview(FunTypeViewProtocol view, String title, String coverImageUrl, JSONObject data);
