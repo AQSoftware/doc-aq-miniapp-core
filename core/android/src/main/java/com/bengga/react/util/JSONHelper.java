@@ -29,7 +29,10 @@ public class JSONHelper {
 
   public String getString(String key, String defaultValue){
     try {
-      return _json.getString(key);
+      if (!_json.isNull(key)) {
+        return _json.getString(key);
+      }
+      else return defaultValue;
     }
     catch (JSONException e){
       return defaultValue;
@@ -42,7 +45,10 @@ public class JSONHelper {
 
   public Double getDouble(String key, Double defaultValue){
     try {
-      return _json.getDouble(key);
+      if (!_json.isNull(key)) {
+        return _json.getDouble(key);
+      }
+      else return defaultValue;
     }
     catch (JSONException e){
       return defaultValue;
@@ -55,7 +61,10 @@ public class JSONHelper {
 
   public Integer getInt(String key, Integer defaultValue){
     try {
-      return _json.getInt(key);
+      if (!_json.isNull(key)) {
+        return _json.getInt(key);
+      }
+      else return defaultValue;
     }
     catch (JSONException e){
       return defaultValue;
@@ -68,7 +77,10 @@ public class JSONHelper {
 
   public boolean getBoolean(String key, boolean defaultValue){
     try {
-      return _json.getBoolean(key);
+      if (!_json.isNull(key)) {
+        return _json.getBoolean(key);
+      }
+      else return defaultValue;
     }
     catch (JSONException e){
       return defaultValue;
@@ -81,7 +93,10 @@ public class JSONHelper {
 
   public JSONObject getJSONObject(String key, JSONObject defaultValue){
     try {
-      return _json.getJSONObject(key);
+      if (!_json.isNull(key)) {
+        return _json.getJSONObject(key);
+      }
+      else return defaultValue;
     }
     catch (JSONException e){
       return defaultValue;
@@ -94,7 +109,10 @@ public class JSONHelper {
 
   public JSONArray getJSONArray(String key, JSONArray defaultValue){
     try {
-      return _json.getJSONArray(key);
+      if (!_json.isNull(key)) {
+        return _json.getJSONArray(key);
+      }
+      else return defaultValue;
     }
     catch (JSONException e){
       return defaultValue;
