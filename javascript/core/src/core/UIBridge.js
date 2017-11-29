@@ -91,7 +91,7 @@ class UIBridge {
   @param {function(key: string, value: Object[]): void} callback - Callback function to be called when
     a list of friends has been selected
   */
-  showFriendsSelector(key: string, callback: (key: string, value: Array<Object>) => void) {
+  oldShowFriendsSelector(key: string, callback: (key: string, value: Array<Object>) => void) {
     this._saveCallbackAndProcessMessage(MESSAGE_SHOW_FRIENDS_SELECTOR, key, callback);
   }
 

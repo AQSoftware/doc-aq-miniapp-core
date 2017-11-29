@@ -111,8 +111,10 @@ public class FunTypeView extends RelativeLayout implements FunTypeViewProtocolDe
   }
 
   @Override
-  public void didFailNavigation(FunTypeViewProtocol view, WritableMap error) {
-    dispatchEvent(new FunTypeNavigationFailedEvent(getId(), error));
+  public void didFailNavigation(FunTypeViewProtocol view, JSONObject error) {
+    WritableMap params = new WritableNativeMap();
+    params.putString("error", error.optString("error"));
+    dispatchEvent(new FunTypeNavigationFailedEvent(getId(), params));
   }
 
   @Override

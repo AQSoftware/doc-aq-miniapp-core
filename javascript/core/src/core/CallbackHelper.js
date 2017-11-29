@@ -53,7 +53,7 @@ export class CallbackHelper {
     if (typeof window.webkit !== "undefined") {
       this.postToWebKit(message, parameters);
     }
-    if (typeof window.aqJsPostMessage != 'undefined'){
+    else if (typeof window.aqJsPostMessage != 'undefined'){
       this.postToAndroidAqApp(message, parameters);
     }
     else if (typeof window.parent !== "undefined") {
