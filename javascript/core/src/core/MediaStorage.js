@@ -1,6 +1,7 @@
 // @flow
 import 'whatwg-fetch';
 import Base64JS from 'base64-js';
+import Globals from './Globals';
 
 type FetchMethods = 'DELETE' | 'GET' | 'HEAD' | 'OPTIONS' | 'PATCH' | 'POST' | 'PUT';
 type Environment = 'live' | 'devt';
@@ -18,8 +19,8 @@ function parseJSON(response: Response): Promise<any> {
   return response.json()
 }
 
-const DEV_BASE_URL = "http://v2.dev.api.bengga.com/2.0/media";
-const LIVE_BASE_URL = "http://v2.dev.api.bengga.com/2.0/media";
+// const DEV_BASE_URL = "http://v2.dev.api.bengga.com/2.0/media";
+// const LIVE_BASE_URL = "http://v2.dev.api.bengga.com/2.0/media";
 
 
 export class MediaStorage {
@@ -32,9 +33,9 @@ export class MediaStorage {
 
   _getFullUrl(url: string): string {
     if (this.environment === 'devt')
-      return `${DEV_BASE_URL}${url}`;
+      return `${Globals.DEV_BASE_URL}/media${url}`;
     else
-      return `${LIVE_BASE_URL}${url}`;
+      return `${Globals.LIVE_BASE_URL}/media${url}`;
   }
 
   _jsonize(promise: Promise<any>): Promise<Object> {
