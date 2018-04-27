@@ -138,3 +138,6 @@ venv.bak/
 
 
 # End of https://www.gitignore.io/api/macos,python,visualstudiocode
+
+
+build/
