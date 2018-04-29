@@ -10,6 +10,8 @@ Welcome to AQ MiniApp Core Javascript Library's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   getting_started
+
 
 
 Indices and tables
