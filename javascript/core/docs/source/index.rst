@@ -11,6 +11,8 @@ Welcome to AQ MiniApp Core Javascript Library's documentation!
    :caption: Contents:
 
    getting_started
+   installation
+   integration_guide
 
 
 
