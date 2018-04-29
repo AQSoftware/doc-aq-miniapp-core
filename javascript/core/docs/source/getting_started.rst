@@ -108,7 +108,7 @@ Inform the host app that your mini app is ready
 Inform the host app that your mini app has ended
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-For now, let's tell the host app that our mini app ends when we click the **Done** button. We do this by inserting the following code in `onButtonUp()` method.
+For now, let's tell the host app that our mini app ends when we click the **Done** button. We do this by inserting the following code in ``onButtonUp()`` method.
 
 
 .. code-block:: javascript
@@ -128,11 +128,11 @@ Open your browser (preferably `Google Chrome <https://www.google.com/chrome/>`_ 
 
 To use the Simulator, enter your mini app URL (usually http://localhost:3000 during development) and press Go. 
 
-If you correctly followed the steps above, you should see the various AQ MiniApp events printed on the console. Don't worry if there are duplicates (especially on the `setAppData` and `informReady` events) as these are expected. If you press **Done**, you should see the `end` event printed on the console.
+If you correctly followed the steps above, you should see the various AQ MiniApp events printed on the console. Don't worry if there are duplicates (especially on the ``setAppData`` and ``informReady`` events) as these are expected. If you press **Done**, you should see the `end` event printed on the console.
 
 Congrats! You now have a minimal working AQ mini app ready for submission! :)
 
-Your final `SampleGame.js` should look something like this:
+Your final ``SampleGame.js`` should look something like this:
 
 .. code-block:: javascript
 
