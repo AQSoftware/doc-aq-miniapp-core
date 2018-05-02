@@ -155,7 +155,7 @@ Example usage:
   }
 
   defaultLifeCycle.setOnDataCallback(onData);
-  defaultLifeCycle.setOnDataCallback(onReset);
+  defaultLifeCycle.setOnResetCallback(onReset);
 
 .. code-block:: javascript
 
