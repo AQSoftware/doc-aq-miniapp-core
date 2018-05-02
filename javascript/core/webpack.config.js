@@ -8,16 +8,16 @@ module.exports = {
     library: 'AQCore',
     libraryTarget: 'window'
   },
-  externals: [
-    'base64-js',
-    'hawk',
-    'text-encoding-utf-8',
-    'uuid',
-    'whatwg-fetch'
-  ],
+  // externals: [
+  //   'base64-js',
+  //   'hawk',
+  //   'text-encoding-utf-8',
+  //   'uuid',
+  //   'whatwg-fetch'
+  // ],
   module: {
     rules: [
-      { test: /\.js$/, exclude: '/node_modules/', loader: "babel-loader" }
+      { test: /\.js$/, loader: "babel-loader" }
     ]
   },
   mode: 'production'
