@@ -330,8 +330,10 @@ class App extends Component {
 
   render() {
     let selector = null;
+    let nonce = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
     // let createUrl = `${this.state.targetUrl}?action=create`;
-    let joinUrl = `${this.state.targetUrl}?action=preview`;
+    let joinUrl = `${this.state.targetUrl}?action=preview&nonce=${nonce}`;
+
 
     if (this.state.selectorMode !== 'none'){
       selector = <FunTypeSelector
