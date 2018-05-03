@@ -10,7 +10,7 @@ import {
   ControlLabel,
   Form,
   FormControl,
-  Radio,
+  // Radio,
   Panel
 } from 'react-bootstrap';
 import uuidv1 from 'uuid/v1';
@@ -47,7 +47,7 @@ class App extends Component {
     }
   }
 
-  createSdk: AqMiniappSdk;
+  // createSdk: AqMiniappSdk;
   joinSdk: AqMiniappSdk;
   source: Object;
 
@@ -128,7 +128,8 @@ class App extends Component {
   }
 
   _currentSdk() {
-    return (this.state.mode === 'create' ? this.createSdk : this.joinSdk);
+    // return (this.state.mode === 'create' ? this.createSdk : this.joinSdk);
+    return this.joinSdk;
   }
 
   _generateId(): string {
@@ -244,9 +245,9 @@ class App extends Component {
 
   _join(param: Object) {
     this.setState({ joinOutputData: this._createTableJoinData(param, false) });
-    // if(confirm('Do you want to publish this?')) {
-    this.createSdk.sendMessageToFunType(Messages.MESSAGE_PUBLISH, 'default', this.id, false);
-    // }
+    // // if(confirm('Do you want to publish this?')) {
+    // this.createSdk.sendMessageToFunType(Messages.MESSAGE_PUBLISH, 'default', this.id, false);
+    // // }
     this._logConsole(`join() {winCriteriaPassed: ${param.winCriteriaPassed}}`);
   }
 
@@ -269,7 +270,7 @@ class App extends Component {
 
   _onCreateIFrameLoaded(){
     // this.createSdk.funTypeWindow = this.createIFrame.contentWindow;
-    this.createSdk.sendMessageToFunType(Messages.MESSAGE_ON_DATA, 'default', {source: this.source}, false);
+    // this.createSdk.sendMessageToFunType(Messages.MESSAGE_ON_DATA, 'default', {source: this.source}, false);
   }
 
   _onJoinIFrameLoaded(){
@@ -291,9 +292,9 @@ class App extends Component {
   _onClickGoButton(){
     // let createSdk = this._currentSdk();
     // if (createSdk) {
-      if (this.createSdk) {
-        this.createSdk.funTypeOrigin = this._getOrigin(this.state.tempTargetUrl);
-      }
+      // if (this.createSdk) {
+      //   this.createSdk.funTypeOrigin = this._getOrigin(this.state.tempTargetUrl);
+      // }
       this.joinSdk.funTypeOrigin = this._getOrigin(this.state.tempTargetUrl);
       this.setState({targetUrl: this.state.tempTargetUrl});
       this.forceUpdate();
@@ -329,7 +330,7 @@ class App extends Component {
 
   render() {
     let selector = null;
-    let createUrl = `${this.state.targetUrl}?action=create`;
+    // let createUrl = `${this.state.targetUrl}?action=create`;
     let joinUrl = `${this.state.targetUrl}?action=preview`;
 
     if (this.state.selectorMode !== 'none'){
@@ -371,16 +372,16 @@ class App extends Component {
         }}
       />
     }
-    let createVisibility = this.state.mode === 'create' ? 'visible' : 'hidden';
+    // let createVisibility = this.state.mode === 'create' ? 'visible' : 'hidden';
     let joinVisibility = this.state.mode === 'preview' ? 'visible' : 'hidden';
-    let createOpacity = this.state.mode === 'create' ? '1' : '0';
+    // let createOpacity = this.state.mode === 'create' ? '1' : '0';
     let joinOpacity = this.state.mode === 'preview' ? '1' : '0';
     return (
       <div className="sandbox">
         <img className="iPhone" src={iphone} alt="iPhone" />
         <div className="content">
             <iframe ref={(component) => {this.joinIFrame = component;}} className="iFrame" src={joinUrl} onLoad={this._onJoinIFrameLoaded.bind(this)} style={{visibility: joinVisibility, opacity: joinOpacity}}/>
-            <iframe ref={(component) => {this.createIFrame = component;}} className="iFrame" src={createUrl} onLoad={this._onCreateIFrameLoaded.bind(this)} style={{visibility: createVisibility, opacity: createOpacity}}/>
+            {/* <iframe ref={(component) => {this.createIFrame = component;}} className="iFrame" src={createUrl} onLoad={this._onCreateIFrameLoaded.bind(this)} style={{visibility: createVisibility, opacity: createOpacity}}/> */}
             <div className="navGradient" style={{backgroundImage: `url(${nav_gradient})`}}>Mini App</div>
             <div className="navBackButton" style={{backgroundImage: `url(${nav_back_white})`}}/>
             {selector}
@@ -408,11 +409,11 @@ class App extends Component {
               Reset
             </Button> : null}
           </Form><br/>
-          <Form inline>
-            <Radio id="preview" onClick={(e) => this._onClickModeRadioButton(e)} checked={this.state.mode === 'preview'} readOnly>Join (Preview)</Radio>&nbsp;&nbsp;&nbsp;
+          {/* <Form inline style={{ visibility: 'hidden' }}> */}
+            {/* <Radio id="preview" onClick={(e) => this._onClickModeRadioButton(e)} checked={this.state.mode === 'preview'} readOnly>Join (Preview)</Radio>&nbsp;&nbsp;&nbsp; */}
             {/* <Radio id="create" onClick={(e) => this._onClickModeRadioButton(e)} checked={this.state.mode === 'create'} readOnly width="120px">Create</Radio> */}
-          </Form><br/>
-          {this.state.mode === 'preview' ? <ControlLabel>Create Output Data</ControlLabel> : null}
+          {/* </Form><br/> */}
+          {this.state.mode === 'preview' ? <ControlLabel>Input Data</ControlLabel> : null}
           {this.state.mode === 'preview' ? <PreviewTable height='300px' editable={true} data={this.state.createOutputData}/> : null}
           {this.state.mode === 'preview' && this.state.joinOutputData && this.state.joinOutputData.length > 0 ? <ControlLabel>Preview Output Data</ControlLabel> : null}
           {this.state.mode === 'preview' && this.state.joinOutputData && this.state.joinOutputData.length > 0 ? <PreviewTable height='300px' data={this.state.joinOutputData}/> : null}
