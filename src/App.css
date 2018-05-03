@@ -1,0 +1,69 @@
+.sandbox {
+  display: flex;
+  margin: 0px;
+  padding: 20px;
+  flex-direction: row;
+}
+.iPhone {
+  position: absolute;
+  top: -79px;
+  width: 436px;
+  height: 928px;
+}
+.content {
+  display: flex;
+  position: relative;
+  top: 30px;
+  left: 30px;
+  width: 375px;
+  height: 667px;
+  /*z-index: 99;*/
+  border: 0px solid red;
+}
+.iFrame {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 375px;
+  height: 667px;
+  border: 0px solid red;
+}
+.selector {
+  position: absolute;
+  bottom: 0px;
+  width: 375px;
+}
+.fullScreenSelector {
+  position: absolute;
+  top: 0px;
+  width: 375px;
+}
+.parametersBox {
+  position: relative;
+  left: 80px;
+  width: 500px;
+  overflow: auto;
+}
+.navGradient {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 375px;
+  height: 44px;
+  background-size: contain;
+  background-repeat: repeat;
+  text-transform: uppercase;
+  color: white;
+  text-align: center;
+  font-size: x-large;
+  font-weight: bold;
+}
+.navBackButton {
+  position: absolute;;
+  top: 0px;
+  left: 0px;
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+  background-repeat: repeat;
+}

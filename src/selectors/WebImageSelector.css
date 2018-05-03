@@ -1,0 +1,36 @@
+.webImageSelector {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(38, 38, 38, 0.8);
+}
+
+.webImageSelector .title {
+  color: white;
+  text-align: center;
+  padding-top: 2px;
+  text-transform: uppercase;
+}
+
+.webImageSelector .list {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0px;
+  margin: 0px;
+  list-style-type: none;
+}
+
+.webImageSelector .listItem {
+  padding-left: 3px;
+  padding-right: 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.webImageSelector .listItemContent {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}

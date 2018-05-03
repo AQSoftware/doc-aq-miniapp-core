@@ -1,0 +1,50 @@
+.friendSelector {
+  height: 667px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.friendSelector .header {
+  width: 100%;
+  height: 50px;
+  padding-top: 10px;
+  text-transform: uppercase;
+  color: black;
+  text-align: center;
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.friendSelector .table {
+  height: 82%;
+  overflow: auto;
+}
+
+.friendSelector .row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin: 0px;
+  text-decoration: none;
+}
+
+.friendSelector .avatar {
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+}
+
+.friendSelector .displayName {
+  position: relative;
+  left: -30px;
+}
+.friendSelector .checkmark {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  align-self: center;
+  left: 250px;
+  /*right: 20px;*/
+}
