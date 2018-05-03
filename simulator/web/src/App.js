@@ -257,11 +257,11 @@ class App extends Component {
   }
 
   _setAppData(param: Object){
-    this._logConsole(`setAppData(): ${JSON.stringify(param)}`);
+    this._logFromMiniApp(`setAppData(): ${JSON.stringify(param)}`);
   }
 
   _informReady(param: Object){
-    this._logConsole(`informReady()`);
+    this._logFromMiniApp(`informReady()`);
   }
 
   _publishStatus(param: Object){
@@ -302,7 +302,21 @@ class App extends Component {
   }
 
   _onClickResetButton(){
+    this._logFromSimulator(`onReset(): ${JSON.stringify(this.state.previewData)}`);
     this.joinSdk.sendMessageToFunType(Messages.MESSAGE_RESET, 'default', this.state.previewData, false);
+  }
+
+  _onClickClearConsoleButton() {
+    const textArea = ReactDOM.findDOMNode(this.consoleArea);
+    textArea.value = '';
+  }
+
+  _logFromSimulator(text: string) {
+    this._logConsole(`simulator: ${text}`);
+  }
+
+  _logFromMiniApp(text: string) {
+    this._logConsole(`mini-app: ${text}`);
   }
 
   _logConsole(text: string) {
@@ -419,8 +433,9 @@ class App extends Component {
           {this.state.mode === 'preview' ? <PreviewTable height='300px' editable={true} data={this.state.createOutputData}/> : null}
           {this.state.mode === 'preview' && this.state.joinOutputData && this.state.joinOutputData.length > 0 ? <ControlLabel>Preview Output Data</ControlLabel> : null}
           {this.state.mode === 'preview' && this.state.joinOutputData && this.state.joinOutputData.length > 0 ? <PreviewTable height='300px' data={this.state.joinOutputData}/> : null}
-          {this.state.mode === 'preview' ? <ControlLabel>Console</ControlLabel> : null}
-          {this.state.mode === 'preview' ? <FormControl componentClass="textarea" wrap='off' style={{height: '300px'}} readOnly ref={(item) => {this.consoleArea = item;}}/> : null}
+          {this.state.mode === 'preview' ? <ControlLabel>Console</ControlLabel> : null}{' '}
+          {this.state.mode === 'preview' ? <Button onClick={this._onClickClearConsoleButton.bind(this)}>Clear</Button> : null}          
+          {this.state.mode === 'preview' ? <FormControl componentClass="textarea" wrap='off' style={{ height: '300px', fontFamily: '"Lucida Console", Monaco, monospace', fontSize: '8pt'}} readOnly ref={(item) => {this.consoleArea = item;}}/> : null}
         </Panel>
       </div>
     );
