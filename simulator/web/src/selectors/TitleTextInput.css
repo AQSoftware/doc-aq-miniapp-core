@@ -1,0 +1,13 @@
+.titleTextInput {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(38, 38, 38, 0.8);
+
+}
+.titleTextInput > input {
+  padding: 10px;
+}
+.titleTextInput > .kb {
+  width: 375px;
+  height: 253px;
+}
