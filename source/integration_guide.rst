@@ -92,7 +92,7 @@ your mini app:
 
     {
       "shouldWin": true,
-      "winImage": "http://example.com/example.jpg"
+      "winImage": "http://example.com/example.jpg",
       "source": {
         "id": "some_id",
         "displayName": "Bob",
