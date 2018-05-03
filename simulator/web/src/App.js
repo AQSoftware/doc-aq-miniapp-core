@@ -50,6 +50,7 @@ class App extends Component {
   // createSdk: AqMiniappSdk;
   joinSdk: AqMiniappSdk;
   source: Object;
+  engagementSource: Object;
 
   createIFrame: HTMLIFrameElement;
   joinIFrame: HTMLIFrameElement;
@@ -79,9 +80,17 @@ class App extends Component {
     }
     this.id = this._generateId();
     this.source = {
+      id: 'RVO_YE8EEeikXwq8J4CZ6g',
       displayName: 'Anna Smith',
       avatarBig: 'https://getfyt.s3.amazonaws.com/users_avatar/10454/2016-09-21t193052883525-yourtrainer.com-profiles-california-santa-barbara-36205ec-lydia-kitahara-photos_resize.jpg',
       avatarSmall: 'https://getfyt.s3.amazonaws.com/users_avatar/10454/2016-09-21t193052883525-yourtrainer.com-profiles-california-santa-barbara-36205ec-lydia-kitahara-photos_resize.jpg'
+    }
+
+    this.engagementSource = {
+      id: 'SZppwE8EEeikXwq8J4CZ6g',
+      displayName: 'Join Smith',
+      avatarBig: 'https://daks2k3a4ib2z.cloudfront.net/55d62f32fa59c51977889877/561d4d3b8cf0398714ac71b5_MM-092714_Avatar.jpg',
+      avatarSmall: 'https://daks2k3a4ib2z.cloudfront.net/55d62f32fa59c51977889877/561d4d3b8cf0398714ac71b5_MM-092714_Avatar.jpg'
     }
   }
 
@@ -223,7 +232,7 @@ class App extends Component {
     for (let k in param){
       let sanitized = param[k];
       if (typeof sanitized === 'object') {
-        sanitized = JSON.stringify(sanitized);
+        sanitized = JSON.stringify(sanitized, null, 2);
       }
       else if (typeof sanitized === 'string' && sanitized.length > 100 && shouldTruncate) {
         sanitized = `${sanitized.substring(0, 100)}...`;
@@ -238,6 +247,7 @@ class App extends Component {
   _showPreviewWithData(param: Object){
     // Inject current user as source
     param.source = this.source;
+    param.engagementSource = this.engagementSource
     this.id = this._generateId();
     this.setState({ mode: 'preview', previewData: param, createOutputData: this._createTableJoinData(param) });
     this.joinSdk.sendMessageToFunType(Messages.MESSAGE_ON_DATA, 'default', param, false);
@@ -257,7 +267,7 @@ class App extends Component {
   }
 
   _setAppData(param: Object){
-    this._logFromMiniApp(`setAppData(): ${JSON.stringify(param)}`);
+    this._logFromMiniApp(`setAppData(): ${JSON.stringify(param, null, 2)}`);
   }
 
   _informReady(param: Object){
@@ -274,6 +284,12 @@ class App extends Component {
   }
 
   _onJoinIFrameLoaded(){
+    const data = {
+      source: this.source,
+      engagemenSource: this.engagementSource
+    }
+    this._logFromSimulator(`Mini app loaded: ${JSON.stringify(data, null, 2)}`);    
+    this.joinSdk.sendMessageToFunType(Messages.MESSAGE_ON_DATA, 'default', data, false);
     this.joinSdk.funTypeWindow = this.joinIFrame.contentWindow;
   }
 
@@ -302,7 +318,7 @@ class App extends Component {
   }
 
   _onClickResetButton(){
-    this._logFromSimulator(`onReset(): ${JSON.stringify(this.state.previewData)}`);
+    this._logFromSimulator(`onReset(): ${JSON.stringify(this.state.previewData, null, 2)}`);
     this.joinSdk.sendMessageToFunType(Messages.MESSAGE_RESET, 'default', this.state.previewData, false);
   }
 
@@ -424,7 +440,7 @@ class App extends Component {
             >
               Reset
             </Button> : null}
-          </Form><br/>
+          </Form><p/>
           {/* <Form inline style={{ visibility: 'hidden' }}> */}
             {/* <Radio id="preview" onClick={(e) => this._onClickModeRadioButton(e)} checked={this.state.mode === 'preview'} readOnly>Join (Preview)</Radio>&nbsp;&nbsp;&nbsp; */}
             {/* <Radio id="create" onClick={(e) => this._onClickModeRadioButton(e)} checked={this.state.mode === 'create'} readOnly width="120px">Create</Radio> */}
@@ -434,7 +450,7 @@ class App extends Component {
           {this.state.mode === 'preview' && this.state.joinOutputData && this.state.joinOutputData.length > 0 ? <ControlLabel>Preview Output Data</ControlLabel> : null}
           {this.state.mode === 'preview' && this.state.joinOutputData && this.state.joinOutputData.length > 0 ? <PreviewTable height='300px' data={this.state.joinOutputData}/> : null}
           {this.state.mode === 'preview' ? <ControlLabel>Console</ControlLabel> : null}{' '}
-          {this.state.mode === 'preview' ? <Button onClick={this._onClickClearConsoleButton.bind(this)}>Clear</Button> : null}          
+          {this.state.mode === 'preview' ? <Button onClick={this._onClickClearConsoleButton.bind(this)}>Clear</Button> : null}<p/>          
           {this.state.mode === 'preview' ? <FormControl componentClass="textarea" wrap='off' style={{ height: '300px', fontFamily: '"Lucida Console", Monaco, monospace', fontSize: '8pt'}} readOnly ref={(item) => {this.consoleArea = item;}}/> : null}
         </Panel>
       </div>
