@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import moment from 'moment';
 import { AqMiniappSdk, Messages } from './polyfill';
 import { FunTypeSelector, getFriends } from './selectors/FunTypeSelector';
 import type { SelectorMode } from './selectors/FunTypeSelector';
@@ -141,6 +142,13 @@ class App extends Component {
     return this.joinSdk;
   }
 
+  _currentAppData() {
+    return {
+      source: this.source,
+      engagementSource: this.engagementSource
+    }
+  }
+
   _generateId(): string {
     let arr = new Array(16);
     uuidv1(null, arr, 0);
@@ -263,7 +271,7 @@ class App extends Component {
 
   _end(param: Object) {
     // this.createSdk.sendMessageToFunType(Messages.MESSAGE_END, 'default', this.id, false);
-    this._logConsole(`end()`);
+    this._logFromMiniApp(`end()`);
   }
 
   _setAppData(param: Object){
@@ -284,10 +292,7 @@ class App extends Component {
   }
 
   _onJoinIFrameLoaded(){
-    const data = {
-      source: this.source,
-      engagemenSource: this.engagementSource
-    }
+    const data = this._currentAppData();
     this._logFromSimulator(`Mini app loaded: ${JSON.stringify(data, null, 2)}`);    
     this.joinSdk.sendMessageToFunType(Messages.MESSAGE_ON_DATA, 'default', data, false);
     this.joinSdk.funTypeWindow = this.joinIFrame.contentWindow;
@@ -318,8 +323,9 @@ class App extends Component {
   }
 
   _onClickResetButton(){
-    this._logFromSimulator(`onReset(): ${JSON.stringify(this.state.previewData, null, 2)}`);
-    this.joinSdk.sendMessageToFunType(Messages.MESSAGE_RESET, 'default', this.state.previewData, false);
+    const data = this._currentAppData();
+    this._logFromSimulator(`onReset(): ${JSON.stringify(data, null, 2)}`);
+    this.joinSdk.sendMessageToFunType(Messages.MESSAGE_RESET, 'default', data, false);
   }
 
   _onClickClearConsoleButton() {
@@ -337,7 +343,8 @@ class App extends Component {
 
   _logConsole(text: string) {
     const textArea = ReactDOM.findDOMNode(this.consoleArea);
-    textArea.value += `${text}\n`;
+    textArea.value += `[${moment().format('HH:mm:ss.SSS')}] ${text}\n`;
+    textArea.scrollTop = textArea.scrollHeight;    
   }
 
   // $FlowFixMe
@@ -451,7 +458,7 @@ class App extends Component {
           {this.state.mode === 'preview' && this.state.joinOutputData && this.state.joinOutputData.length > 0 ? <PreviewTable height='300px' data={this.state.joinOutputData}/> : null}
           {this.state.mode === 'preview' ? <ControlLabel>Console</ControlLabel> : null}{' '}
           {this.state.mode === 'preview' ? <Button onClick={this._onClickClearConsoleButton.bind(this)}>Clear</Button> : null}<p/>          
-          {this.state.mode === 'preview' ? <FormControl componentClass="textarea" wrap='off' style={{ height: '300px', fontFamily: '"Lucida Console", Monaco, monospace', fontSize: '8pt'}} readOnly ref={(item) => {this.consoleArea = item;}}/> : null}
+          {this.state.mode === 'preview' ? <FormControl componentClass="textarea" wrap='off' style={{ padding: '2pt', height: '300px', fontFamily: '"Lucida Console", Monaco, monospace', fontSize: '8pt'}} readOnly ref={(item) => {this.consoleArea = item;}}/> : null}
         </Panel>
       </div>
     );
