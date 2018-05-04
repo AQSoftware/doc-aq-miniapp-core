@@ -46,8 +46,3 @@ Now that you have installed the required dependencies, head over to the Integrat
 
 
 
-Dr. Ong
-
-
-
-
