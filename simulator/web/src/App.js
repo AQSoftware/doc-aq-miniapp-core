@@ -273,7 +273,8 @@ class App extends Component {
 
   _onJoinIFrameLoaded(){
     const data = this._currentAppData();
-    this._logFromSimulator(`Mini app loaded: ${JSON.stringify(data, null, 2)}`);    
+    this._logFromSimulator(`Mini app loaded`);    
+    this._logFromSimulator(`onData(): ${JSON.stringify(data, null, 2)}`);    
     this.joinSdk.sendMessageToFunType(Messages.MESSAGE_ON_DATA, 'default', data, false);
     this.joinSdk.funTypeWindow = this.joinIFrame.contentWindow;
   }
