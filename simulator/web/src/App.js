@@ -33,6 +33,7 @@ class App extends Component {
     previewData: ?Object,
     joinOutputData: Array<Object>,
     shouldWin: boolean,
+    winImage: ?string,
     selectorMode: SelectorMode,
     webImageSelectorData: {
       key: string,
@@ -56,6 +57,7 @@ class App extends Component {
   createIFrame: HTMLIFrameElement;
   joinIFrame: HTMLIFrameElement;
   shouldWinCheckBox: HTMLCheckBox;
+  winImageInput: HTMLInputElement;
   id: string;
 
   constructor(props: Props) {
@@ -66,6 +68,7 @@ class App extends Component {
       previewData: null,
       joinOutputData: [],
       shouldWin: true,
+      winImage: 'https://s3-ap-southeast-1.amazonaws.com/fma-sdk/simulator/static/media/gift.png',
       selectorMode: 'none',
       webImageSelectorData: {
         key : '',
@@ -129,7 +132,8 @@ class App extends Component {
     return {
       source: this.source,
       engagementSource: this.engagementSource,
-      shouldWin: this.state.shouldWin
+      shouldWin: this.state.shouldWin,
+      winImage: this.state.shouldWin ? this.state.winImage : undefined
     }
   }
 
@@ -308,8 +312,12 @@ class App extends Component {
     textArea.value = '';
   }
 
-  _onClickShouldWin(ev){
+  _onClickShouldWin(){
     this.setState({ shouldWin: !this.state.shouldWin });
+  }
+
+  _onWinImageInputChange(){
+    this.setState({ winImage: this.winImageInput.value });
   }
 
   _logFromSimulator(text: string) {
@@ -399,11 +407,20 @@ class App extends Component {
               onClick={this._onClickResetButton.bind(this)}
             >
               Reset
-            </Button>
-          </Form><p/>
-          <ControlLabel>Mini App Data</ControlLabel><p/>
-          {/* <PreviewTable height='300px' data={this.state.joinOutputData}/> */}
-          <Checkbox inline onChange={this._onClickShouldWin.bind(this)} ref={(item) => {this.shouldWinCheckBox = item;}} checked={this.state.shouldWin? 'checked' : ''}>Should Win</Checkbox><p/>
+            </Button><p />
+            <ControlLabel>Mini App Data</ControlLabel><p />
+            <Checkbox inline onChange={this._onClickShouldWin.bind(this)} ref={(item) => { this.shouldWinCheckBox = item; }} checked={this.state.shouldWin ? 'checked' : ''}>Should Win</Checkbox><p/>
+            <ControlLabel>Win Image</ControlLabel><p />
+            <FormControl
+              ref={(item) => { this.winImageInput = item; }}
+              type="text"
+              style={{ width: 420 }}
+              value={this.state.winImage}
+              placeholder="Enter valid image URL"
+              onChange={() => {}} // onChange is required
+              disabled={!this.state.shouldWin}
+            />
+          </Form><p/>          
           <ControlLabel>Console</ControlLabel>{' '}
           <Button onClick={this._onClickClearConsoleButton.bind(this)}>Clear</Button><p/>          
           <FormControl componentClass="textarea" wrap='off' style={{ padding: '2pt', height: '500px', fontFamily: '"Lucida Console", Monaco, monospace', fontSize: '8pt'}} readOnly ref={(item) => {this.consoleArea = item;}}/>
