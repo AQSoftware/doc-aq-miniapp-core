@@ -6,7 +6,8 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 
-const MINIAPP_URL = 'http://localhost:3000'; //'about:blank';
+const MINIAPP_URL = 'http://localhost:3000';
+// const MINIAPP_URL = 'about:blank';
 
 ReactDOM.render(
   <App targetUrl={MINIAPP_URL}/>,

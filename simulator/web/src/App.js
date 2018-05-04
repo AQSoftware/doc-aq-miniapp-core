@@ -5,13 +5,14 @@ import moment from 'moment';
 import { AqMiniappSdk, Messages } from './polyfill';
 import { FunTypeSelector, getFriends } from './selectors/FunTypeSelector';
 import type { SelectorMode } from './selectors/FunTypeSelector';
-import { PreviewTable } from './components/PreviewTable';
+// import { PreviewTable } from './components/PreviewTable';
 import {
   Button,
   ControlLabel,
   Form,
   FormControl,
   // Radio,
+  Checkbox,
   Panel
 } from 'react-bootstrap';
 import uuidv1 from 'uuid/v1';
@@ -44,7 +45,8 @@ class App extends Component {
     },
     friendSelectorData: {
       key: string
-    }
+    },
+    nonce: string
   }
 
   joinSdk: AqMiniappSdk;
@@ -53,6 +55,7 @@ class App extends Component {
 
   createIFrame: HTMLIFrameElement;
   joinIFrame: HTMLIFrameElement;
+  shouldWinCheckBox: HTMLCheckBox;
   id: string;
 
   constructor(props: Props) {
@@ -75,7 +78,8 @@ class App extends Component {
       },
       friendSelectorData : {
         key : ''
-      }
+      },
+      nonce: this._generateNonce()
     }
     this.id = this._generateId();
     this.source = {
@@ -133,6 +137,11 @@ class App extends Component {
     let arr = new Array(16);
     uuidv1(null, arr, 0);
     return Base64JS.fromByteArray(arr).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+  }
+
+  _generateNonce() {
+    // Random nonce is used to make URL unique so, iFrame can be reloaded
+    return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
   }
 
   _showWebImageSelector(param: Object) {
@@ -283,7 +292,7 @@ class App extends Component {
 
   _onClickGoButton(){
     this.joinSdk.funTypeOrigin = this._getOrigin(this.state.tempTargetUrl);
-    this.setState({targetUrl: this.state.tempTargetUrl});
+    this.setState({targetUrl: this.state.tempTargetUrl, nonce: this._generateNonce()});
     this.forceUpdate();
   }
 
@@ -296,6 +305,10 @@ class App extends Component {
   _onClickClearConsoleButton() {
     const textArea = ReactDOM.findDOMNode(this.consoleArea);
     textArea.value = '';
+  }
+
+  _onClickShouldWin(ev){
+    this.setState({ shouldWin: !this.state.shouldWin });
   }
 
   _logFromSimulator(text: string) {
@@ -313,10 +326,8 @@ class App extends Component {
   }
 
   render() {
-    let selector = null;
-    // Random nonce is used to make URL unique so, iFrame can be reloaded
-    let nonce = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
-    let joinUrl = `${this.state.targetUrl}?action=preview&nonce=${nonce}`;
+    let selector = null;    
+    let joinUrl = `${this.state.targetUrl}?action=preview&nonce=${this.state.nonce}`;
 
     if (this.state.selectorMode !== 'none'){
       selector = <FunTypeSelector
@@ -367,7 +378,7 @@ class App extends Component {
             {selector}
         </div>
         <Panel className="parametersBox">
-          <ControlLabel>Mini-app URL</ControlLabel>
+          <ControlLabel>Mini App URL</ControlLabel>
           <Form inline>
             <FormControl
               style={{width: 300}}
@@ -389,11 +400,12 @@ class App extends Component {
               Reset
             </Button>
           </Form><p/>
-          <ControlLabel>Preview Output Data</ControlLabel>
-          <PreviewTable height='300px' data={this.state.joinOutputData}/>
+          <ControlLabel>Mini App Data</ControlLabel><p/>
+          {/* <PreviewTable height='300px' data={this.state.joinOutputData}/> */}
+          <Checkbox inline onChange={this._onClickShouldWin.bind(this)} ref={(item) => {this.shouldWinCheckBox = item;}} checked={this.state.shouldWin? 'checked' : ''}>Should Win</Checkbox><p/>
           <ControlLabel>Console</ControlLabel>{' '}
           <Button onClick={this._onClickClearConsoleButton.bind(this)}>Clear</Button><p/>          
-          <FormControl componentClass="textarea" wrap='off' style={{ padding: '2pt', height: '300px', fontFamily: '"Lucida Console", Monaco, monospace', fontSize: '8pt'}} readOnly ref={(item) => {this.consoleArea = item;}}/>
+          <FormControl componentClass="textarea" wrap='off' style={{ padding: '2pt', height: '500px', fontFamily: '"Lucida Console", Monaco, monospace', fontSize: '8pt'}} readOnly ref={(item) => {this.consoleArea = item;}}/>
         </Panel>
       </div>
     );
