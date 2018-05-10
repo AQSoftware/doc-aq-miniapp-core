@@ -69,7 +69,7 @@ your mini app:
         "engagementSource": {
           "$ref": "#/definitions/userInfo"
         },
-        "additionalInfo": {
+        "engagementInfo": {
           "type": "object"      
         }
       },
@@ -86,7 +86,7 @@ your mini app:
   * ``winImage`` - Optional. Image URL of item won. Only present if ``shouldWin`` is true.
   * ``source`` - User info of current user playing the mini app
   * ``engagementSource`` - User info of user who created the instance of the mini app
-  * ``additionalInfo`` - Data specific to the mini app.
+  * ``engagementInfo`` - Data specific to the mini app.
 
   An example of the data passed by ``onData`` is as follows:
 
@@ -107,7 +107,7 @@ your mini app:
         "avatarBig": "http://example.com/example.jpg",
         "avatarSmall": "http://example.com/example.jpg"
       },
-      "additionalInfo": {
+      "engagementInfo": {
         "opponent": {
           "id": "some_id",
           "displayName": "Carol",
