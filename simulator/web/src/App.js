@@ -5,6 +5,7 @@ import moment from 'moment';
 import { AqMiniappSdk, Messages } from './polyfill';
 import { FunTypeSelector, getFriends } from './selectors/FunTypeSelector';
 import type { SelectorMode } from './selectors/FunTypeSelector';
+import DismissableAlert from './components/DismissableAlert';
 // import { PreviewTable } from './components/PreviewTable';
 import {
   Button,
@@ -47,7 +48,14 @@ class App extends Component {
     friendSelectorData: {
       key: string
     },
-    nonce: string
+    nonce: string,
+    isAlertVisible: boolean,
+    alertMessage: string,
+    engagementInfoValue: string,
+    // This is used to prevent loading of fun type during first loading.
+    // We want this so there is a chance for the user to input a custom
+    // engagement info before the funtype is loaded
+    hasClickedGo: boolean
   }
 
   joinSdk: AqMiniappSdk;
@@ -58,6 +66,8 @@ class App extends Component {
   joinIFrame: HTMLIFrameElement;
   shouldWinCheckBox: HTMLCheckBox;
   winImageInput: HTMLInputElement;
+  engagementInfoArea: HTMLInputElement;
+  consoleArea: HTMLInputElement;
   id: string;
 
   constructor(props: Props) {
@@ -82,7 +92,10 @@ class App extends Component {
       friendSelectorData : {
         key : ''
       },
-      nonce: this._generateNonce()
+      nonce: this._generateNonce(),
+      isAlertVisible: false,
+      engagementInfoValue: "{}",
+      hasClickedGo: false
     }
     this.id = this._generateId();
     this.source = {
@@ -100,13 +113,17 @@ class App extends Component {
     }
   }
 
-  componentDidMount(){
+  componentDidMount(){    
+    this._setupSdk();
+  }
+
+  _setupSdk() {
     let joinSdk = new AqMiniappSdk(this._getOrigin(this.props.targetUrl), this.joinIFrame.contentWindow);
     joinSdk.addMessageHandler(Messages.MESSAGE_SHOW_WEB_IMAGE_SELECTOR, this._showWebImageSelector.bind(this));
     joinSdk.addMessageHandler(Messages.MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR, this._showGalleryImageSelector.bind(this));
     joinSdk.addMessageHandler(Messages.MESSAGE_SHOW_TITLE_INPUT, this._showTitleInput.bind(this));
     joinSdk.addMessageHandler(Messages.MESSAGE_SHOW_FRIENDS_SELECTOR, this._showFriendsSelector.bind(this));
-    joinSdk.addMessageHandler(Messages.MESSAGE_SHOW_FRIENDS_SELECTOR_PROMISE, this._showFriendsSelectorPromise.bind(this));    
+    joinSdk.addMessageHandler(Messages.MESSAGE_SHOW_FRIENDS_SELECTOR_PROMISE, this._showFriendsSelectorPromise.bind(this));
     joinSdk.addMessageHandler(Messages.MESSAGE_GET_FRIENDS, this._getFriends.bind(this));
     joinSdk.addMessageHandler(Messages.MESSAGE_SHOW_PREVIEW_WITH_DATA, this._showPreviewWithData.bind(this));
     joinSdk.addMessageHandler(Messages.MESSAGE_PUBLISH_STATUS, this._publishStatus.bind(this));
@@ -114,7 +131,7 @@ class App extends Component {
     joinSdk.addMessageHandler(Messages.MESSAGE_SET_APP_DATA, this._setAppData.bind(this));
     joinSdk.addMessageHandler(Messages.MESSAGE_INFORM_READY, this._informReady.bind(this));
     joinSdk.addMessageHandler(Messages.MESSAGE_END, this._end.bind(this));
-    joinSdk.shouldHandleEvent = () => {return true;}
+    joinSdk.shouldHandleEvent = () => { return true; }
     this.joinSdk = joinSdk;
   }
 
@@ -133,7 +150,8 @@ class App extends Component {
       source: this.source,
       engagementSource: this.engagementSource,
       shouldWin: this.state.shouldWin,
-      winImage: this.state.shouldWin ? this.state.winImage : undefined
+      winImage: this.state.shouldWin ? this.state.winImage : undefined,
+      engagementInfo: JSON.parse(this.state.engagementInfoValue)
     }
   }
 
@@ -148,6 +166,17 @@ class App extends Component {
     return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
   }
 
+  _isEngagementInfoValid() {
+    try {
+      if (Array.isArray(JSON.parse(this.state.engagementInfoValue))) {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
+
   _showWebImageSelector(param: Object) {
     let {key, title, imageUrls} = param;
     if (key) {
@@ -160,6 +189,18 @@ class App extends Component {
         selectorMode: 'webImage'
       });
     }
+  }
+
+  _onAlertDismissed() {
+    this._hideAlert();
+  }
+
+  _showAlert(alertMessage) {
+    this.setState({ isAlertVisible: true, alertMessage });
+  }
+
+  _hideAlert() {
+    this.setState({ isAlertVisible: false, alertMessage: '' });
   }
 
   _onWebImageSelected(item: string) {
@@ -276,11 +317,13 @@ class App extends Component {
   }
 
   _onJoinIFrameLoaded(){
-    const data = this._currentAppData();
     this._logFromSimulator(`Mini app loaded`);    
-    this._logFromSimulator(`onData(): ${JSON.stringify(data, null, 2)}`);    
-    this.joinSdk.sendMessageToFunType(Messages.MESSAGE_ON_DATA, 'default', data, false);
-    this.joinSdk.funTypeWindow = this.joinIFrame.contentWindow;
+    setTimeout(() => {
+      const data = this._currentAppData();
+      this._logFromSimulator(`onData(): ${JSON.stringify(data, null, 2)}`);
+      this.joinSdk.funTypeWindow = this.joinIFrame.contentWindow;
+      this.joinSdk.sendMessageToFunType(Messages.MESSAGE_ON_DATA, 'default', data, false);
+    }, 300);
   }
 
   // $FlowFixMe
@@ -296,9 +339,15 @@ class App extends Component {
   }
 
   _onClickGoButton(){
-    this.joinSdk.funTypeOrigin = this._getOrigin(this.state.tempTargetUrl);
-    this.setState({targetUrl: this.state.tempTargetUrl, nonce: this._generateNonce()});
-    this.forceUpdate();
+    if (this._isEngagementInfoValid()) {
+      this._hideAlert();
+      this.joinSdk.funTypeOrigin = this._getOrigin(this.state.tempTargetUrl);
+      this.setState({targetUrl: this.state.tempTargetUrl, nonce: this._generateNonce(), hasClickedGo: true});
+      this.forceUpdate();
+    }
+    else {
+      this._showAlert('Engagement Info is not a valid JSON Object');
+    }
   }
 
   _onClickResetButton(){
@@ -320,6 +369,10 @@ class App extends Component {
     this.setState({ winImage: this.winImageInput.value });
   }
 
+  _onEngagementInfoInputChange(e) {
+    this.setState({ engagementInfoValue: e.target.value });
+  }
+
   _logFromSimulator(text: string) {
     this._logConsole(`simulator: ${text}`);
   }
@@ -335,9 +388,11 @@ class App extends Component {
   }
 
   render() {
-    let selector = null;    
-    let joinUrl = `${this.state.targetUrl}?action=preview&nonce=${this.state.nonce}`;
-
+    let selector = null;
+    let joinUrl = "about:blank";
+    if (this.state.hasClickedGo) {
+      joinUrl = `${this.state.targetUrl}?action=preview&nonce=${this.state.nonce}`;
+    }
     if (this.state.selectorMode !== 'none'){
       selector = <FunTypeSelector
         className="selector"
@@ -381,7 +436,7 @@ class App extends Component {
       <div className="sandbox">
         <img className="iPhone" src={iphone} alt="iPhone" />
         <div className="content">
-            <iframe ref={(component) => {this.joinIFrame = component;}} className="iFrame" src={joinUrl} onLoad={this._onJoinIFrameLoaded.bind(this)}/>
+            <iframe ref={(component) => { this.joinIFrame = component; }} className="iFrame" src={joinUrl} onLoad={this._onJoinIFrameLoaded.bind(this)} />
             <div className="navGradient" style={{backgroundImage: `url(${nav_gradient})`}}>Mini App</div>
             <div className="navBackButton" style={{backgroundImage: `url(${nav_back_white})`}}/>
             {selector}
@@ -408,22 +463,38 @@ class App extends Component {
             >
               Reset
             </Button><p />
+            <DismissableAlert message={this.state.alertMessage} visible={this.state.isAlertVisible} onDismiss={this._onAlertDismissed.bind(this)}/>
             <ControlLabel>Mini App Data</ControlLabel><p />
             <Checkbox inline onChange={this._onClickShouldWin.bind(this)} ref={(item) => { this.shouldWinCheckBox = item; }} checked={this.state.shouldWin ? 'checked' : ''}>Should Win</Checkbox><p/>
             <ControlLabel>Win Image</ControlLabel><p />
             <FormControl
               ref={(item) => { this.winImageInput = item; }}
-              type="text"
+              type="text"              
               style={{ width: 420 }}
               value={this.state.winImage}
               placeholder="Enter valid image URL"
               onChange={() => {}} // onChange is required
               disabled={!this.state.shouldWin}
             />
-          </Form><p/>          
+          </Form><p/>
+          <ControlLabel>Engagement Info</ControlLabel>{' '}
+          <FormControl
+            componentClass="textarea"
+            wrap='off'
+            value={this.state.engagementInfoValue}
+            style={{ padding: '2pt', height: '300px', fontFamily: '"Lucida Console", Monaco, monospace', fontSize: '8pt' }}            
+            ref={(item) => { this.engagementInfoArea = item; }}
+            onChange={this._onEngagementInfoInputChange.bind(this)}
+          /><p />          
           <ControlLabel>Console</ControlLabel>{' '}
           <Button onClick={this._onClickClearConsoleButton.bind(this)}>Clear</Button><p/>          
-          <FormControl componentClass="textarea" wrap='off' style={{ padding: '2pt', height: '500px', fontFamily: '"Lucida Console", Monaco, monospace', fontSize: '8pt'}} readOnly ref={(item) => {this.consoleArea = item;}}/>
+          <FormControl 
+            componentClass="textarea" 
+            wrap='off' 
+            style={{ padding: '2pt', height: '500px', fontFamily: '"Lucida Console", Monaco, monospace', fontSize: '8pt'}} 
+            readOnly 
+            ref={(item) => {this.consoleArea = item;}}
+          />
         </Panel>
       </div>
     );
