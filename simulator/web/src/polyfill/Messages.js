@@ -16,5 +16,6 @@ export const Messages = {
   MESSAGE_PUBLISH_STATUS: 'publishStatus',
   MESSAGE_RESET: 'reset',
   MESSAGE_JOIN: 'join',
+  MESSAGE_SET_RESULT: 'setResult',
   MESSAGE_END: 'end'
 }

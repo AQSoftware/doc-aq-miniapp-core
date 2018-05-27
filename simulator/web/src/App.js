@@ -128,6 +128,7 @@ class App extends Component {
     joinSdk.addMessageHandler(Messages.MESSAGE_SHOW_PREVIEW_WITH_DATA, this._showPreviewWithData.bind(this));
     joinSdk.addMessageHandler(Messages.MESSAGE_PUBLISH_STATUS, this._publishStatus.bind(this));
     joinSdk.addMessageHandler(Messages.MESSAGE_JOIN, this._join.bind(this));
+    joinSdk.addMessageHandler(Messages.MESSAGE_SET_RESULT, this._setResult.bind(this));
     joinSdk.addMessageHandler(Messages.MESSAGE_SET_APP_DATA, this._setAppData.bind(this));
     joinSdk.addMessageHandler(Messages.MESSAGE_INFORM_READY, this._informReady.bind(this));
     joinSdk.addMessageHandler(Messages.MESSAGE_END, this._end.bind(this));
@@ -298,6 +299,10 @@ class App extends Component {
   _join(param: Object) {
     this.setState({ joinOutputData: this._createTableJoinData(param, false) });
     this._logFromMiniApp(`join() ${JSON.stringify(param, null, 2)}`);
+  }
+
+  _setResult(param: Object) {
+    this._logFromMiniApp(`setResult() ${JSON.stringify(param, null, 2)}`);
   }
 
   _end(param: Object) {
