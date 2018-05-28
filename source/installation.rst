@@ -29,11 +29,11 @@ or
   $ yarn add https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.14.tgz
 
   
-You can also download the latest minified version `here <https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-0.0.14.min.js>`_ and include it in your project.  
+You can also download the latest minified version `here <https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-0.0.15.min.js>`_ and include it in your project.  
 
 .. code-block:: html
 
-  <script type="text/javascript" src="aq-miniapp-core-0.0.14.min.js"></script>
+  <script type="text/javascript" src="aq-miniapp-core-0.0.15.min.js"></script>
 
 The AQ Core Library is exposed in your app via ``window.AQCore``.
 
