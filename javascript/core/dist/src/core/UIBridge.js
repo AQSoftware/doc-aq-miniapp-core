@@ -1,0 +1,132 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.defaultUIBridge = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _CallbackHelper = require('./CallbackHelper');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var MESSAGE_SHOW_TITLE_INPUT = 'showTitleInput';
+var MESSAGE_SHOW_WEB_IMAGE_SELECTOR = 'showWebImageSelector';
+var MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR = 'showGalleryImageSelector';
+var MESSAGE_SHOW_FRIENDS_SELECTOR = 'showFriendsSelector';
+var MESSAGE_SHOW_FRIENDS_SELECTOR_PROMISE = 'showFriendsSelectorPromise';
+
+/**
+Core class that allows a MiniApp to request various UI selectors available
+in the AQ App
+
+Copyright (c) 2017 AQ Software Inc.
+*/
+
+var UIBridge = function () {
+  function UIBridge(callbackHelper) {
+    _classCallCheck(this, UIBridge);
+
+    this._callbackHelper = callbackHelper;
+  }
+
+  _createClass(UIBridge, [{
+    key: '_saveCallbackAndProcessMessage',
+    value: function _saveCallbackAndProcessMessage(message) {
+      var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+      var param = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+
+      if (callback) {
+        if (key) {
+          this._callbackHelper.setUiCallback(message, key, callback);
+        } else {
+          this._callbackHelper.setCoreCallback(message, callback);
+        }
+      }
+      this._callbackHelper.processMessage(message, key, param);
+    }
+
+    /**
+    Requests the AQ App to show a text input UI for the user to input a title
+     @param {function(value: string): void} callback - Callback function to be called when
+      a title has been input by the user
+    */
+
+  }, {
+    key: 'showTitleInput',
+    value: function showTitleInput(callback) {
+      this._saveCallbackAndProcessMessage(MESSAGE_SHOW_TITLE_INPUT, 'default', function (k, v) {
+        callback(v);
+      });
+    }
+
+    /**
+    Requests the AQ App to show a selector UI from a list of image web urls
+     @param {string} key - Unique key identifying this particular Requests
+    @param {string} title - Title to be shown to the selector UI
+    @param {string[]} imageUrls - An array of urls pointing to images that will be
+      shown by the selector UI
+    @param {function(key: string, value: Object): void} callback - Callback function to be called when
+      an image is selected from imageUrls
+    */
+
+  }, {
+    key: 'showWebImageSelector',
+    value: function showWebImageSelector(key, title, imageUrls, callback) {
+      this._saveCallbackAndProcessMessage(MESSAGE_SHOW_WEB_IMAGE_SELECTOR, key, callback, {
+        title: title,
+        imageUrls: imageUrls
+      });
+    }
+
+    /**
+    Requests the AQ App to show a selector UI showing a list of available gallery images
+     @param {string} key - Unique key identifying this particular Requests
+    @param {string} title - Title to be shown to the selector UI
+    @param {function(key: string, value: Object): void} callback - Callback function to be called when
+      an image is selected
+    */
+
+  }, {
+    key: 'showGalleryImageSelector',
+    value: function showGalleryImageSelector(key, title, callback) {
+      this._saveCallbackAndProcessMessage(MESSAGE_SHOW_GALLERY_IMAGE_SELECTOR, key, callback, {
+        title: title
+      });
+    }
+
+    /**
+    Requests the AQ App to show a selector UI showing a list of friends
+     @param {string} key - Unique key identifying this particular Requests
+    @param {function(key: string, value: Object[]): void} callback - Callback function to be called when
+      a list of friends has been selected
+    */
+
+  }, {
+    key: 'oldShowFriendsSelector',
+    value: function oldShowFriendsSelector(key, callback) {
+      this._saveCallbackAndProcessMessage(MESSAGE_SHOW_FRIENDS_SELECTOR, key, callback);
+    }
+
+    /**
+    Requests the AQ App to show a selector UI showing a list of friends
+    */
+
+  }, {
+    key: 'showFriendsSelector',
+    value: function showFriendsSelector(options) {
+      var _this = this;
+
+      return new Promise(function (resolve, reject) {
+        _this._saveCallbackAndProcessMessage(MESSAGE_SHOW_FRIENDS_SELECTOR_PROMISE, '', resolve, options);
+      });
+    }
+  }]);
+
+  return UIBridge;
+}();
+
+var defaultUIBridge = new UIBridge(_CallbackHelper.defaultCallbackHelper);
+exports.defaultUIBridge = defaultUIBridge;
