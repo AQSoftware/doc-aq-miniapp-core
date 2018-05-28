@@ -196,6 +196,9 @@ The Host app will need several information from your mini app in every invocatio
    as images our sound files), so it is necessary for your mini app to tell the Host app that it is safe to remove
    the preloader screen and show it to the user.
 
+#. **When the result from your mini app is already available and your gameplay is about to end** - The result from your mini app
+   (such as the score, or the player won or not)
+
 #. **When your app should end** - Once the game play of your app has ended, you should inform the Host app about this, so it can
    display succeeding screens.
 
@@ -266,6 +269,64 @@ You can achieve these by calling several ``defaultLifeCycle`` functions.
        // An example function that is called after all the assets has been loaded
        onLoadAssets() {
          defaultLifeCycle.informReady();
+       }  
+     }
+
+#. ``defaultLifeCycle.setResult()`` - This function tells the Host app that the result for the current invocation of your mini app 
+   is available, but the mini app itself has not yet ended. The result is currently in the form of a numeric score, either as a constant
+   or a actual-target component (e.g. 10 out of 20). You also specify an image result for your gameplay (e.g. a screenshot with the score)
+   as a valid URL.
+   
+   Example usage:
+
+   .. code-block:: javascript
+
+     var defaultLifeCycle = AQCore.defaultLifeCycle;
+
+     // An example function that is called when your game (mini app)'s result is available
+     function onScoreAvailable(score) {
+       var param = {
+        score: {
+          value: score
+        }
+        resultImageUrl: 'http://example.com/example.jpg'
+       }
+
+       // You can also specify the score as an actual-target value like this:
+       //
+       // score: {
+       //   value: 10,
+       //   target: 20
+       // }
+       // 
+
+       defaultLifeCycle.setResult(param);
+     }
+
+   .. code-block:: javascript
+
+     // ES6 syntax
+     import { defaultLifeCycle } from 'aq-miniapp-core';
+
+     class MyGame {
+      
+      // An example function that is called when your game (mini app)'s result is available
+      onScoreAvailable(score) {
+         var param = {
+            score: {
+              value: score
+            },
+            resultImageUrl: 'http://example.com/example.jpg'
+         }
+
+         // You can also specify the score as an actual-target value like this:
+         //
+         // score: {
+         //   value: 10,
+         //   target: 20
+         // }
+         // 
+         defaultLifeCycle.setResult(param);
        }  
      }
 
