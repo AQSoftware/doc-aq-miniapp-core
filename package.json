@@ -1,9 +1,29 @@
 {
+  "name": "funtype-sandbox",
+  "version": "0.1.0",
+  "private": true,
   "devDependencies": {
-    "babel-preset-babili": "^0.1.4"
+    "flow-bin": "^0.42.0",
+    "react-scripts": "0.9.5"
   },
   "dependencies": {
-    "react": "16.0.0-alpha.12",
-    "react-native": "0.45.1"
-  }
+    "base64-js": "^1.2.0",
+    "bootstrap": "^3.3.7",
+    "moment": "^2.22.1",
+    "react": "^15.4.2",
+    "react-bootstrap": "^0.30.8",
+    "react-bootstrap-table": "^3.1.2",
+    "react-dom": "^15.4.2",
+    "react-toastr": "^2.8.2",
+    "uuid": "^3.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "rm -rf build/ && react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "deploy": "aws s3 sync build/ s3://fma-sdk/simulator",
+    "redeploy": "npm run build && npm run deploy"
+  },
+  "homepage": "http://fma-sdk.s3-website-ap-southeast-1.amazonaws.com/simulator"
 }
