@@ -31,10 +31,16 @@ export const Messages = {
   MESSAGE_PUBLISH: 'publish',
   MESSAGE_PUBLISH_STATUS: 'publishStatus',
   MESSAGE_JOIN: 'join',
+  MESSAGE_SET_RESULT: 'setResult',
   MESSAGE_START: 'start',
   MESSAGE_END: 'end',
   MESSAGE_RESET: 'reset'
 };
+
+export type Score = {
+  value: number,
+  target?: number
+}
 
 export type NotificationItem = {
   notificationType: number,
@@ -42,6 +48,14 @@ export type NotificationItem = {
   textFormat: string,
   textValues: Object,
   additionalInfo: ?Object
+}
+
+export type GameResult = {
+  id?: string,
+  resultImageUrl: string,
+  winCriteriaPassed: boolean,
+  notificationItem: NotificationItem,
+  score: Score
 }
 
 const RNFunTypeView = null;

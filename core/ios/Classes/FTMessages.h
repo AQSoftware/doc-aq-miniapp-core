@@ -29,6 +29,7 @@ extern NSString *const MESSAGE_INFORM_READY;
 extern NSString *const MESSAGE_SHOW_PREVIEW_WITH_DATA;
 extern NSString *const MESSAGE_JOIN;
 extern NSString *const MESSAGE_START;
+extern NSString *const MESSAGE_SET_RESULT;
 extern NSString *const MESSAGE_END;
 extern NSString *const MESSAGE_PUBLISH_STATUS;
 

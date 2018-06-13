@@ -98,6 +98,7 @@ NSArray *STANDARD_MESSAGES;
                         MESSAGE_INFORM_READY,
                         MESSAGE_SHOW_PREVIEW_WITH_DATA,
                         MESSAGE_JOIN,
+                        MESSAGE_SET_RESULT,
                         MESSAGE_START,
                         MESSAGE_END,
                         MESSAGE_GET_FRIENDS,

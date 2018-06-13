@@ -26,6 +26,7 @@ public enum Messages {
   MESSAGE_SHOW_PREVIEW_WITH_DATA("showPreviewWithData"),
   MESSAGE_JOIN("join"),
   MESSAGE_START("start"),
+  MESSAGE_SET_RESULT("setResult"),
   MESSAGE_END("end"),
   MESSAGE_PUBLISH_STATUS("publishStatus");
 
