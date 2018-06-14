@@ -286,7 +286,6 @@ You can achieve these by calling several ``defaultLifeCycle`` functions.
      // An example function that is called when your game (mini app)'s result is available
      function onScoreAvailable(score) {
        var param = {
-<<<<<<< HEAD
         // Pass true to winCriteriaPassed if game has been won, 
         // or false if user lost the game
         winCriteriaPassed: true,
@@ -296,11 +295,6 @@ You can achieve these by calling several ``defaultLifeCycle`` functions.
           value: score
         },
         // A valid image url, (usually a screenshot) of the game result
-=======
-        score: {
-          value: score
-        }
->>>>>>> 1f054ff52f5ab9ac819b2fb1ecb89bb5107c45a5
         resultImageUrl: 'http://example.com/example.jpg'
        }
 
@@ -325,7 +319,6 @@ You can achieve these by calling several ``defaultLifeCycle`` functions.
       // An example function that is called when your game (mini app)'s result is available
       onScoreAvailable(score) {
          var param = {
-<<<<<<< HEAD
             // Pass true to winCriteriaPassed if game has been won, 
             // or false if user lost the game
             winCriteriaPassed: true,
@@ -335,11 +328,6 @@ You can achieve these by calling several ``defaultLifeCycle`` functions.
               value: score
             },
             // A valid image url, (usually a screenshot) of the game result
-=======
-            score: {
-              value: score
-            },
->>>>>>> 1f054ff52f5ab9ac819b2fb1ecb89bb5107c45a5
             resultImageUrl: 'http://example.com/example.jpg'
          }
 
