@@ -117,3 +117,124 @@ Please see the :doc:`simulator` section for more information on how to test your
 Submit the project
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+   .. code-block:: javascript
+
+     var defaultLifeCycle = AQCore.defaultLifeCycle;
+
+     // An example function that is called after all the assets has been loaded
+     function onLoadAssets() {
+       defaultLifeCycle.informReady();
+     }
+
+   .. code-block:: javascript
+
+     // ES6 syntax
+     import { defaultLifeCycle } from 'aq-miniapp-core';
+
+     class MyGame {
+      
+       // An example function that is called after all the assets has been loaded
+       onLoadAssets() {
+         defaultLifeCycle.informReady();
+       }  
+     }
+
+#. ``defaultLifeCycle.setResult()`` - This function tells the Host app that the result for the current invocation of your mini app 
+   is available, but the mini app itself has not yet ended. The result is currently in the form of a numeric score, either as a constant
+   or a actual-target component (e.g. 10 out of 20). You also specify an image result for your gameplay (e.g. a screenshot with the score)
+   as a valid URL.
+   
+   Example usage:
+
+   .. code-block:: javascript
+
+     var defaultLifeCycle = AQCore.defaultLifeCycle;
+
+     // An example function that is called when your game (mini app)'s result is available
+     function onScoreAvailable(score) {
+       var param = {
+        // Pass true to winCriteriaPassed if game has been won, 
+        // or false if user lost the game
+        winCriteriaPassed: true,
+        // Score of the game. This field is optional if it is 
+        // not logical for the game to have a score
+        score: {
+          value: score
+        },
+        // A valid image url, (usually a screenshot) of the game result
+        resultImageUrl: 'http://example.com/example.jpg'
+       }
+
+       // You can also specify the score as an actual-target value like this:
+       //
+       // score: {
+       //   value: 10,
+       //   target: 20
+       // }
+       // 
+
+       defaultLifeCycle.setResult(param);
+     }
+
+   .. code-block:: javascript
+
+     // ES6 syntax
+     import { defaultLifeCycle } from 'aq-miniapp-core';
+
+     class MyGame {
+      
+      // An example function that is called when your game (mini app)'s result is available
+      onScoreAvailable(score) {
+         var param = {
+            // Pass true to winCriteriaPassed if game has been won, 
+            // or false if user lost the game
+            winCriteriaPassed: true,
+            // Score of the game. This field is optional if it is 
+            // not logical for the game to have a score
+            score: {
+              value: score
+            },
+            // A valid image url, (usually a screenshot) of the game result
+            resultImageUrl: 'http://example.com/example.jpg'
+         }
+
+         // You can also specify the score as an actual-target value like this:
+         //
+         // score: {
+         //   value: 10,
+         //   target: 20
+         // }
+         // 
+         defaultLifeCycle.setResult(param);
+       }  
+     }
+
+#. ``defaultLifeCycle.end()`` - This function tells the Host app that the current invocation of your mini app has 
+   ended, usually when your game is over. When this is called, you signal the Host app that it can already display
+   succeeding screens relevant to the current game play.
+
+   Example usage:
+
+   .. code-block:: javascript
+
+     var defaultLifeCycle = AQCore.defaultLifeCycle;
+
+     // An example function that is called when your game (mini app) has ended
+     function onGameEnd() {
+       defaultLifeCycle.end();
+     }
+
+   .. code-block:: javascript
+
+     // ES6 syntax
+     import { defaultLifeCycle } from 'aq-miniapp-core';
+
+     class MyGame {
+      
+       // An example function that is called when your game (mini app) has ended
+       onGameEnd() {
+         defaultLifeCycle.end();
+       }  
+     }
+
+  
