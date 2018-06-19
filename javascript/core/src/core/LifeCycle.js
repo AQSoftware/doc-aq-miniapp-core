@@ -29,11 +29,16 @@ export const Messages = {
   MESSAGE_PUBLISH: 'publish',
   MESSAGE_PUBLISH_STATUS: 'publishStatus',
   MESSAGE_JOIN: 'join',
+  MESSAGE_SET_RESULT: 'setResult',
   MESSAGE_START: 'start',
   MESSAGE_END: 'end',
   MESSAGE_RESET: 'reset'
 };
 
+type Score = {
+  value: number,
+  target?: number
+}
 
 type NotificationItem = {
   notificationType: number,
@@ -41,6 +46,14 @@ type NotificationItem = {
   textFormat: string,
   textValues: Object,
   additionalInfo: ?Object
+}
+
+type GameResult = {
+  id?: string,
+  resultImageUrl: string,
+  winCriteriaPassed: boolean,
+  notificationItem: NotificationItem,
+  score: Score
 }
 
 /**
@@ -202,6 +215,15 @@ class LifeCycle {
       winCriteriaPassed: winCriteriaPassed,
       notificationItem: notificationItem
     });
+  }
+
+  /**
+  Informs the AQ App of the result of a particular game play invocation
+
+  @param {GameResult} result - Object representing the result of the gameplay.
+  */
+  setResult(result: GameResult) {
+    this._saveCallbackAndProcessMessage(Messages.MESSAGE_SET_RESULT, null, result);
   }
 
   /**

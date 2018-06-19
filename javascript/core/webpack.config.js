@@ -4,7 +4,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'aq-miniapp-core-0.0.14.min.js',
+    filename: 'aq-miniapp-core-0.0.15.min.js',
     library: 'AQCore',
     libraryTarget: 'window'
   },

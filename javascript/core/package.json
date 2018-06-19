@@ -4,8 +4,10 @@
   "description": "AQSoft MiniApp Core JS Library",
   "main": "src/index.js",
   "scripts": {
-    "build": "npm run babel",
-    "babel": "rm -rf ../../../aq-miniapp-core/src && babel ./src --out-dir=../../../aq-miniapp-core/src",
+    "build": "npm run clean && npm run babel && yarn webpack",
+    "clean": "rm -f dist/*.min.js",
+    "babelOld": "rm -rf ../../../aq-miniapp-core/src && babel ./src --out-dir=../../../aq-miniapp-core/src",
+    "babel": "rm -rf dist/src && babel ./src --out-dir=dist/src",
     "test": "jest"
   },
   "private": true,

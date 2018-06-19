@@ -20,13 +20,13 @@ IfYou can install the core library as an NPM module:
 
 .. code-block:: bash
 
-  $ npm install https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.14.tgz
+  $ npm install https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.15.tgz
 
 or 
 
 .. code-block:: bash
 
-  $ yarn add https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.14.tgz
+  $ yarn add https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.15.tgz
 
   
 You can also download the latest minified version `here <https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-0.0.15.min.js>`_ and include it in your project.  

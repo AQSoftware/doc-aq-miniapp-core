@@ -27,6 +27,8 @@ type Props = {
   targetUrl: string
 }
 
+const ON_DATA_TIMEOUT_MS = 500;
+
 class App extends Component {
   state: {
     tempTargetUrl: string,
@@ -328,7 +330,7 @@ class App extends Component {
       this._logFromSimulator(`onData(): ${JSON.stringify(data, null, 2)}`);
       this.joinSdk.funTypeWindow = this.joinIFrame.contentWindow;
       this.joinSdk.sendMessageToFunType(Messages.MESSAGE_ON_DATA, 'default', data, false);
-    }, 300);
+    }, ON_DATA_TIMEOUT_MS);
   }
 
   // $FlowFixMe
