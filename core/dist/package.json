@@ -1,0 +1,20 @@
+{
+  "name": "aq-react-native-miniapp-sdk",
+  "version": "1.0.21",
+  "description": "",
+  "main": "index.js",
+  "keywords": [
+    "react-native"
+  ],
+  "author": "Ryan C. Brozo",
+  "license": "UNLICENSED",
+  "files": [
+    "index.js",
+    "android",
+    "ios"
+  ],
+  "peerDependencies": {
+    "react-native": "^0.48.x",
+    "react": "16.0.0-alpha.12"
+  }
+}

@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "npm run clean && npm run copy",
-    "copy": "cp -R ./ios ../../aq-react-native-miniapp-sdk/ios/ && cp -R ./android ../../aq-react-native-miniapp-sdk/android/ && cp ./index.js ../../aq-react-native-miniapp-sdk",
-    "clean": "rm -rf ../../aq-react-native-miniapp-sdk/ios && rm -rf ../../aq-react-native-miniapp-sdk/android && rm -rf ../../aq-react-native-miniapp-sdk/index.js"
+    "copy": "cp -R ./ios ../dist/ios/ && cp -R ./android ../dist/android/ && cp ./index.js ../dist",
+    "clean": "rm -rf ../dist/ios && rm -rf ../dist/android && rm -rf ../dist/index.js"
   },
   "keywords": [
     "react-native"

@@ -1,0 +1,603 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E37101A31F6B75010057B5C2 /* FTDownloader.h in Headers */ = {isa = PBXBuildFile; fileRef = E37101A11F6B75010057B5C2 /* FTDownloader.h */; };
+		E37101A41F6B75010057B5C2 /* FTDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = E37101A21F6B75010057B5C2 /* FTDownloader.m */; };
+		E37101A51F6B83CA0057B5C2 /* FTDownloader.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = E37101A11F6B75010057B5C2 /* FTDownloader.h */; };
+		E371020F1F6BBC200057B5C2 /* aes.h in Headers */ = {isa = PBXBuildFile; fileRef = E37101E81F6BBC1F0057B5C2 /* aes.h */; };
+		E37102101F6BBC200057B5C2 /* aes_ni.c in Sources */ = {isa = PBXBuildFile; fileRef = E37101E91F6BBC1F0057B5C2 /* aes_ni.c */; };
+		E37102111F6BBC200057B5C2 /* aes_ni.h in Headers */ = {isa = PBXBuildFile; fileRef = E37101EA1F6BBC1F0057B5C2 /* aes_ni.h */; };
+		E37102121F6BBC200057B5C2 /* aescrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = E37101EB1F6BBC1F0057B5C2 /* aescrypt.c */; };
+		E37102131F6BBC200057B5C2 /* aeskey.c in Sources */ = {isa = PBXBuildFile; fileRef = E37101EC1F6BBC1F0057B5C2 /* aeskey.c */; };
+		E37102141F6BBC200057B5C2 /* aesopt.h in Headers */ = {isa = PBXBuildFile; fileRef = E37101ED1F6BBC1F0057B5C2 /* aesopt.h */; };
+		E37102151F6BBC200057B5C2 /* aestab.c in Sources */ = {isa = PBXBuildFile; fileRef = E37101EE1F6BBC1F0057B5C2 /* aestab.c */; };
+		E37102161F6BBC200057B5C2 /* aestab.h in Headers */ = {isa = PBXBuildFile; fileRef = E37101EF1F6BBC1F0057B5C2 /* aestab.h */; };
+		E37102171F6BBC200057B5C2 /* brg_endian.h in Headers */ = {isa = PBXBuildFile; fileRef = E37101F01F6BBC1F0057B5C2 /* brg_endian.h */; };
+		E37102181F6BBC200057B5C2 /* brg_types.h in Headers */ = {isa = PBXBuildFile; fileRef = E37101F11F6BBC1F0057B5C2 /* brg_types.h */; };
+		E37102191F6BBC200057B5C2 /* fileenc.c in Sources */ = {isa = PBXBuildFile; fileRef = E37101F21F6BBC1F0057B5C2 /* fileenc.c */; };
+		E371021A1F6BBC200057B5C2 /* fileenc.h in Headers */ = {isa = PBXBuildFile; fileRef = E37101F31F6BBC1F0057B5C2 /* fileenc.h */; };
+		E371021B1F6BBC200057B5C2 /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = E37101F41F6BBC1F0057B5C2 /* hmac.c */; };
+		E371021C1F6BBC200057B5C2 /* hmac.h in Headers */ = {isa = PBXBuildFile; fileRef = E37101F51F6BBC1F0057B5C2 /* hmac.h */; };
+		E371021D1F6BBC200057B5C2 /* prng.c in Sources */ = {isa = PBXBuildFile; fileRef = E37101F61F6BBC1F0057B5C2 /* prng.c */; };
+		E371021E1F6BBC200057B5C2 /* prng.h in Headers */ = {isa = PBXBuildFile; fileRef = E37101F71F6BBC1F0057B5C2 /* prng.h */; };
+		E371021F1F6BBC200057B5C2 /* pwd2key.c in Sources */ = {isa = PBXBuildFile; fileRef = E37101F81F6BBC1F0057B5C2 /* pwd2key.c */; };
+		E37102201F6BBC200057B5C2 /* pwd2key.h in Headers */ = {isa = PBXBuildFile; fileRef = E37101F91F6BBC1F0057B5C2 /* pwd2key.h */; };
+		E37102211F6BBC200057B5C2 /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = E37101FA1F6BBC1F0057B5C2 /* sha1.c */; };
+		E37102221F6BBC200057B5C2 /* sha1.h in Headers */ = {isa = PBXBuildFile; fileRef = E37101FB1F6BBC1F0057B5C2 /* sha1.h */; };
+		E37102231F6BBC200057B5C2 /* crypt.c in Sources */ = {isa = PBXBuildFile; fileRef = E37101FC1F6BBC1F0057B5C2 /* crypt.c */; };
+		E37102241F6BBC200057B5C2 /* crypt.h in Headers */ = {isa = PBXBuildFile; fileRef = E37101FD1F6BBC200057B5C2 /* crypt.h */; };
+		E37102251F6BBC200057B5C2 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = E37101FE1F6BBC200057B5C2 /* ioapi.c */; };
+		E37102261F6BBC200057B5C2 /* ioapi.h in Headers */ = {isa = PBXBuildFile; fileRef = E37101FF1F6BBC200057B5C2 /* ioapi.h */; };
+		E37102271F6BBC200057B5C2 /* ioapi_buf.c in Sources */ = {isa = PBXBuildFile; fileRef = E37102001F6BBC200057B5C2 /* ioapi_buf.c */; };
+		E37102281F6BBC200057B5C2 /* ioapi_buf.h in Headers */ = {isa = PBXBuildFile; fileRef = E37102011F6BBC200057B5C2 /* ioapi_buf.h */; };
+		E37102291F6BBC200057B5C2 /* ioapi_mem.c in Sources */ = {isa = PBXBuildFile; fileRef = E37102021F6BBC200057B5C2 /* ioapi_mem.c */; };
+		E371022A1F6BBC200057B5C2 /* ioapi_mem.h in Headers */ = {isa = PBXBuildFile; fileRef = E37102031F6BBC200057B5C2 /* ioapi_mem.h */; };
+		E371022B1F6BBC200057B5C2 /* minishared.c in Sources */ = {isa = PBXBuildFile; fileRef = E37102041F6BBC200057B5C2 /* minishared.c */; };
+		E371022C1F6BBC200057B5C2 /* minishared.h in Headers */ = {isa = PBXBuildFile; fileRef = E37102051F6BBC200057B5C2 /* minishared.h */; };
+		E371022D1F6BBC200057B5C2 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = E37102061F6BBC200057B5C2 /* unzip.c */; };
+		E371022E1F6BBC200057B5C2 /* unzip.h in Headers */ = {isa = PBXBuildFile; fileRef = E37102071F6BBC200057B5C2 /* unzip.h */; };
+		E371022F1F6BBC200057B5C2 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = E37102081F6BBC200057B5C2 /* zip.c */; };
+		E37102301F6BBC200057B5C2 /* zip.h in Headers */ = {isa = PBXBuildFile; fileRef = E37102091F6BBC200057B5C2 /* zip.h */; };
+		E37102321F6BBC200057B5C2 /* SSZipArchive.h in Headers */ = {isa = PBXBuildFile; fileRef = E371020B1F6BBC200057B5C2 /* SSZipArchive.h */; };
+		E37102331F6BBC200057B5C2 /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = E371020C1F6BBC200057B5C2 /* SSZipArchive.m */; };
+		E37102341F6BBC200057B5C2 /* SSZipCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = E371020D1F6BBC200057B5C2 /* SSZipCommon.h */; };
+		E37102351F6BBC200057B5C2 /* ZipArchive.h in Headers */ = {isa = PBXBuildFile; fileRef = E371020E1F6BBC200057B5C2 /* ZipArchive.h */; };
+		E3D1D2E41EF9083500B8CD54 /* FTCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = E3D1D2D01EF904AF00B8CD54 /* FTCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3D1D2E51EF9083500B8CD54 /* FTNativeView.h in Headers */ = {isa = PBXBuildFile; fileRef = E3D1D2D21EF904AF00B8CD54 /* FTNativeView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3D1D2E61EF9083500B8CD54 /* FTService.h in Headers */ = {isa = PBXBuildFile; fileRef = E3D1D2D41EF904AF00B8CD54 /* FTService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3D1D2E71EF9083500B8CD54 /* FTViewProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = E3D1D2D61EF904AF00B8CD54 /* FTViewProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3D1D2E81EF9083500B8CD54 /* FTViewProtocolDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = E3D1D2D71EF904AF00B8CD54 /* FTViewProtocolDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3D1D2E91EF9083500B8CD54 /* FTWebFunType.h in Headers */ = {isa = PBXBuildFile; fileRef = E3D1D2D81EF904AF00B8CD54 /* FTWebFunType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3D1D2EA1EF9083500B8CD54 /* FTWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = E3D1D2DA1EF904AF00B8CD54 /* FTWebView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3D1D2EB1EF908BD00B8CD54 /* RNMiniAppCore.h in Headers */ = {isa = PBXBuildFile; fileRef = B3E7B5881CC2AC0600A0062D /* RNMiniAppCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3D1D2F81EF90A8100B8CD54 /* RNMiniAppCore.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = B3E7B5881CC2AC0600A0062D /* RNMiniAppCore.h */; };
+		E3DE22B01EFB728E00E5BC23 /* FTCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D1D2D11EF904AF00B8CD54 /* FTCommon.m */; };
+		E3DE22B11EFB728E00E5BC23 /* FTMessages.h in Headers */ = {isa = PBXBuildFile; fileRef = E3DE22AE1EFB6C5A00E5BC23 /* FTMessages.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3DE22B21EFB728E00E5BC23 /* FTNativeView.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D1D2D31EF904AF00B8CD54 /* FTNativeView.m */; };
+		E3DE22B31EFB728E00E5BC23 /* FTService.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D1D2D51EF904AF00B8CD54 /* FTService.m */; };
+		E3DE22B41EFB728E00E5BC23 /* FTWebFunType.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D1D2D91EF904AF00B8CD54 /* FTWebFunType.m */; };
+		E3DE22B51EFB728E00E5BC23 /* FTWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D1D2DB1EF904AF00B8CD54 /* FTWebView.m */; };
+		E3DE22B61EFB728E00E5BC23 /* RNFunTypeView.h in Headers */ = {isa = PBXBuildFile; fileRef = E3270AF51EFA56CC00F6BB1A /* RNFunTypeView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3DE22B71EFB728E00E5BC23 /* RNFunTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = E3270AF61EFA56CC00F6BB1A /* RNFunTypeView.m */; };
+		E3DE22B81EFB728E00E5BC23 /* RNFunTypeViewManager.h in Headers */ = {isa = PBXBuildFile; fileRef = E3270AF71EFA56CC00F6BB1A /* RNFunTypeViewManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3DE22B91EFB728E00E5BC23 /* RNFunTypeViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E3270AF81EFA56CC00F6BB1A /* RNFunTypeViewManager.m */; };
+		E3DE22BA1EFB728E00E5BC23 /* RNMiniAppBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = E3DE228D1EFB619600E5BC23 /* RNMiniAppBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3DE22BB1EFB728E00E5BC23 /* RNMiniAppBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = E3DE228E1EFB619600E5BC23 /* RNMiniAppBridge.m */; };
+		E3DE22BC1EFB728E00E5BC23 /* RNMiniAppLifeCycleBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = E3DE22871EFB617C00E5BC23 /* RNMiniAppLifeCycleBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3DE22BD1EFB728E00E5BC23 /* RNMiniAppLifeCycleBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = E3DE22881EFB617C00E5BC23 /* RNMiniAppLifeCycleBridge.m */; };
+		E3DE22BE1EFB728E00E5BC23 /* RNMiniAppUIBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = E3DE22851EFB617C00E5BC23 /* RNMiniAppUIBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3DE22BF1EFB728E00E5BC23 /* RNMiniAppUIBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = E3DE22861EFB617C00E5BC23 /* RNMiniAppUIBridge.m */; };
+		E3DE22C01EFB730300E5BC23 /* FTCommon.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = E3D1D2D01EF904AF00B8CD54 /* FTCommon.h */; };
+		E3DE22C11EFB730300E5BC23 /* FTMessages.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = E3DE22AE1EFB6C5A00E5BC23 /* FTMessages.h */; };
+		E3DE22C21EFB730300E5BC23 /* FTNativeView.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = E3D1D2D21EF904AF00B8CD54 /* FTNativeView.h */; };
+		E3DE22C31EFB730300E5BC23 /* FTService.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = E3D1D2D41EF904AF00B8CD54 /* FTService.h */; };
+		E3DE22C41EFB730300E5BC23 /* FTViewProtocol.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = E3D1D2D61EF904AF00B8CD54 /* FTViewProtocol.h */; };
+		E3DE22C51EFB730300E5BC23 /* FTViewProtocolDelegate.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = E3D1D2D71EF904AF00B8CD54 /* FTViewProtocolDelegate.h */; };
+		E3DE22C61EFB730300E5BC23 /* FTWebFunType.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = E3D1D2D81EF904AF00B8CD54 /* FTWebFunType.h */; };
+		E3DE22C71EFB730300E5BC23 /* FTWebView.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = E3D1D2DA1EF904AF00B8CD54 /* FTWebView.h */; };
+		E3DE22C81EFB730300E5BC23 /* RNFunTypeView.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = E3270AF51EFA56CC00F6BB1A /* RNFunTypeView.h */; };
+		E3DE22C91EFB730300E5BC23 /* RNFunTypeViewManager.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = E3270AF71EFA56CC00F6BB1A /* RNFunTypeViewManager.h */; };
+		E3DE22CA1EFB730300E5BC23 /* RNMiniAppBridge.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = E3DE228D1EFB619600E5BC23 /* RNMiniAppBridge.h */; };
+		E3DE22CB1EFB730300E5BC23 /* RNMiniAppLifeCycleBridge.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = E3DE22871EFB617C00E5BC23 /* RNMiniAppLifeCycleBridge.h */; };
+		E3DE22CC1EFB730300E5BC23 /* RNMiniAppUIBridge.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = E3DE22851EFB617C00E5BC23 /* RNMiniAppUIBridge.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E3D1D2F01EF90A6A00B8CD54 /* Copy Headers */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				E37101A51F6B83CA0057B5C2 /* FTDownloader.h in Copy Headers */,
+				E3DE22C01EFB730300E5BC23 /* FTCommon.h in Copy Headers */,
+				E3DE22C11EFB730300E5BC23 /* FTMessages.h in Copy Headers */,
+				E3DE22C21EFB730300E5BC23 /* FTNativeView.h in Copy Headers */,
+				E3DE22C31EFB730300E5BC23 /* FTService.h in Copy Headers */,
+				E3DE22C41EFB730300E5BC23 /* FTViewProtocol.h in Copy Headers */,
+				E3DE22C51EFB730300E5BC23 /* FTViewProtocolDelegate.h in Copy Headers */,
+				E3DE22C61EFB730300E5BC23 /* FTWebFunType.h in Copy Headers */,
+				E3DE22C71EFB730300E5BC23 /* FTWebView.h in Copy Headers */,
+				E3DE22C81EFB730300E5BC23 /* RNFunTypeView.h in Copy Headers */,
+				E3DE22C91EFB730300E5BC23 /* RNFunTypeViewManager.h in Copy Headers */,
+				E3DE22CA1EFB730300E5BC23 /* RNMiniAppBridge.h in Copy Headers */,
+				E3DE22CB1EFB730300E5BC23 /* RNMiniAppLifeCycleBridge.h in Copy Headers */,
+				E3DE22CC1EFB730300E5BC23 /* RNMiniAppUIBridge.h in Copy Headers */,
+				E3D1D2F81EF90A8100B8CD54 /* RNMiniAppCore.h in Copy Headers */,
+			);
+			name = "Copy Headers";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		134814201AA4EA6300B7C361 /* libRNMiniAppCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNMiniAppCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3E7B5881CC2AC0600A0062D /* RNMiniAppCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNMiniAppCore.h; sourceTree = "<group>"; };
+		E3270AF51EFA56CC00F6BB1A /* RNFunTypeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNFunTypeView.h; sourceTree = "<group>"; };
+		E3270AF61EFA56CC00F6BB1A /* RNFunTypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNFunTypeView.m; sourceTree = "<group>"; };
+		E3270AF71EFA56CC00F6BB1A /* RNFunTypeViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNFunTypeViewManager.h; sourceTree = "<group>"; };
+		E3270AF81EFA56CC00F6BB1A /* RNFunTypeViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNFunTypeViewManager.m; sourceTree = "<group>"; };
+		E37101A11F6B75010057B5C2 /* FTDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDownloader.h; sourceTree = "<group>"; };
+		E37101A21F6B75010057B5C2 /* FTDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTDownloader.m; sourceTree = "<group>"; };
+		E37101E51F6BBC1F0057B5C2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E37101E81F6BBC1F0057B5C2 /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
+		E37101E91F6BBC1F0057B5C2 /* aes_ni.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_ni.c; sourceTree = "<group>"; };
+		E37101EA1F6BBC1F0057B5C2 /* aes_ni.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes_ni.h; sourceTree = "<group>"; };
+		E37101EB1F6BBC1F0057B5C2 /* aescrypt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aescrypt.c; sourceTree = "<group>"; };
+		E37101EC1F6BBC1F0057B5C2 /* aeskey.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aeskey.c; sourceTree = "<group>"; };
+		E37101ED1F6BBC1F0057B5C2 /* aesopt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aesopt.h; sourceTree = "<group>"; };
+		E37101EE1F6BBC1F0057B5C2 /* aestab.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aestab.c; sourceTree = "<group>"; };
+		E37101EF1F6BBC1F0057B5C2 /* aestab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aestab.h; sourceTree = "<group>"; };
+		E37101F01F6BBC1F0057B5C2 /* brg_endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = brg_endian.h; sourceTree = "<group>"; };
+		E37101F11F6BBC1F0057B5C2 /* brg_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = brg_types.h; sourceTree = "<group>"; };
+		E37101F21F6BBC1F0057B5C2 /* fileenc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fileenc.c; sourceTree = "<group>"; };
+		E37101F31F6BBC1F0057B5C2 /* fileenc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fileenc.h; sourceTree = "<group>"; };
+		E37101F41F6BBC1F0057B5C2 /* hmac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hmac.c; sourceTree = "<group>"; };
+		E37101F51F6BBC1F0057B5C2 /* hmac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hmac.h; sourceTree = "<group>"; };
+		E37101F61F6BBC1F0057B5C2 /* prng.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = prng.c; sourceTree = "<group>"; };
+		E37101F71F6BBC1F0057B5C2 /* prng.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = prng.h; sourceTree = "<group>"; };
+		E37101F81F6BBC1F0057B5C2 /* pwd2key.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pwd2key.c; sourceTree = "<group>"; };
+		E37101F91F6BBC1F0057B5C2 /* pwd2key.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pwd2key.h; sourceTree = "<group>"; };
+		E37101FA1F6BBC1F0057B5C2 /* sha1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sha1.c; sourceTree = "<group>"; };
+		E37101FB1F6BBC1F0057B5C2 /* sha1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sha1.h; sourceTree = "<group>"; };
+		E37101FC1F6BBC1F0057B5C2 /* crypt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crypt.c; sourceTree = "<group>"; };
+		E37101FD1F6BBC200057B5C2 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
+		E37101FE1F6BBC200057B5C2 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
+		E37101FF1F6BBC200057B5C2 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
+		E37102001F6BBC200057B5C2 /* ioapi_buf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi_buf.c; sourceTree = "<group>"; };
+		E37102011F6BBC200057B5C2 /* ioapi_buf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi_buf.h; sourceTree = "<group>"; };
+		E37102021F6BBC200057B5C2 /* ioapi_mem.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi_mem.c; sourceTree = "<group>"; };
+		E37102031F6BBC200057B5C2 /* ioapi_mem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi_mem.h; sourceTree = "<group>"; };
+		E37102041F6BBC200057B5C2 /* minishared.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = minishared.c; sourceTree = "<group>"; };
+		E37102051F6BBC200057B5C2 /* minishared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = minishared.h; sourceTree = "<group>"; };
+		E37102061F6BBC200057B5C2 /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
+		E37102071F6BBC200057B5C2 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
+		E37102081F6BBC200057B5C2 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
+		E37102091F6BBC200057B5C2 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
+		E371020B1F6BBC200057B5C2 /* SSZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipArchive.h; sourceTree = "<group>"; };
+		E371020C1F6BBC200057B5C2 /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
+		E371020D1F6BBC200057B5C2 /* SSZipCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipCommon.h; sourceTree = "<group>"; };
+		E371020E1F6BBC200057B5C2 /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
+		E379E2501F5659420047991B /* FTMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FTMacros.h; sourceTree = "<group>"; };
+		E3D1D2D01EF904AF00B8CD54 /* FTCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCommon.h; sourceTree = "<group>"; };
+		E3D1D2D11EF904AF00B8CD54 /* FTCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCommon.m; sourceTree = "<group>"; };
+		E3D1D2D21EF904AF00B8CD54 /* FTNativeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNativeView.h; sourceTree = "<group>"; };
+		E3D1D2D31EF904AF00B8CD54 /* FTNativeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNativeView.m; sourceTree = "<group>"; };
+		E3D1D2D41EF904AF00B8CD54 /* FTService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTService.h; sourceTree = "<group>"; };
+		E3D1D2D51EF904AF00B8CD54 /* FTService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTService.m; sourceTree = "<group>"; };
+		E3D1D2D61EF904AF00B8CD54 /* FTViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTViewProtocol.h; sourceTree = "<group>"; };
+		E3D1D2D71EF904AF00B8CD54 /* FTViewProtocolDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTViewProtocolDelegate.h; sourceTree = "<group>"; };
+		E3D1D2D81EF904AF00B8CD54 /* FTWebFunType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTWebFunType.h; sourceTree = "<group>"; };
+		E3D1D2D91EF904AF00B8CD54 /* FTWebFunType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTWebFunType.m; sourceTree = "<group>"; };
+		E3D1D2DA1EF904AF00B8CD54 /* FTWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTWebView.h; sourceTree = "<group>"; };
+		E3D1D2DB1EF904AF00B8CD54 /* FTWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTWebView.m; sourceTree = "<group>"; };
+		E3D1D3001EF90FB700B8CD54 /* RNMiniAppCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNMiniAppCore.h; sourceTree = "<group>"; };
+		E3D1D3011EF90FB700B8CD54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E3DE22851EFB617C00E5BC23 /* RNMiniAppUIBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNMiniAppUIBridge.h; sourceTree = "<group>"; };
+		E3DE22861EFB617C00E5BC23 /* RNMiniAppUIBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNMiniAppUIBridge.m; sourceTree = "<group>"; };
+		E3DE22871EFB617C00E5BC23 /* RNMiniAppLifeCycleBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNMiniAppLifeCycleBridge.h; sourceTree = "<group>"; };
+		E3DE22881EFB617C00E5BC23 /* RNMiniAppLifeCycleBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNMiniAppLifeCycleBridge.m; sourceTree = "<group>"; };
+		E3DE228D1EFB619600E5BC23 /* RNMiniAppBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNMiniAppBridge.h; sourceTree = "<group>"; };
+		E3DE228E1EFB619600E5BC23 /* RNMiniAppBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNMiniAppBridge.m; sourceTree = "<group>"; };
+		E3DE22AE1EFB6C5A00E5BC23 /* FTMessages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTMessages.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		58B511D81A9E6C8500147676 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		134814211AA4EA7D00B7C361 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				134814201AA4EA6300B7C361 /* libRNMiniAppCore.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		58B511D21A9E6C8500147676 = {
+			isa = PBXGroup;
+			children = (
+				E36B854A1F6A703000D6D3D4 /* Third Party */,
+				E3D1D2CE1EF904AF00B8CD54 /* Classes */,
+				B3E7B5881CC2AC0600A0062D /* RNMiniAppCore.h */,
+				E3D1D2FF1EF90FB700B8CD54 /* RNMiniAppCore */,
+				134814211AA4EA7D00B7C361 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E36B854A1F6A703000D6D3D4 /* Third Party */ = {
+			isa = PBXGroup;
+			children = (
+				E37101E41F6BBC1F0057B5C2 /* SSZipArchive */,
+			);
+			name = "Third Party";
+			sourceTree = "<group>";
+		};
+		E37101E41F6BBC1F0057B5C2 /* SSZipArchive */ = {
+			isa = PBXGroup;
+			children = (
+				E37101E51F6BBC1F0057B5C2 /* Info.plist */,
+				E37101E61F6BBC1F0057B5C2 /* minizip */,
+				E371020B1F6BBC200057B5C2 /* SSZipArchive.h */,
+				E371020C1F6BBC200057B5C2 /* SSZipArchive.m */,
+				E371020D1F6BBC200057B5C2 /* SSZipCommon.h */,
+				E371020E1F6BBC200057B5C2 /* ZipArchive.h */,
+			);
+			name = SSZipArchive;
+			path = "Third Party/SSZipArchive";
+			sourceTree = "<group>";
+		};
+		E37101E61F6BBC1F0057B5C2 /* minizip */ = {
+			isa = PBXGroup;
+			children = (
+				E37101E71F6BBC1F0057B5C2 /* aes */,
+				E37101FC1F6BBC1F0057B5C2 /* crypt.c */,
+				E37101FD1F6BBC200057B5C2 /* crypt.h */,
+				E37101FE1F6BBC200057B5C2 /* ioapi.c */,
+				E37101FF1F6BBC200057B5C2 /* ioapi.h */,
+				E37102001F6BBC200057B5C2 /* ioapi_buf.c */,
+				E37102011F6BBC200057B5C2 /* ioapi_buf.h */,
+				E37102021F6BBC200057B5C2 /* ioapi_mem.c */,
+				E37102031F6BBC200057B5C2 /* ioapi_mem.h */,
+				E37102041F6BBC200057B5C2 /* minishared.c */,
+				E37102051F6BBC200057B5C2 /* minishared.h */,
+				E37102061F6BBC200057B5C2 /* unzip.c */,
+				E37102071F6BBC200057B5C2 /* unzip.h */,
+				E37102081F6BBC200057B5C2 /* zip.c */,
+				E37102091F6BBC200057B5C2 /* zip.h */,
+			);
+			path = minizip;
+			sourceTree = "<group>";
+		};
+		E37101E71F6BBC1F0057B5C2 /* aes */ = {
+			isa = PBXGroup;
+			children = (
+				E37101E81F6BBC1F0057B5C2 /* aes.h */,
+				E37101E91F6BBC1F0057B5C2 /* aes_ni.c */,
+				E37101EA1F6BBC1F0057B5C2 /* aes_ni.h */,
+				E37101EB1F6BBC1F0057B5C2 /* aescrypt.c */,
+				E37101EC1F6BBC1F0057B5C2 /* aeskey.c */,
+				E37101ED1F6BBC1F0057B5C2 /* aesopt.h */,
+				E37101EE1F6BBC1F0057B5C2 /* aestab.c */,
+				E37101EF1F6BBC1F0057B5C2 /* aestab.h */,
+				E37101F01F6BBC1F0057B5C2 /* brg_endian.h */,
+				E37101F11F6BBC1F0057B5C2 /* brg_types.h */,
+				E37101F21F6BBC1F0057B5C2 /* fileenc.c */,
+				E37101F31F6BBC1F0057B5C2 /* fileenc.h */,
+				E37101F41F6BBC1F0057B5C2 /* hmac.c */,
+				E37101F51F6BBC1F0057B5C2 /* hmac.h */,
+				E37101F61F6BBC1F0057B5C2 /* prng.c */,
+				E37101F71F6BBC1F0057B5C2 /* prng.h */,
+				E37101F81F6BBC1F0057B5C2 /* pwd2key.c */,
+				E37101F91F6BBC1F0057B5C2 /* pwd2key.h */,
+				E37101FA1F6BBC1F0057B5C2 /* sha1.c */,
+				E37101FB1F6BBC1F0057B5C2 /* sha1.h */,
+			);
+			path = aes;
+			sourceTree = "<group>";
+		};
+		E3D1D2CE1EF904AF00B8CD54 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				E3D1D2D01EF904AF00B8CD54 /* FTCommon.h */,
+				E3D1D2D11EF904AF00B8CD54 /* FTCommon.m */,
+				E37101A11F6B75010057B5C2 /* FTDownloader.h */,
+				E37101A21F6B75010057B5C2 /* FTDownloader.m */,
+				E379E2501F5659420047991B /* FTMacros.h */,
+				E3DE22AE1EFB6C5A00E5BC23 /* FTMessages.h */,
+				E3D1D2D21EF904AF00B8CD54 /* FTNativeView.h */,
+				E3D1D2D31EF904AF00B8CD54 /* FTNativeView.m */,
+				E3D1D2D41EF904AF00B8CD54 /* FTService.h */,
+				E3D1D2D51EF904AF00B8CD54 /* FTService.m */,
+				E3D1D2D61EF904AF00B8CD54 /* FTViewProtocol.h */,
+				E3D1D2D71EF904AF00B8CD54 /* FTViewProtocolDelegate.h */,
+				E3D1D2D81EF904AF00B8CD54 /* FTWebFunType.h */,
+				E3D1D2D91EF904AF00B8CD54 /* FTWebFunType.m */,
+				E3D1D2DA1EF904AF00B8CD54 /* FTWebView.h */,
+				E3D1D2DB1EF904AF00B8CD54 /* FTWebView.m */,
+				E3270AF51EFA56CC00F6BB1A /* RNFunTypeView.h */,
+				E3270AF61EFA56CC00F6BB1A /* RNFunTypeView.m */,
+				E3270AF71EFA56CC00F6BB1A /* RNFunTypeViewManager.h */,
+				E3270AF81EFA56CC00F6BB1A /* RNFunTypeViewManager.m */,
+				E3DE228D1EFB619600E5BC23 /* RNMiniAppBridge.h */,
+				E3DE228E1EFB619600E5BC23 /* RNMiniAppBridge.m */,
+				E3DE22871EFB617C00E5BC23 /* RNMiniAppLifeCycleBridge.h */,
+				E3DE22881EFB617C00E5BC23 /* RNMiniAppLifeCycleBridge.m */,
+				E3DE22851EFB617C00E5BC23 /* RNMiniAppUIBridge.h */,
+				E3DE22861EFB617C00E5BC23 /* RNMiniAppUIBridge.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		E3D1D2FF1EF90FB700B8CD54 /* RNMiniAppCore */ = {
+			isa = PBXGroup;
+			children = (
+				E3D1D3001EF90FB700B8CD54 /* RNMiniAppCore.h */,
+				E3D1D3011EF90FB700B8CD54 /* Info.plist */,
+			);
+			path = RNMiniAppCore;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		E3D1D2E31EF9081D00B8CD54 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E37102301F6BBC200057B5C2 /* zip.h in Headers */,
+				E37102321F6BBC200057B5C2 /* SSZipArchive.h in Headers */,
+				E37102241F6BBC200057B5C2 /* crypt.h in Headers */,
+				E3D1D2E41EF9083500B8CD54 /* FTCommon.h in Headers */,
+				E37102201F6BBC200057B5C2 /* pwd2key.h in Headers */,
+				E371021A1F6BBC200057B5C2 /* fileenc.h in Headers */,
+				E371022C1F6BBC200057B5C2 /* minishared.h in Headers */,
+				E37102281F6BBC200057B5C2 /* ioapi_buf.h in Headers */,
+				E37101A31F6B75010057B5C2 /* FTDownloader.h in Headers */,
+				E371021C1F6BBC200057B5C2 /* hmac.h in Headers */,
+				E3D1D2E51EF9083500B8CD54 /* FTNativeView.h in Headers */,
+				E37102261F6BBC200057B5C2 /* ioapi.h in Headers */,
+				E371022A1F6BBC200057B5C2 /* ioapi_mem.h in Headers */,
+				E3D1D2E61EF9083500B8CD54 /* FTService.h in Headers */,
+				E371020F1F6BBC200057B5C2 /* aes.h in Headers */,
+				E37102341F6BBC200057B5C2 /* SSZipCommon.h in Headers */,
+				E37102181F6BBC200057B5C2 /* brg_types.h in Headers */,
+				E3DE22B11EFB728E00E5BC23 /* FTMessages.h in Headers */,
+				E3DE22B81EFB728E00E5BC23 /* RNFunTypeViewManager.h in Headers */,
+				E37102171F6BBC200057B5C2 /* brg_endian.h in Headers */,
+				E3DE22B61EFB728E00E5BC23 /* RNFunTypeView.h in Headers */,
+				E37102221F6BBC200057B5C2 /* sha1.h in Headers */,
+				E371022E1F6BBC200057B5C2 /* unzip.h in Headers */,
+				E37102141F6BBC200057B5C2 /* aesopt.h in Headers */,
+				E3DE22BE1EFB728E00E5BC23 /* RNMiniAppUIBridge.h in Headers */,
+				E37102111F6BBC200057B5C2 /* aes_ni.h in Headers */,
+				E37102161F6BBC200057B5C2 /* aestab.h in Headers */,
+				E37102351F6BBC200057B5C2 /* ZipArchive.h in Headers */,
+				E3DE22BC1EFB728E00E5BC23 /* RNMiniAppLifeCycleBridge.h in Headers */,
+				E3DE22BA1EFB728E00E5BC23 /* RNMiniAppBridge.h in Headers */,
+				E3D1D2E71EF9083500B8CD54 /* FTViewProtocol.h in Headers */,
+				E371021E1F6BBC200057B5C2 /* prng.h in Headers */,
+				E3D1D2EB1EF908BD00B8CD54 /* RNMiniAppCore.h in Headers */,
+				E3D1D2E81EF9083500B8CD54 /* FTViewProtocolDelegate.h in Headers */,
+				E3D1D2E91EF9083500B8CD54 /* FTWebFunType.h in Headers */,
+				E3D1D2EA1EF9083500B8CD54 /* FTWebView.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		58B511DA1A9E6C8500147676 /* RNMiniAppCoreLib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "RNMiniAppCoreLib" */;
+			buildPhases = (
+				E3D1D2E31EF9081D00B8CD54 /* Headers */,
+				58B511D71A9E6C8500147676 /* Sources */,
+				E3D1D2F01EF90A6A00B8CD54 /* Copy Headers */,
+				58B511D81A9E6C8500147676 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RNMiniAppCoreLib;
+			productName = RCTDataManager;
+			productReference = 134814201AA4EA6300B7C361 /* libRNMiniAppCore.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		58B511D31A9E6C8500147676 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = Facebook;
+				TargetAttributes = {
+					58B511DA1A9E6C8500147676 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "RNMiniAppCore" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 58B511D21A9E6C8500147676;
+			productRefGroup = 58B511D21A9E6C8500147676;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				58B511DA1A9E6C8500147676 /* RNMiniAppCoreLib */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		58B511D71A9E6C8500147676 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E37102211F6BBC200057B5C2 /* sha1.c in Sources */,
+				E371021D1F6BBC200057B5C2 /* prng.c in Sources */,
+				E37102191F6BBC200057B5C2 /* fileenc.c in Sources */,
+				E3DE22B71EFB728E00E5BC23 /* RNFunTypeView.m in Sources */,
+				E37102331F6BBC200057B5C2 /* SSZipArchive.m in Sources */,
+				E371022D1F6BBC200057B5C2 /* unzip.c in Sources */,
+				E37102151F6BBC200057B5C2 /* aestab.c in Sources */,
+				E3DE22B41EFB728E00E5BC23 /* FTWebFunType.m in Sources */,
+				E37102121F6BBC200057B5C2 /* aescrypt.c in Sources */,
+				E37101A41F6B75010057B5C2 /* FTDownloader.m in Sources */,
+				E37102251F6BBC200057B5C2 /* ioapi.c in Sources */,
+				E3DE22B31EFB728E00E5BC23 /* FTService.m in Sources */,
+				E37102101F6BBC200057B5C2 /* aes_ni.c in Sources */,
+				E371022F1F6BBC200057B5C2 /* zip.c in Sources */,
+				E3DE22B91EFB728E00E5BC23 /* RNFunTypeViewManager.m in Sources */,
+				E37102291F6BBC200057B5C2 /* ioapi_mem.c in Sources */,
+				E37102131F6BBC200057B5C2 /* aeskey.c in Sources */,
+				E37102271F6BBC200057B5C2 /* ioapi_buf.c in Sources */,
+				E3DE22B01EFB728E00E5BC23 /* FTCommon.m in Sources */,
+				E3DE22B21EFB728E00E5BC23 /* FTNativeView.m in Sources */,
+				E3DE22BD1EFB728E00E5BC23 /* RNMiniAppLifeCycleBridge.m in Sources */,
+				E3DE22BF1EFB728E00E5BC23 /* RNMiniAppUIBridge.m in Sources */,
+				E371022B1F6BBC200057B5C2 /* minishared.c in Sources */,
+				E371021F1F6BBC200057B5C2 /* pwd2key.c in Sources */,
+				E3DE22B51EFB728E00E5BC23 /* FTWebView.m in Sources */,
+				E37102231F6BBC200057B5C2 /* crypt.c in Sources */,
+				E371021B1F6BBC200057B5C2 /* hmac.c in Sources */,
+				E3DE22BB1EFB728E00E5BC23 /* RNMiniAppBridge.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		58B511ED1A9E6C8500147676 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		58B511EE1A9E6C8500147676 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		58B511F01A9E6C8500147676 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../../React/**",
+					"$(SRCROOT)/../../react-native/React/**",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = RNMiniAppCore;
+				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/RNMiniAppCore;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		58B511F11A9E6C8500147676 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../../React/**",
+					"$(SRCROOT)/../../react-native/React/**",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = RNMiniAppCore;
+				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/RNMiniAppCore;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "RNMiniAppCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				58B511ED1A9E6C8500147676 /* Debug */,
+				58B511EE1A9E6C8500147676 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "RNMiniAppCoreLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				58B511F01A9E6C8500147676 /* Debug */,
+				58B511F11A9E6C8500147676 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 58B511D31A9E6C8500147676 /* Project object */;
+}
