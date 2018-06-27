@@ -133,7 +133,7 @@ export class FunTypeView extends Component {
     if (!this.props.onError || !event.nativeEvent) {
       return;
     }
-    this.props.onError(event.nativeEvent.error);
+    this.props.onError(event.nativeEvent);
   }
 
   _onRequestSelector(event: Event) {

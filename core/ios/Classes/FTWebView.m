@@ -12,6 +12,7 @@
 #import "FTMacros.h"
 #import <WebKit/WebKit.h>
 
+NSString *const FTWebViewErrorDomain = @"FTWebViewErrorDomain";
 
 @interface FTWebView() <WKScriptMessageHandler, WKNavigationDelegate, UIScrollViewDelegate, WKUIDelegate>
 
@@ -115,6 +116,13 @@ NSArray *STANDARD_MESSAGES;
     
     WKUserContentController *contentController = [[WKUserContentController alloc]init];
     
+    // Add JS error trapping
+    WKUserScript *errorHandlerScript = [[WKUserScript alloc] initWithSource:@"window.onerror = function(message, source, lineNo, colNo, error){"
+                                        @"window.webkit.messageHandlers['jsError'].postMessage({message: message, source: source, lineNo: lineNo, colNo: colNo, error: error});"
+      @"}" injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES];
+    [contentController addUserScript:errorHandlerScript];
+    [contentController addScriptMessageHandler:self name:@"jsError"];
+      
     // Add standard messages
     for (int i=0; i < [STANDARD_MESSAGES count]; i++){
       NSString *message = [STANDARD_MESSAGES objectAtIndex:i];
@@ -236,7 +244,15 @@ NSArray *STANDARD_MESSAGES;
   
   if (self.funTypeDelegate != nil) {
     NSString *messageName = message.name;
-    if ([messageName isEqualToString:MESSAGE_JOIN]){
+    if ([messageName isEqualToString:@"jsError"]){
+      NSError *error = [NSError errorWithDomain:FTWebViewErrorDomain code:9999 userInfo:@{
+                                                                                          @"message": dictionary[@"message"],
+                                                                                          @"lineNo": dictionary[@"lineNo"],
+                                                                                          @"colNo": dictionary[@"colNo"]
+                                                                                          }];
+      [self.funTypeDelegate funTypeView:self didFailNavigationWithError:error];
+    }
+    else if ([messageName isEqualToString:MESSAGE_JOIN]){
       NSString *joinId = dictionary[@"id"];
       NSString *joinImageUrl = dictionary[@"joinImageUrl"];
       BOOL winCriteriaPassed = [dictionary[@"winCriteriaPassed"] boolValue];
@@ -302,6 +318,10 @@ NSArray *STANDARD_MESSAGES;
   [self.activityIndicatorView stopAnimating];
   [self.webView setHidden:NO];
   
+//  [self.webView evaluateJavaScript:@"window.onerror = function(message, source, lineno, colno, error){"
+//   @"window.webkit.messageHandlers['jsError'].postMessage({message: message, source: source, colno: colno, error: error});"
+//   @"}" completionHandler:nil];
+    
   [self.webView evaluateJavaScript:@"document.body.style.webkitTouchCallout='none';" completionHandler:nil];
   [self.webView evaluateJavaScript:@"document.body.style.webkitUserSelect='none';" completionHandler:nil];
   [self.webView evaluateJavaScript:@"document.body.style.webkitTapHighlightColor='rgba(0,0,0,0)';" completionHandler:nil];
