@@ -14,21 +14,21 @@ Start the project
 
     .. code-block:: bash
 
-      $ npm install https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.15.tgz
+      $ npm install https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.16.tgz
 
     or 
 
     .. code-block:: bash
 
-      $ yarn add https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.15.tgz
+      $ yarn add https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.16.tgz
 
   * Minified library
 
-    You can also download the latest minified version `here <https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-0.0.15.min.js>`_ and include it in your project.  
+    You can also download the latest minified version `here <https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-0.0.16.min.js>`_ and include it in your project.  
 
     .. code-block:: html
 
-      <script type="text/javascript" src="aq-miniapp-core-0.0.15.min.js"></script>
+      <script type="text/javascript" src="aq-miniapp-core-0.0.16.min.js"></script>
 
     The AQ Core Library is exposed in your app via ``window.AQCore``.
 
@@ -81,9 +81,8 @@ Call ``defaultLifecycle.setResult()``
 .. code-block:: javascript
 
   {
-    // Pass true to winCriteriaPassed if game has been won, 
-    // or false if user lost the game
-    winCriteriaPassed: true,
+    // General game result  
+    winCriteria: AQCore.WIN_CRITERIA_WIN,
     // Score of the game. This field is optional if it is 
     // not logical for the game to have a score
     // You can also specify the score as an actual-target value like this:

@@ -273,22 +273,29 @@ You can achieve these by calling several ``defaultLifeCycle`` functions.
      }
 
 #. ``defaultLifeCycle.setResult()`` - This function tells the Host app that the result for the current invocation of your mini app 
-   is available, but the mini app itself has not yet ended. The result is currently in the form of a numeric score, either as a constant
-   or a actual-target component (e.g. 10 out of 20). You also specify an image result for your gameplay (e.g. a screenshot with the score)
-   as a valid URL.
-   
+   is available, but the mini app itself has not yet ended. The host app needs the following information:
+
+      * Whether the current game invocation is a win, lose, or draw. Can be one of the following constants exposed by ``AQCore``:
+
+        #. ``WIN_CRITERIA_WIN`` or (``WinCriteriaEnum.Win`` for ES6)
+        #. ``WIN_CRITERIA_LOSE`` or (``WinCriteriaEnum.Lose`` for ES6)
+        #. ``WIN_CRITERIA_DRAW`` or (``WinCriteriaEnum.Draw`` for ES6)
+
+      * The final game score either as a constant or a actual-target component (e.g. 10 out of 20).
+      * An image result for your gameplay (e.g. a screenshot with the score) as a valid URL.
+
    Example usage:
 
    .. code-block:: javascript
 
+     var AQCore = window.AQCore;
      var defaultLifeCycle = AQCore.defaultLifeCycle;
 
      // An example function that is called when your game (mini app)'s result is available
      function onScoreAvailable(score) {
        var param = {
-        // Pass true to winCriteriaPassed if game has been won, 
-        // or false if user lost the game
-        winCriteriaPassed: true,
+        // General game result  
+        winCriteria: AQCore.WIN_CRITERIA_WIN,
         // Score of the game. This field is optional if it is 
         // not logical for the game to have a score
         score: {
@@ -312,16 +319,15 @@ You can achieve these by calling several ``defaultLifeCycle`` functions.
    .. code-block:: javascript
 
      // ES6 syntax
-     import { defaultLifeCycle } from 'aq-miniapp-core';
+     import { defaultLifeCycle, WinCriteriaEnum } from 'aq-miniapp-core';
 
      class MyGame {
       
       // An example function that is called when your game (mini app)'s result is available
       onScoreAvailable(score) {
          var param = {
-            // Pass true to winCriteriaPassed if game has been won, 
-            // or false if user lost the game
-            winCriteriaPassed: true,
+            // General game result  
+            winCriteria: WinCriteriaEnum.Win,
             // Score of the game. This field is optional if it is 
             // not logical for the game to have a score
             score: {
