@@ -59,7 +59,7 @@ Open ``src/Sample.js`` and add a reference on top of the file to the ``aq-miniap
   import Assets, { ASSETS } from './assets';
   
   // Add a reference to aq-miniapp-core
-  import { defaultLifeCycle, Utils } from 'aq-miniapp-core';
+  import { LifeCycle, Utils } from 'aq-miniapp-core';
 
 Since your app will be running under the AQ App environment, there are several things we need to tell the host app with regards to our mini app, but we will just focus with the following three items at the moment: 
 
@@ -76,7 +76,7 @@ The best place to do this is in the ``gameDidMount()`` method. This function is 
 
   gameDidMount() {
     // Inform the host app what background to use
-    defaultLifeCycle.setAppData({ backgroundImage: `${Utils.relativeToAbsolutePath(Assets.images.background)}` });
+    LifeCycle.setAppData({ backgroundImage: `${Utils.relativeToAbsolutePath(Assets.images.background)}` });
 
     // Add additional assets to load which are passed through this.props.additionalInfo
     const thingsToLoad = ASSETS.concat([
@@ -85,7 +85,7 @@ The best place to do this is in the ``gameDidMount()`` method. This function is 
     this.loadAssets(thingsToLoad);
   }
 
-The call to ``Utils.relativeToAbsolutePath`` just converts a resource bundled in the app to its absolute URL. In general, you can pass any valid JPG image URL to the call to ``defaultLifeCycle.setAppData()``.
+The call to ``Utils.relativeToAbsolutePath`` just converts a resource bundled in the app to its absolute URL. In general, you can pass any valid JPG image URL to the call to ``LifeCycle.setAppData()``.
 
 
 Inform the host app that your mini app is ready
@@ -102,7 +102,7 @@ Inform the host app that your mini app is ready
       .
       .
     // Inform the host app that we are ready to be displayed
-    defaultLifeCycle.informReady();
+    LifeCycle.informReady();
   }
 
 Inform the host app that your mini app has ended
@@ -117,7 +117,7 @@ For now, let's tell the host app that our mini app ends when we click the **Done
     this.button.texture = this.buttonUpTexture;
 
     // Inform the host app that our mini app has ended 
-    defaultLifeCycle.end();
+    LifeCycle.end();
   }
 
 
@@ -141,7 +141,7 @@ Your final ``SampleGame.js`` should look something like this:
   import Assets, { ASSETS } from './assets';
 
   // Add a reference to aq-miniapp-core
-  import { defaultLifeCycle, Utils } from 'aq-miniapp-core';
+  import { LifeCycle, Utils } from 'aq-miniapp-core';
 
   const PIXI = window.PIXI;
 
@@ -159,7 +159,7 @@ Your final ``SampleGame.js`` should look something like this:
 
     gameDidMount() {
       // Inform the host app what background to use
-      defaultLifeCycle.setAppData({ backgroundImage: `${Utils.relativeToAbsolutePath(Assets.images.background)}` });
+      LifeCycle.setAppData({ backgroundImage: `${Utils.relativeToAbsolutePath(Assets.images.background)}` });
 
       // Add additional assets to load which are passed through this.props.additionalInfo
       const thingsToLoad = ASSETS.concat([
@@ -219,14 +219,14 @@ Your final ``SampleGame.js`` should look something like this:
         bunny.rotation += 0.01;
       });
 
-      defaultLifeCycle.informReady();
+      LifeCycle.informReady();
     }
 
     onButtonDown() {
       this.button.texture = this.buttonDownTexture;
 
       // Inform the host app that our mini app has ended
-      defaultLifeCycle.end();
+      LifeCycle.end();
     }
 
     onButtonUp() {
