@@ -14,28 +14,28 @@ Start the project
 
     .. code-block:: bash
 
-      $ npm install https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.16.tgz
+      $ npm install https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.17.tgz
 
     or 
 
     .. code-block:: bash
 
-      $ yarn add https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.16.tgz
+      $ yarn add https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.17.tgz
 
   * Minified library
 
-    You can also download the latest minified version `here <https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-0.0.16.min.js>`_ and include it in your project.  
+    You can also download the latest minified version `here <https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-0.0.17.min.js>`_ and include it in your project.  
 
     .. code-block:: html
 
-      <script type="text/javascript" src="aq-miniapp-core-0.0.16.min.js"></script>
+      <script type="text/javascript" src="aq-miniapp-core-0.0.17.min.js"></script>
 
     The AQ Core Library is exposed in your app via ``window.AQCore``.
 
     .. code-block:: javascript
 
       // Access lifecycle class 
-      var defaultLifeCycle = window.AQCore.defaultLifeCycle;    
+      var LifeCycle = window.AQCore.LifeCycle;    
 
   * Construct 2
 
@@ -47,34 +47,34 @@ Setup the mini-app
 
 *Objective:* Prepare the mini-app to receive and use information from the host app.
 
-* Look for init or constructor in the main function of the mini-app and call ``defaultLifeCycle.setOnDataCallback()`` and ``defaultLifeCycle.setOnResetCallback()`` 
+* Look for init or constructor in the main function of the mini-app and call ``LifeCycle.setOnDataCallback()`` and ``LifeCycle.setOnResetCallback()`` 
   to receive data from the host app. 
 
   .. note::
 
-    * ``defaultLifeCycle.setOnDataCallback()`` sets the handler for the ``onData`` event.  This function accepts a callback function as a parameter.
-    * ``defaultLifeCycle.setOnResetCallback()`` sets the handler for the ``onReset`` event.  This function accepts a callback function as a parameter.
+    * ``LifeCycle.setOnDataCallback()`` sets the handler for the ``onData`` event.  This function accepts a callback function as a parameter.
+    * ``LifeCycle.setOnResetCallback()`` sets the handler for the ``onReset`` event.  This function accepts a callback function as a parameter.
     * ``onData`` event occurs when the host app sends information required to setup the mini-app. 
     * ``onReset`` event occurs when the host app instructs the mini-app to reset the game to its initial state, along with some information that might be
       different from the ``onData`` event. 
 
 * Use the information received from the host app in the mini-app
 
-Call ``defaultLifecycle.informReady()``
+Call ``LifeCycle.informReady()``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 *Objective:*	Inform the host app that the mini-app is ready to be displayed.
 
 * Check if all the setup data has been loaded
-* Call ``defaultLifeCycle.informReady()``
+* Call ``LifeCycle.informReady()``
 
-Call ``defaultLifecycle.setResult()``
+Call ``LifeCycle.setResult()``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 *Objective:*	Pass the result back to the host app as soon as the result is available.
 
-* Call the function defaultLifeCycle.setResult() when a result is already available from the mini app, but it has not ended yet.
-  ``defaultLifeCycle.setResult()`` tells the Host app that the result of the current play is available.
+* Call the function LifeCycle.setResult() when a result is already available from the mini app, but it has not ended yet.
+  ``LifeCycle.setResult()`` tells the Host app that the result of the current play is available.
 
 * Generate the JSON data to be sent back to the host app using the schema below:
 
@@ -99,13 +99,13 @@ Call ``defaultLifecycle.setResult()``
     resultImageUrl: 'http://example.com/example.jpg'
   }
 
-Call ``defaultLifecycle.end()``
+Call ``LifeCycle.end()``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 *Objective:*	Inform the host app that the mini-app can be closed.
 
 * Display the result screen for 5 seconds then blur the screen
-* Call ``defaultLifeCycle.end()``. This function tells the host app that the current play of the mini-app 
+* Call ``LifeCycle.end()``. This function tells the host app that the current play of the mini-app 
   has ended and that the host app can display succeeding screens. 
 
 Test the mini-app in the simulator

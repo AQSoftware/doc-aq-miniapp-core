@@ -20,27 +20,27 @@ IfYou can install the core library as an NPM module:
 
 .. code-block:: bash
 
-  $ npm install https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.16.tgz
+  $ npm install https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.17.tgz
 
 or 
 
 .. code-block:: bash
 
-  $ yarn add https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.16.tgz
+  $ yarn add https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.17.tgz
 
   
-You can also download the latest minified version `here <https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-0.0.16.min.js>`_ and include it in your project.  
+You can also download the latest minified version `here <https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-0.0.17.min.js>`_ and include it in your project.  
 
 .. code-block:: html
 
-  <script type="text/javascript" src="aq-miniapp-core-0.0.16.min.js"></script>
+  <script type="text/javascript" src="aq-miniapp-core-0.0.17.min.js"></script>
 
 The AQ Core Library is exposed in your app via ``window.AQCore``.
 
 .. code-block:: javascript
 
   // Access lifecycle class 
-  var defaultLifeCycle = window.AQCore.defaultLifeCycle;  
+  var LifeCycle = window.AQCore.LifeCycle;  
   
 Now that you have installed the required dependencies, head over to the Integration Guide.  
 
