@@ -71,6 +71,9 @@ your mini app:
         },
         "engagementInfo": {
           "type": "object"      
+        },
+        "targetScore": {
+          "type": "number"
         }
       },
       "required": [
@@ -87,6 +90,8 @@ your mini app:
   * ``source`` - User info of current user playing the mini app
   * ``engagementSource`` - User info of user who created the instance of the mini app
   * ``engagementInfo`` - Data specific to the mini app.
+  * ``targetScore`` - An optional score that the user must attain in order for the current game to be considered as a win. If this data is present, the mini app must accomodate it's UI to inform this user of this specific 
+target score.
 
   An example of the data passed by ``onData`` is as follows:
 
@@ -116,7 +121,8 @@ your mini app:
         },
         "choice": 0,
         "betAmount": 5
-      }  
+      },
+      "targetScore": 20  
     }
 
 #. ``onReset`` - This event is triggered when the AQ Host app requests that your mini app reset to

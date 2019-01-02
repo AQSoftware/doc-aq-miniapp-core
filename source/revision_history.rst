@@ -1,6 +1,11 @@
 Revision History
 ==============================================================
 
+
+**0.3 - 2019-Jan-02**
+
+#. Added ``targetScore`` parameter to data passed in ``onData``.
+
 **0.2 - 2018-Jul-06**
 
 #. ``defaultLifeCycle`` changed to ``LifeCycle``. ``defaultLifeCycle`` is still accessible but will be deprecated soon.

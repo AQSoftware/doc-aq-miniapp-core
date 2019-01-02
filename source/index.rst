@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to AQ MiniApp Core Javascript Library's documentation! 0.2 (WIP)
+Welcome to AQ MiniApp Core Javascript Library's documentation! 0.3 (WIP)
 ======================================================================
 
 .. toctree::
@@ -13,9 +13,9 @@ Welcome to AQ MiniApp Core Javascript Library's documentation! 0.2 (WIP)
    revision_history
    getting_started
    installation
-   core_concepts
-   game_extensions
    integration_guide
+   core_concepts
+   game_extensions   
    simulator
 
 
