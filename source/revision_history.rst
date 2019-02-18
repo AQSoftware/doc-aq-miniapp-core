@@ -1,6 +1,10 @@
 Revision History
 ==============================================================
 
+**0.4 - 2019-Feb-19**
+
+#. Updated library installation links to version 0.0.20.
+#. Added documentation in ``onEnd`` to instruct that game sounds should be disabled.
 
 **0.3 - 2019-Jan-02**
 

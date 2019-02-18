@@ -356,7 +356,9 @@ You can achieve these by calling several ``LifeCycle`` functions.
 
 #. ``LifeCycle.end()`` - This function tells the Host app that the current invocation of your mini app has 
    ended, usually when your game is over. When this is called, you signal the Host app that it can already display
-   succeeding screens relevant to the current game play.
+   succeeding screens relevant to the current game play. Moreover, your mini app should ensure that no sound
+   is playing after this method is called. The only time where the game sounds can be played again is when 
+   the ``onReset`` event is triggered.
 
    Example usage:
 
@@ -367,6 +369,8 @@ You can achieve these by calling several ``LifeCycle`` functions.
      // An example function that is called when your game (mini app) has ended
      function onGameEnd() {
        LifeCycle.end();
+       
+       // Ensure game sounds are disabled at this point
      }
 
    .. code-block:: javascript
@@ -379,6 +383,8 @@ You can achieve these by calling several ``LifeCycle`` functions.
        // An example function that is called when your game (mini app) has ended
        onGameEnd() {
          LifeCycle.end();
+
+         // Ensure game sounds are disabled at this point
        }  
      }
 
