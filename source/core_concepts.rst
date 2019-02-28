@@ -95,8 +95,7 @@ your mini app:
   * ``source`` - User info of current user playing the mini app
   * ``engagementSource`` - User info of user who created the instance of the mini app
   * ``engagementInfo`` - Data specific to the mini app.
-  * ``targetScore`` - An optional score that the user must attain in order for the current game to be considered as a win. If this data is present, the mini app must accomodate it's UI to inform this user of this specific 
-target score.
+  * ``targetScore`` - An optional score that the user must attain in order for the current game to be considered as a win. If this data is present, the mini app must accomodate it's UI to inform this user of this specific target score.
   * ``difficultyLevel`` - Tells the mini app how difficult the game should proceed. This is in an integer from 0 (easiest) to 4 (hardest). A difficultyLevel of 2 should represent a normal difficulty level.
 
   An example of the data passed by ``onData`` is as follows:
