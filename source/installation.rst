@@ -16,7 +16,7 @@ The boilerplate code is setup as a `PixiJS  <http://www.pixijs.com/>`_ project w
 Manually installing the AQ Miniapp Core Library
 ----------------------------------------------------
 
-IfYou can install the core library as an NPM module:
+If you can install the core library as an NPM module:
 
 .. code-block:: bash
 
@@ -41,7 +41,11 @@ The AQ Core Library is exposed in your app via ``window.AQCore``.
 
   // Access lifecycle class 
   var LifeCycle = window.AQCore.LifeCycle;  
-  
+
+There is also a plugin available for Construct 2. The JSLink plugin can downloaded `here <https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-js-link-1.6.zip>`_. 
+Extract this to ``C:\Program Files\Construct 2\exporters\html5\plugins``. The library will be available as a Construct 2 object named ``AQJSLink``.
+
+
 Now that you have installed the required dependencies, head over to the Integration Guide.  
 
 

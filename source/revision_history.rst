@@ -1,6 +1,10 @@
 Revision History
 ==============================================================
 
+**0.5 - 2019-Feb-28**
+
+#. Added documentation for ``difficultyLevel`` to instruct the mini app how difficult the game should play.
+
 **0.4 - 2019-Feb-19**
 
 #. Updated library installation links to version 0.0.20.
