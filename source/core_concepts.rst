@@ -181,6 +181,9 @@ Example usage:
   LifeCycle.setOnDataCallback(onData);
   LifeCycle.setOnResetCallback(onReset);
 
+  // Call informLoaded after setting up the callback handlers
+  LifeCycle.informLoaded();
+
 .. code-block:: javascript
 
   // ES6 syntax
@@ -190,6 +193,9 @@ Example usage:
     constructor() {
       LifeCycle.setOnDataCallback(this.onData.bind(this));
       LifeCycle.setOnDataCallback(this.onReset.bind(this));
+
+      // Call informLoaded after setting up the callback handlers
+      LifeCycle.informLoaded();
     }
 
     onData(data) {
@@ -211,6 +217,10 @@ The Host app will need several information from your mini app in every invocatio
 #. **A URL of an image that it can use as a background** - The Host app also shows certain screens with customized background
    which is relevant to the current mini app being run. You should give this information the Host app in a form of a valid 
    image URL, otherwise, no background will be used.
+
+#. **When your app has already setup the callback handlers** - When the Host App loads your mini app, it needs to know whether
+   the necessary callbacks are already in place. This ensures that the host app will know that it is safe to invoke the ``onData``
+   and ``onReset`` events.
    
 #. **When your app is ready to be displayed** - When the Host App loads your mini app, it doesn't immediately
    show it. It shows a preloader screen while waiting for it to finish any necessary setup (like loading of assets such
@@ -247,27 +257,78 @@ You can achieve these by calling several ``LifeCycle`` functions.
 
   Example usage:
 
+  .. code-block:: javascript
+
+    var LifeCycle = AQCore.LifeCycle;
+
+    function init() {
+      LifeCycle.setAppData({ backgroundImage: 'http://example.com/example.jpg' });
+    }
+
+  .. code-block:: javascript
+
+    // ES6 syntax
+    import { LifeCycle } from 'aq-miniapp-core';
+
+    class MyGame {
+      constructor() {
+        LifeCycle.setAppData({ backgroundImage: 'http://example.com/example.jpg' });
+      }
+    }
+
+#. ``LifeCycle.informLoaded()`` - This function tells the Host app that the callback handlers are in place
+   and that it is safe to trigger the ``onData`` and ``onReset`` events. ``informLoaded`` should only be called once in the entire
+   lifecycle of your mini app.
+
+   Example usage:
+
    .. code-block:: javascript
 
-     var LifeCycle = AQCore.LifeCycle;
+    var LifeCycle = AQCore.LifeCycle;
 
-     function init() {
-       LifeCycle.setOnDataCallback({ backgroundImage: 'http://example.com/example.jpg' });
-     }
+    var onData = function(data) {
+      // Do something with the data
+    }
+
+    var onReset = function(newData) {
+      // Do something with the new data
+      // and reset app to initial state
+    }
+
+    LifeCycle.setOnDataCallback(onData);
+    LifeCycle.setOnResetCallback(onReset);
+
+    // Call informLoaded after setting up the callback handlers
+    LifeCycle.informLoaded();
 
    .. code-block:: javascript
 
-     // ES6 syntax
-     import { LifeCycle } from 'aq-miniapp-core';
+    // ES6 syntax
+    import { LifeCycle } from 'aq-miniapp-core';
 
-     class MyGame {
-       constructor() {
-         LifeCycle.setOnDataCallback({ backgroundImage: 'http://example.com/example.jpg' });
-       }
-     }
-    
+    class MyGame {
+      constructor() {
+        LifeCycle.setOnDataCallback(this.onData.bind(this));
+        LifeCycle.setOnDataCallback(this.onReset.bind(this));
+
+        // Call informLoaded after setting up the callback handlers
+        LifeCycle.informLoaded();
+      }
+
+      onData(data) {
+        // Do something with the data
+      }
+
+      onReset(newData) {
+        // Do something with the new data
+        // and reset app to initial state
+      }
+    }
+
 #. ``LifeCycle.informReady()`` - This function tells the Host app to display the mini app immediately. 
-   Call this when you already have setup your resources and your mini app is ready to be displayed.
+   Call this when you already have setup your resources based on the data passed during ``onData`` event
+   and your mini app is ready to be displayed. ``informReady`` should only be called once in the entire
+   lifecycle of your mini app.
 
    Example usage:
 

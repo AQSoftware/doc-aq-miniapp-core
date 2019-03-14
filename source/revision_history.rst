@@ -6,6 +6,7 @@ Revision History
 #. Added documentation for ``opponent`, ``isSinglePlayer`` and ``hasTargetScore``. Removed old ``targetScore`` field in JSON data.
 #. Removed ``shouldWin`` and ``winImage`` from JSON data.
 #. Highlighted clarification in the use of data passed in ``onReset``.
+#. Added documentation for ``informLoaded``.
 
 
 **0.5 - 2019-Feb-28**
