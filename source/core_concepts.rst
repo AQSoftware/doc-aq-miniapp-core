@@ -104,8 +104,8 @@ your mini app:
   * ``hasTargetScore`` -  Instructs the mini app whether to ignore whatever target score array is passed in the ``engagementInfo`` field of the JSON data.
   * ``isSinglePlayer`` -  If true, mini app should setup game play for single player mode, otherwise mini app should setup the game in multiplayer mode.
   * ``difficultyLevel`` - The difficulty level of game play ranging from 1 (easiest) to 5 (hardest). Normally, there are arrays in the ``engagementInfo`` field which
-  usually corresponds to a particular difficulty level (ex. target core, speed, etc.) which should be treated as parameters in defining how difficult a level
-  should be.  
+    usually corresponds to a particular difficulty level (ex. target core, speed, etc.) which should be treated as parameters in defining how difficult a level
+    should be.  
 
   An example of the data passed by ``onData`` is as follows:
 
@@ -132,7 +132,7 @@ your mini app:
           "displayName": "Carol",
           "avatarBig": "http://example.com/example.jpg",
           "avatarSmall": "http://example.com/example.jpg",
-          targetScore: [10, 20, 40, 80, 100]
+          "targetScore": [10, 20, 40, 80, 100]
         },
         "choice": 0,
         "betAmount": 5
