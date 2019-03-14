@@ -56,13 +56,6 @@ your mini app:
       },
       "type": "object",
       "properties": {
-        "shouldWin": {
-          "type": "boolean"
-        },
-        "winImage": {
-          "type": "string",
-          "format": "uri"
-        },
         "source": {
           "$ref": "#/definitions/userInfo"
         },
@@ -71,6 +64,9 @@ your mini app:
         },
         "engagementInfo": {
           "type": "object"      
+        },
+        "opponent": {
+          "$ref": "#/definitions/userInfo"
         },
         "isSinglePlayer": {
           "type": "boolean"
@@ -96,11 +92,10 @@ your mini app:
 
   Fields are described as follows:
 
-  * ``shouldWin`` - Tells the mini app to force the current game iteration to win
-  * ``winImage`` - Optional. Image URL of item won. Only present if ``shouldWin`` is true.
   * ``source`` - User info of current user playing the mini app
   * ``engagementSource`` - User info of user who created the instance of the mini app
-  * ``engagementInfo`` - Data specific to the mini app.
+  * ``engagementInfo`` - Variable data specific to the mini app.
+  * ``opponent`` - User info of the opponent.
   * ``hasTargetScore`` -  Instructs the mini app whether to ignore whatever target score array is passed in the ``engagementInfo`` field of the JSON data.
   * ``isSinglePlayer`` -  If true, mini app should setup game play for single player mode, otherwise mini app should setup the game in multiplayer mode.
   * ``difficultyLevel`` - The difficulty level of game play ranging from 1 (easiest) to 5 (hardest). Normally, there are arrays in the ``engagementInfo`` field which
@@ -112,8 +107,6 @@ your mini app:
   .. code-block:: json
 
     {
-      "shouldWin": true,
-      "winImage": "http://example.com/example.jpg",
       "source": {
         "id": "some_id",
         "displayName": "Bob",
@@ -127,15 +120,15 @@ your mini app:
         "avatarSmall": "http://example.com/example.jpg"
       },
       "engagementInfo": {
-        "opponent": {
-          "id": "some_id",
-          "displayName": "Carol",
-          "avatarBig": "http://example.com/example.jpg",
-          "avatarSmall": "http://example.com/example.jpg",
-          "targetScore": [10, 20, 40, 80, 100]
-        },
         "choice": 0,
-        "betAmount": 5
+        "betAmount": 5,
+        "targetScore": [10, 20, 40, 80, 100]
+      },
+      "opponent": {
+        "id": "some_id",
+        "displayName": "Carol",
+        "avatarBig": "http://example.com/example.jpg",
+        "avatarSmall": "http://example.com/example.jpg"
       },
       "hasTargetScore": true,
       "isSinglePlayer": true,
