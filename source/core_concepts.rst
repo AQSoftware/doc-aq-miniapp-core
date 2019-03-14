@@ -72,19 +72,25 @@ your mini app:
         "engagementInfo": {
           "type": "object"      
         },
-        "targetScore": {
-          "type": "number"
+        "isSinglePlayer": {
+          "type": "boolean"
+        },
+        "hasTargetScore": {
+          "type": "boolean"
         },
         "difficultyLevel": {
-          "type": "number",
-          "minimum: 0,
-          "maximum": 4
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
         }
       },
       "required": [
         "shouldWin",
         "source",
-        "engagementSource"
+        "engagementSource",
+        "isSinglePlayer",
+        "hasTargetScore",
+        "difficultyLevel"
       ]
     }
 
@@ -95,8 +101,11 @@ your mini app:
   * ``source`` - User info of current user playing the mini app
   * ``engagementSource`` - User info of user who created the instance of the mini app
   * ``engagementInfo`` - Data specific to the mini app.
-  * ``targetScore`` - An optional score that the user must attain in order for the current game to be considered as a win. If this data is present, the mini app must accomodate it's UI to inform this user of this specific target score.
-  * ``difficultyLevel`` - Tells the mini app how difficult the game should proceed. This is in an integer from 0 (easiest) to 4 (hardest). A difficultyLevel of 2 should represent a normal difficulty level.
+  * ``hasTargetScore`` -  Instructs the mini app whether to ignore whatever target score array is passed in the ``engagementInfo`` field of the JSON data.
+  * ``isSinglePlayer`` -  If true, mini app should setup game play for single player mode, otherwise mini app should setup the game in multiplayer mode.
+  * ``difficultyLevel`` - The difficulty level of game play ranging from 1 (easiest) to 5 (hardest). Normally, there are arrays in the ``engagementInfo`` field which
+  usually corresponds to a particular difficulty level (ex. target core, speed, etc.) which should be treated as parameters in defining how difficult a level
+  should be.  
 
   An example of the data passed by ``onData`` is as follows:
 
@@ -122,22 +131,29 @@ your mini app:
           "id": "some_id",
           "displayName": "Carol",
           "avatarBig": "http://example.com/example.jpg",
-          "avatarSmall": "http://example.com/example.jpg"
+          "avatarSmall": "http://example.com/example.jpg",
+          targetScore: [10, 20, 40, 80, 100]
         },
         "choice": 0,
         "betAmount": 5
       },
-      "targetScore": 20,
-      "difficultyLevel": 2
+      "hasTargetScore": true,
+      "isSinglePlayer": true,
+      "difficultyLevel": 3
     }
 
+In this example, the ``difficultyLevel`` passed is 3, so the corresponding target score to use should be the third item in the ``targetScore`` array, which is 40.
+
 #. ``onReset`` - This event is triggered when the AQ Host app requests that your mini app reset to
-   the initial game state with data of the same schema as ``onData`` is passed. Although it is 
-   possibe that the same data as one on ``onData`` may be passed, it is not safe to assume that this
-   is always the case.
+   the initial game state with data of the same schema as ``onData`` is passed. 
 
    Unlike ``onData``, which is only called right after your mini app is loaded, ``onReset`` may be 
    called several times during the lifetime of your mini app.
+
+   .. note::
+
+    Although it is possible that the same data as one on ``onData`` may be passed, it is not safe to assume that this
+    is always the case. Always treat the data passed in ``onReset`` as new data for the new invocation of game play.
 
 .. _core_concepts_callbacks:
 

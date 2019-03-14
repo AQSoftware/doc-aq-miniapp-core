@@ -42,7 +42,7 @@ The AQ Core Library is exposed in your app via ``window.AQCore``.
   // Access lifecycle class 
   var LifeCycle = window.AQCore.LifeCycle;  
 
-There is also a plugin available for Construct 2. The JSLink plugin can downloaded `here <https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-js-link-1.6.zip>`_. 
+There is also a plugin available for Construct 2. The JSLink plugin can downloaded `here <https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-js-link-1.7.zip>`_ (v1.7). 
 Extract this to ``C:\Program Files\Construct 2\exporters\html5\plugins``. The library will be available as a Construct 2 object named ``AQJSLink``.
 
 

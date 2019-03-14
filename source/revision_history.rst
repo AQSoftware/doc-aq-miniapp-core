@@ -1,6 +1,11 @@
 Revision History
 ==============================================================
 
+**0.6 - 2019-Mar-14**
+
+#. Added documentation for ``isSinglePlayer`` and ``hasTargetScore``. Removed old ``targetScore`` field in JSON data.
+#. Highlighted clarification in the use of data passed in ``onReset``.
+
 **0.5 - 2019-Feb-28**
 
 #. Added documentation for ``difficultyLevel`` to instruct the mini app how difficult the game should play.
