@@ -14,17 +14,17 @@ Start the project
 
     .. code-block:: bash
 
-      $ npm install https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.20.tgz
+      $ npm install https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.21.tgz
 
     or 
 
     .. code-block:: bash
 
-      $ yarn add https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.20.tgz
+      $ yarn add https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.21.tgz
 
   * Minified library
 
-    You can also download the latest minified version `here <https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-0.0.20.min.js>`_ and include it in your project.  
+    You can also download the latest minified version `here <https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-0.0.21.min.js>`_ and include it in your project.  
 
     .. code-block:: html
 
@@ -39,7 +39,7 @@ Start the project
 
   * Construct 2
 
-    The JSLink plugin can downloaded `here <https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-js-link-1.6.zip>`_. Extract this to 
+    The JSLink plugin can downloaded `here <https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-js-link-1.8.zip>`_. Extract this to 
     ``C:\Program Files\Construct 2\exporters\html5\plugins``. The library will be available as a Construct 2 object named ``AQJSLink``.
 
 Setup the mini-app

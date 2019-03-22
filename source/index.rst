@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to AQ MiniApp Core Javascript Library's documentation! 0.6 (WIP)
-======================================================================
+Welcome to AQ MiniApp Core Javascript Library's documentation! 0.7 (WIP)
+=========================================================================
 
 .. toctree::
    :maxdepth: 2

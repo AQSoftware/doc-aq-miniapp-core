@@ -1,6 +1,10 @@
 Revision History
 ==============================================================
 
+**0.6 - 2019-Mar-22**
+
+#. Added documentation for ``LifeCycle.setCallback`` and ``onAppStateChange`` event.
+
 **0.6 - 2019-Mar-14**
 
 #. Added documentation for ``opponent``, ``isSinglePlayer`` and ``hasTargetScore``. Removed old ``targetScore`` field in JSON data.

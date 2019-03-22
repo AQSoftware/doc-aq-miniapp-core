@@ -20,20 +20,24 @@ If you can install the core library as an NPM module:
 
 .. code-block:: bash
 
-  $ npm install https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.20.tgz
+  $ npm install https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.21.tgz
 
 or 
 
 .. code-block:: bash
 
-  $ yarn add https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.20.tgz
+  $ yarn add https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-v0.0.21.tgz
 
   
-You can also download the latest minified version `here <https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-0.0.20.min.js>`_ and include it in your project.  
+You can also download the latest minified version at:
+
+https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-miniapp-core-0.0.21.min.js 
+
+and include it in your project.  
 
 .. code-block:: html
 
-  <script type="text/javascript" src="aq-miniapp-core-0.0.20.min.js"></script>
+  <script type="text/javascript" src="aq-miniapp-core-0.0.21.min.js"></script>
 
 The AQ Core Library is exposed in your app via ``window.AQCore``.
 
@@ -42,7 +46,10 @@ The AQ Core Library is exposed in your app via ``window.AQCore``.
   // Access lifecycle class 
   var LifeCycle = window.AQCore.LifeCycle;  
 
-There is also a plugin available for Construct 2. The JSLink plugin can downloaded `here <https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-js-link-1.7.zip>`_ (v1.7). 
+There is also a plugin available for Construct 2. The JSLink plugin can downloaded at 
+
+https://s3-ap-southeast-1.amazonaws.com/funminiapps/sdk/aq-js-link-1.8.zip
+
 Extract this to ``C:\Program Files\Construct 2\exporters\html5\plugins``. The library will be available as a Construct 2 object named ``AQJSLink``.
 
 
