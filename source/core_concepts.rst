@@ -102,8 +102,8 @@ your mini app:
   * ``opponent`` - User info of the opponent.
   * ``hasTargetScore`` -  Instructs the mini app whether to ignore whatever target score array is passed in the ``engagementInfo`` field of the JSON data.
   * ``isSinglePlayer`` -  If true, mini app should setup game play for single player mode, otherwise mini app should setup the game in multiplayer mode.
-  * ``isSoundMuted`` -  If true, mini app should mute all sounds during game play. The sound state can change within the lifetime of the mini app through the
-    ``onSoundStateChange`` event.
+  * ``isSoundMuted`` -  Initial sound state of your mini app. If true, mini app should mute all sounds at start of game play. The sound state can change within 
+    the lifetime of the mini app through the ``onAppStateChange`` event.
   * ``difficultyLevel`` - The difficulty level of game play ranging from 1 (easiest) to 5 (hardest). Normally, there are arrays in the ``engagementInfo`` field which
     usually corresponds to a particular difficulty level (ex. target core, speed, etc.) which should be treated as parameters in defining how difficult a level
     should be.  
