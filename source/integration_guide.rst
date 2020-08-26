@@ -28,7 +28,7 @@ Start the project
 
     .. code-block:: html
 
-      <script type="text/javascript" src="aq-miniapp-core-0.0.20.min.js"></script>
+      <script type="text/javascript" src="aq-miniapp-core-0.0.21.min.js"></script>
 
     The AQ Core Library is exposed in your app via ``window.AQCore``.
 
